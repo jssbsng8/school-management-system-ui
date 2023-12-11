@@ -23,22 +23,22 @@ export const studentLinks = [
     subLinks: [
       {
         name: "Teachers",
-        url: "/products",
+        url: "/teachers",
       },
       {
         name: "Registered Subjects",
-        url: "/products/add",
+        url: "/subjects",
       },
       {
-        name: "Parent",
-        url: "/products/categories",
+        name: "Class Mates",
+        url: "/classmates",
       },
     ],
   },
   {
     name: "Class Timetable",
     icon: <FiUsers />,
-    url: "/customers",
+    url: "/timetable",
   },
   {
     name: "Examination",

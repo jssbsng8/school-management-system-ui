@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Sidebar from "./components/common/Sidebar";
 import Dashboard from "./pages/Dashboard";
@@ -8,7 +8,7 @@ import Navbar from "./components/common/Navbar";
 import {
   AddProduct,
   Brands,
-  Customers,
+  // Customers,
   Inbox,
   Orders,
   OrderTemplate,
@@ -23,6 +23,10 @@ import {
   SingleProduct,
   Suppliers,
   Transactions,
+  Timetable,
+  Teachers,
+  SingleTeacher,
+  Subjects,
 } from "./pages";
 import Footer from "./components/common/Footer";
 
@@ -64,8 +68,12 @@ function App() {
               <Route path="/products/add" element={<AddProduct />} />
               <Route path="/products/:id" element={<SingleProduct />} />
               <Route path="/products/categories" element={<ProductCategories />} />
-              <Route path="/customers" element={<Customers />} />
+              {/* <Route path="/customers" element={<Customers />} /> */}
+              <Route path="/timetable" element={<Timetable />} />
+              <Route path="/teachers" element={<Teachers />} />
+              <Route path="/subjects" element={<Subjects />} />
               <Route path="/customers/:id" element={<SingleCustomer />} />
+              <Route path="/teachers/:id" element={<SingleTeacher />} />
               <Route path="/sales/analysis" element={<SalesAnalytics />} />
               <Route path="/sales" element={<ProductSales />} />
               <Route path="/orders" element={<Orders />} />
