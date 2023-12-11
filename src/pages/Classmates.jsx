@@ -2,9 +2,9 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import Table from "../components/Table";
 
-import { subjects, subjectColumns } from "../data/subjects";
+import { classmates, classmateColumns } from "../data/classmates";
 
-const Subjects = () => {
+const Classmates = () => {
   return (
     <Box sx={{ pt: "80px", pb: "20px" }}>
       <Box
@@ -15,12 +15,12 @@ const Subjects = () => {
           marginBottom: "16px",
         }}
       >
-        <Typography variant="h6">Assigned Subjects</Typography>
+        <Typography variant="h6">Class Mates</Typography>
       </Box>
       <Table
-        data={subjects}
-        fields={subjectColumns}
-        numberOfRows={subjects.length}
+        data={classmates}
+        fields={classmateColumns}
+        numberOfRows={classmates.length}
         enableTopToolBar={true}
         enableBottomToolBar={true}
         enablePagination={true}
@@ -35,4 +35,4 @@ const Subjects = () => {
   );
 };
 
-export default Subjects;
+export default Classmates;

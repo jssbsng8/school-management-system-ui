@@ -16,11 +16,11 @@ const Timetable = () => {
         enableTopToolBar={true}
         enableBottomToolBar={true}
         enablePagination={true}
-        enableRowSelection={true}
+        enableRowSelection={false}
         enableColumnFilters={true}
-        enableEditing={true}
+        enableEditing={false}
         enableColumnDragging={true}
-        showPreview
+        showPreview={false}
         routeLink="timetable"
       />
     </Box>

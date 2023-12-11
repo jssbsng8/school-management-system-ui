@@ -27,6 +27,7 @@ import {
   Teachers,
   SingleTeacher,
   Subjects,
+  Classmates,
 } from "./pages";
 import Footer from "./components/common/Footer";
 
@@ -72,6 +73,7 @@ function App() {
               <Route path="/timetable" element={<Timetable />} />
               <Route path="/teachers" element={<Teachers />} />
               <Route path="/subjects" element={<Subjects />} />
+              <Route path="/classmates" element={<Classmates />} />
               <Route path="/customers/:id" element={<SingleCustomer />} />
               <Route path="/teachers/:id" element={<SingleTeacher />} />
               <Route path="/sales/analysis" element={<SalesAnalytics />} />
