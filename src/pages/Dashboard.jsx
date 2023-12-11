@@ -6,7 +6,6 @@ import BarChart from "../components/home/charts/BarChart";
 import TopCountries from "../components/home/TopCountries";
 import TransactionCustomer from "../components/home/TransactionCustomer";
 import {Table} from "../components/Table";
-// import { orders, ordersColumns } from "../data/orders";
 import { timetableData, timetableColumns } from "../data/timetable";
 
 const Dashboard = () => {

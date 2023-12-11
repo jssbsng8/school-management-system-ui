@@ -95,7 +95,6 @@ function App() {
       ) : (
         <Routes>
           <Route path="/login" element={<SignInSide />} />
-          {/* <Route path="/login" element={<SignInSide />} /> */}
         </Routes>
       )}
     </>

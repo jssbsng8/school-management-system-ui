@@ -1,8 +1,16 @@
 import { Avatar, Divider, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
+import { useLoggedInUser } from "../../data/loggedInUser";
 
 const Profile = () => {
+  const user = useLoggedInUser();
+
+  if (!user) {
+    // User is not logged in, you can redirect to the login page or handle it accordingly.
+    return null;
+  }
+
   return (
     <Box>
       <Typography variant="subtitle1">Profile</Typography>
@@ -12,7 +20,7 @@ const Profile = () => {
       <Divider />
       <Box sx={{ mt: 3 }}>
         <Typography variant="subtitle1">Profile image</Typography>
-        <Avatar src="/images/avatars/profile-avatar.png" />
+        <Avatar src={user.img} />
         <Box sx={{ mt: 4, display: "flex", alignItems: "center", gap: 4 }}>
           <TextField
             label="First Name"
@@ -20,7 +28,7 @@ const Profile = () => {
             rows={4}
             fullWidth
             size="small"
-            defaultValue={"Wabweni"}
+            defaultValue={user.first_name}
           />
           <TextField
             label="Last Name"
@@ -28,16 +36,28 @@ const Profile = () => {
             rows={4}
             fullWidth
             size="small"
-            defaultValue={"Brian"}
+            defaultValue={user.last_name}
           />
         </Box>
-        <Box sx={{ my: 2 }}>
+        <Box sx={{ mt: 4, display: "flex", alignItems: "center", gap: 4 }}>
           <TextField
             label="Username"
             variant="outlined"
+            rows={4}
             size="small"
             fullWidth
-            defaultValue={"Wabweni Brian"}
+            defaultValue={user.username}
+          />
+          <TextField
+            label="Role"
+            variant="outlined"
+            rows={4}
+            size="small"
+            fullWidth
+            defaultValue={user.role}
+            InputProps={{
+              readOnly: true,
+            }}
           />
         </Box>
         <Box sx={{ my: 2 }}>
@@ -46,7 +66,7 @@ const Profile = () => {
             variant="outlined"
             size="small"
             fullWidth
-            defaultValue={"wabwenib66@gmail.com"}
+            defaultValue={user.email}
           />
         </Box>
         <Box sx={{ my: 2 }}>
@@ -55,7 +75,7 @@ const Profile = () => {
             variant="outlined"
             size="small"
             fullWidth
-            defaultValue={"+256 775 358738"}
+            defaultValue={user.phone}
           />
         </Box>
       </Box>
