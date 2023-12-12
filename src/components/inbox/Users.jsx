@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 import { FaEllipsisV } from "react-icons/fa";
-import { customers } from "../../data/customers";
+import { classmates } from "../../data/classmates";
 
 const Users = () => {
   const dummyMessage =
@@ -67,7 +67,7 @@ const Users = () => {
             gap: 2,
           }}
         >
-          {customers.map(({ id, img, customer_name }) => (
+          {classmates.map(({ id, img, name }) => (
             <ListItemButton
               sx={{
                 display: "flex",
@@ -92,7 +92,7 @@ const Users = () => {
                 </StyledBadge>
 
                 <Box sx={{ display: { xs: "none", sm: "block" } }}>
-                  <Typography>{customer_name}</Typography>
+                  <Typography>{name}</Typography>
                   <Typography variant="subtitle2" sx={{ opacity: 0.8 }}>
                     {dummyMessage.slice(0, 20)}...
                   </Typography>

@@ -7,13 +7,19 @@ import TopCountries from "../components/home/TopCountries";
 import TransactionCustomer from "../components/home/TransactionCustomer";
 import {Table} from "../components/Table";
 import { timetableData, timetableColumns } from "../data/timetable";
+import { useLoggedInUser } from "../data/loggedInUser";
 
 const Dashboard = () => {
   const ComponentWrapper = styled(Box)({
     marginTop: "10px",
     paddingBottom: "10px",
   });
-  
+  const user = useLoggedInUser();
+
+  if (!user) {
+    // User is not logged in, you can redirect to the login page or handle it accordingly.
+    return null;
+  }
   return (
     <Box sx={{ pt: "80px", pb: "20px" }}>
       <Typography variant="h6" sx={{ marginBottom: "14px" }}>
@@ -26,7 +32,7 @@ const Dashboard = () => {
       <ComponentWrapper>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={8}>
-            <BarChart userName="Edward Thomas" attendancePercentage={91.67}/>
+            <BarChart userName={user.first_name + ' ' + user.last_name} attendancePercentage={91.67}/>
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <Paper

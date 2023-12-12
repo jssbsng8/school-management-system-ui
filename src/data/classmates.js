@@ -59,6 +59,7 @@ export const classmateColumns = [
         id: 4,
         name: "Fatimah Hassan",
         gender: "Female",
+        rating: 3.8,
         img: "/images/avatars/avatar4.png",
       },
       {
