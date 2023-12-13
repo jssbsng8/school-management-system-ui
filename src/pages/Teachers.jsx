@@ -21,7 +21,7 @@ const Teachers = () => {
         data={teachers}
         fields={teachersColumns}
         numberOfRows={teachers.length}
-        enableTopToolBar={false}
+        enableTopToolBar={true}
         enableBottomToolBar={true}
         enablePagination={true}
         enableRowSelection={false}
