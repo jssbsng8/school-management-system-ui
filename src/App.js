@@ -30,12 +30,14 @@ import {
   Classmates,
 } from "./pages";
 import Footer from "./components/common/Footer";
+import useLoggedInUser from "./data/loggedInUser";
 
 const sideBarWidth = 250;
 
 function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const auth = true; 
+  // const auth = true; 
+  const {auth } = useLoggedInUser();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
