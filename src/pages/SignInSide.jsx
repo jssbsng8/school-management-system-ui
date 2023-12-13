@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { getRandomIndex } from '../data/loginImages';
+import AlignItemsList from '../components/Announcement';
 
 function Copyright(props) {
   return (
@@ -26,8 +27,6 @@ function Copyright(props) {
     </Typography>
   );
 }
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
@@ -74,10 +73,12 @@ function SignInSide() {
               transform: 'translate(-50%, -50%)',
               textAlign: 'center',
               color: '#fff',
+              width: '90%',
             }}
           >
             <Typography variant="h4">Welcome to Our Website</Typography>
             {/* Add any additional overlay text here */}
+            <AlignItemsList />
           </Box>
         </Grid>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
