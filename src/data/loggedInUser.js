@@ -1,38 +1,45 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-export const useLoggedInUser = () => {
-  const [loggedInUser, setLoggedInUser] = useState(null);
+const useLoggedInUser = () => {
+  const [user, setUser] = useState(null);
+  const [auth, setAuth] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // You can implement your logic to fetch the logged-in user information here
-    // For simplicity, I'll set a timeout to simulate an asynchronous operation
-    const fetchLoggedInUser = async () => {
-      // Simulating an asynchronous operation
-      await new Promise((resolve) => setTimeout(resolve, 500));
+    // Hardcoded user data
+    const user = [
+      {
+        id: 7,
+        first_name: "Michael",
+        last_name: "Adeeyo",
+        username: "ademic",
+        email: "mike@example.com",
+        role: "Student",
+        password: "12345678",
+        sex: "Male",
+        date_of_birth: "1995-12-07",
+        address: "741 Lexington Avenue, New York, NY 10022",
+        phone: "212-555-7878",
+        img: "/images/avatars/avatar7.png",
+      },
+    ];
 
-      // Replace this with your actual logic to fetch user data (e.g., from an API)
-      const user = [
-        {
-          id: 7,
-          first_name: "Michael",
-          last_name: "Adeeyo",
-          username: "ademic",
-          email: "mike@example.com",
-          role: "Student",
-          password: "12345678",
-          sex: "Male",
-          date_of_birth: "1995-12-07",
-          address: "741 Lexington Avenue, New York, NY 10022",
-          phone: "212-555-7878",
-          img: "/images/avatars/avatar7.png",
-        },
-      ];
+    // const loggedInUserData = user[0];
+    const loggedInUserData = false;
 
-      setLoggedInUser(user[0]);
-    };
+    if (loggedInUserData) {
+      setUser(loggedInUserData);
+      setAuth(true);
+      navigate("/");
+    } else {
+      setAuth(false);
+      // Redirect to the login page if not logged in
+      navigate("/login");
+    }
+  }, [navigate]);
 
-    fetchLoggedInUser();
-  }, []);
-
-  return loggedInUser;
+  return { user, auth };
 };
+
+export default useLoggedInUser;
