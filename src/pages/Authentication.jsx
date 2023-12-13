@@ -27,7 +27,7 @@ function Copyright(props) {
   );
 }
 
-function SignInSide() {
+function Authenticaton() {
   const [randomImageUrl, setRandomImageUrl] = useState('');
   const [showLoginForm, setShowLoginForm] = useState(true);
 
@@ -128,4 +128,4 @@ function SignInSide() {
   );
 }
 
-export default SignInSide;
+export default Authenticaton;
