@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { getRandomIndex } from '../data/loginImages';
 
 function Copyright(props) {
   return (
@@ -31,6 +32,13 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 function SignInSide() {
+  const [randomImageUrl, setRandomImageUrl] = useState('');
+
+  useEffect(() => {
+    const randomImage = getRandomIndex();
+    setRandomImageUrl(randomImage);
+  }, []);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -39,7 +47,6 @@ function SignInSide() {
       password: data.get('password'),
     });
   };
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -50,14 +57,29 @@ function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            position: 'relative',
+            backgroundImage: `url(${randomImageUrl})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
-        />
+        >
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              textAlign: 'center',
+              color: '#fff',
+            }}
+          >
+            <Typography variant="h4">Welcome to Our Website</Typography>
+            {/* Add any additional overlay text here */}
+          </Box>
+        </Grid>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
