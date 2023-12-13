@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Sidebar from "./components/common/Sidebar";
 import Dashboard from "./pages/Dashboard";
-import SignInSide from "./pages/SignInSide";
+import Authentication from "./pages/Authentication"
 import Navbar from "./components/common/Navbar";
 import {
   AddProduct,
@@ -96,7 +96,7 @@ function App() {
         </Box>
       ) : (
         <Routes>
-          <Route path="/login" element={<SignInSide />} />
+          <Route path="/login" element={<Authentication />} />
         </Routes>
       )}
     </>
