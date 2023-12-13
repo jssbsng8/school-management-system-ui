@@ -13,7 +13,6 @@ export default function AlignItemsList() {
         display: 'flex',
         justifyContent: 'center',
         borderRadius: '10px',
-        bgcolor: '#fff',
         maxHeight: '40vh',
         paddingY: '30px',
         bgcolor: 'rgba(0, 0, 0, 0.6)',
@@ -26,8 +25,9 @@ export default function AlignItemsList() {
         maxHeight: '40vh',
         bgcolor: 'transparent',
         color: 'inherit',
+        paddingRight: '6px',
         '&::-webkit-scrollbar': {
-            width: '6px',
+            width: '3px',
         },
         '&::-webkit-scrollbar-thumb': {
             backgroundColor: 'primary.main',
@@ -185,6 +185,7 @@ export default function AlignItemsList() {
             }
           />
         </ListItem>
+        <Divider variant="fullWidth" component="li" sx={{ backgroundColor: '#fff' }} />
       </List>
     </Box>
   );
