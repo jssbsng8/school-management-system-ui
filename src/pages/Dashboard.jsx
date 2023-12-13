@@ -7,17 +7,17 @@ import TopCountries from "../components/home/TopCountries";
 import TransactionCustomer from "../components/home/TransactionCustomer";
 import {Table} from "../components/Table";
 import { timetableData, timetableColumns } from "../data/timetable";
-import { useLoggedInUser } from "../data/loggedInUser";
+import useLoggedInUser from "../data/loggedInUser";
 
 const Dashboard = () => {
   const ComponentWrapper = styled(Box)({
     marginTop: "10px",
     paddingBottom: "10px",
   });
-  const user = useLoggedInUser();
+  const { user, auth } = useLoggedInUser();
 
-  if (!user) {
-    // User is not logged in, you can redirect to the login page or handle it accordingly.
+  if (!auth) {
+    // User is not logged in, redirecting is handled in the custom hook
     return null;
   }
   return (
