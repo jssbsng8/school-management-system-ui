@@ -33,15 +33,15 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         await new Promise(resolve => setTimeout(resolve, 2000));
 
         if (validated) {
-          const hardcodedUsername = 'ademic'
+          const hardcodedUsername = 'admin'
           const hardcodedPassword = '12345678'
           
           console.log(data);
           if (data['username'] === hardcodedUsername && data['password'] === hardcodedPassword){
             localStorage.setItem("user", JSON.stringify(data));
             const message = `Welcome ${data['username']}!`
-            successToast(message.toUpperCase());
             navigate("/");
+            successToast(message.toUpperCase());
           }
           else{
             warningToast('Incorrect username or password')
