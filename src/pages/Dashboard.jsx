@@ -3,8 +3,8 @@ import { Box, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 import BarChart from "../components/home/charts/BarChart";
 // import Stats from "../components/home/stats/Stats";
-import TopCountries from "../components/home/TopCountries";
-import TransactionCustomer from "../components/home/TransactionCustomer";
+import TeachersList from "../components/home/TeachersList";
+import Subjects from "../components/home/Subjects";
 import {Table} from "../components/Table";
 import { timetableData, timetableColumns } from "../data/timetable";
 import useLoggedInUser from "../data/loggedInUser";
@@ -22,8 +22,10 @@ const Dashboard = () => {
     // User is not logged in, redirecting is handled in the custom hook
     return null;
   }
+
   return (
     <Box sx={{ pt: "80px", pb: "20px" }}>
+      <ToastContainer />
       <Typography variant="h6" sx={{ marginBottom: "14px" }}>
         Dashboard
       </Typography>
@@ -47,13 +49,13 @@ const Dashboard = () => {
                 height: "100%",
               }}
             >
-              <TopCountries />
+              <TeachersList />
             </Paper>
           </Grid>
         </Grid>
       </ComponentWrapper>
       <ComponentWrapper>
-        <TransactionCustomer />
+        <Subjects />
       </ComponentWrapper>
 
       <ComponentWrapper>
@@ -73,7 +75,6 @@ const Dashboard = () => {
           enableColumnDragging={false}
         />
       </ComponentWrapper>
-      <ToastContainer />
     </Box>
   );
 };

@@ -26,9 +26,8 @@ const useLoggedInUser = () => {
     ];
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const loggedInUserData = user[0];
-    // const loggedInUserData = false;
 
-    if (storedUser) {
+    if (storedUser && loggedInUserData) {
       setUser(loggedInUserData);
       setAuth(true);
       

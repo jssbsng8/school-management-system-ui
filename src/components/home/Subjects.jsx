@@ -6,7 +6,7 @@ import { customers } from "../../data/customers";
 import { transactions, transactionsColumns } from "../../data/transactions";
 import Table from "../Table";
 
-const TransactionCustomer = () => {
+const Subjects = () => {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={6} lg={4}>
@@ -70,7 +70,7 @@ const TransactionCustomer = () => {
           </Box>
           <Divider />
           <Typography variant="subtitle1" sx={{ textAlign: "center", mt: 1 }}>
-            <Link to="/customers" className="link">
+            <Link to="/subjects" className="link">
               View more
             </Link>
           </Typography>
@@ -111,4 +111,4 @@ const TransactionCustomer = () => {
   );
 };
 
-export default TransactionCustomer;
+export default Subjects;

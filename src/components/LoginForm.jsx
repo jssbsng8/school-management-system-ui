@@ -40,8 +40,8 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
           if (data['username'] === hardcodedUsername && data['password'] === hardcodedPassword){
             localStorage.setItem("user", JSON.stringify(data));
             const message = `Welcome ${data['username']}!`
-            navigate("/");
             successToast(message.toUpperCase());
+            navigate("/");
           }
           else{
             warningToast('Incorrect username or password')
