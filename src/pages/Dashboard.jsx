@@ -8,6 +8,8 @@ import TransactionCustomer from "../components/home/TransactionCustomer";
 import {Table} from "../components/Table";
 import { timetableData, timetableColumns } from "../data/timetable";
 import useLoggedInUser from "../data/loggedInUser";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Dashboard = () => {
   const ComponentWrapper = styled(Box)({
@@ -71,6 +73,7 @@ const Dashboard = () => {
           enableColumnDragging={false}
         />
       </ComponentWrapper>
+      <ToastContainer />
     </Box>
   );
 };
