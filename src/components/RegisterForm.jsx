@@ -1,21 +1,60 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import { FormControl } from '@mui/material';
+import { registrationValidator } from './utils/dataValidator';
+import { successToast, errorToast, warningToast } from './utils/toastUtils';
+import { useState } from 'react';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 
 const RegisterForm = ({ onSubmit, onToggleForm }) => {
-  const handleRegister = (event) => {
+  const [loading, setLoading] = useState(false);
+  const handleRegister = async (event) => {
     event.preventDefault();
-    // Add logic for handling registration data
-    onSubmit(event.target.elements);
-  };
+    setLoading(true);
+    const data = {
+      firstName: event.target.elements.firstName.value,
+      lastName: event.target.elements.lastName.value,
+      email: event.target.elements.registerEmail.value,
+      username: event.target.elements.username.value,
+      password: event.target.elements.registerPassword.value,
+      confirmPassword: event.target.elements.confirmPassword.value,
+      dob: event.target.elements.dob.value,
+      role: event.target.elements.registerRole.value,
+      phone: event.target.elements.phone.value,
+      gender: event.target.elements.registerGender.value,
+    }
+    const validated = registrationValidator(data)
+    if (validated[1] === 'error'){
+      errorToast(validated[0])
+      setLoading(false);
+    }
+    else if (validated[1] === 'warning'){
+      warningToast(validated[0])
+      setLoading(false);
+    }
+    else{
+      try {
+        // Simulating an asynchronous registration process with a timeout
+        await new Promise(resolve => setTimeout(resolve, 2000));
 
+        if (validated) {
+          successToast('Successful registration, check your email for activation');
+        }
+      } catch (error) {
+        errorToast('Error during registration')
+        console.error('Error during registration:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+ 
   return (
     <Box component="form" noValidate onSubmit={handleRegister} sx={{ mt: 5, width: '100%' }}>
     {/* First Name and Last Name fields */}
@@ -156,10 +195,16 @@ const RegisterForm = ({ onSubmit, onToggleForm }) => {
           />
         </Grid>
       </Grid>
-    
-  <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-    Register
-  </Button>
+      <LoadingButton
+        type="submit"
+        fullWidth
+        loading={loading}
+        loadingPosition="start"
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+      >
+        {loading ? 'Registering...' : 'Register'}
+      </LoadingButton>
 </Box>
 
   );
