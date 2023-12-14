@@ -31,6 +31,8 @@ import {
 } from "./pages";
 import Footer from "./components/common/Footer";
 import useLoggedInUser from "./data/loggedInUser";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const sideBarWidth = 250;
 
@@ -93,11 +95,15 @@ function App() {
             </Routes>
             <Footer />
           </Box>
+          {/* <ToastContainer /> */}
         </Box>
       ) : (
+        <>
         <Routes>
           <Route path="/login" element={<Authentication />} />
         </Routes>
+        <ToastContainer />
+        </>
       )}
     </>
   );
