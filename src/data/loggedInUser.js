@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const useLoggedInUser = () => {
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
-  const navigate = useNavigate(nav);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Hardcoded user data
