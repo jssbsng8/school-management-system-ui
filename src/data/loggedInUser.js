@@ -37,7 +37,7 @@ const useLoggedInUser = () => {
       // Redirect to the login page if not logged in
       navigate("/login");
     }
-  },);
+  },[navigate]);
 
   return { user, auth };
 };
