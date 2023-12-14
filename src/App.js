@@ -95,7 +95,6 @@ function App() {
             </Routes>
             <Footer />
           </Box>
-          {/* <ToastContainer /> */}
         </Box>
       ) : (
         <>

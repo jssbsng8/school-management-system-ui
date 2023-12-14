@@ -6,8 +6,10 @@ import Checkbox from '@mui/material/Checkbox';
 import { successToast, errorToast, warningToast } from './utils/toastUtils';
 import { loginDataValidator } from './utils/dataValidator';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = ({ onSubmit, onToggleForm }) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (event) => {
@@ -31,9 +33,19 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         await new Promise(resolve => setTimeout(resolve, 2000));
 
         if (validated) {
-          onSubmit(data);
-          const message = `Welcome ${data['username']}!`
-          successToast(message.toUpperCase());
+          const hardcodedUsername = 'ademic'
+          const hardcodedPassword = '12345678'
+          
+          console.log(data);
+          if (data['username'] === hardcodedUsername && data['password'] === hardcodedPassword){
+            localStorage.setItem("user", JSON.stringify(data));
+            const message = `Welcome ${data['username']}!`
+            successToast(message.toUpperCase());
+            navigate("/");
+          }
+          else{
+            warningToast('Incorrect username or password')
+          }
         }
       } catch (error) {
         errorToast('Error during logging in')

@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { successToast } from "../components/utils/toastUtils";
 
 const useLoggedInUser = () => {
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useNavigate(nav);
 
   useEffect(() => {
     // Hardcoded user data
@@ -25,21 +24,20 @@ const useLoggedInUser = () => {
         img: "/images/avatars/avatar7.png",
       },
     ];
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const loggedInUserData = user[0];
+    // const loggedInUserData = false;
 
-    // const loggedInUserData = user[0];
-    const loggedInUserData = false;
-
-    if (loggedInUserData) {
+    if (storedUser) {
       setUser(loggedInUserData);
       setAuth(true);
       navigate("/");
-      successToast('logIn successful')
     } else {
       setAuth(false);
       // Redirect to the login page if not logged in
       navigate("/login");
     }
-  }, [navigate]);
+  },);
 
   return { user, auth };
 };
