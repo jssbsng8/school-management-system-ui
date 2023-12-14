@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { successToast } from "../components/utils/toastUtils";
 
 const useLoggedInUser = () => {
   const [user, setUser] = useState(null);
@@ -32,6 +33,7 @@ const useLoggedInUser = () => {
       setUser(loggedInUserData);
       setAuth(true);
       navigate("/");
+      successToast('logIn successful')
     } else {
       setAuth(false);
       // Redirect to the login page if not logged in
