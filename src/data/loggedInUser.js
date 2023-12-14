@@ -31,7 +31,7 @@ const useLoggedInUser = () => {
     if (storedUser) {
       setUser(loggedInUserData);
       setAuth(true);
-      navigate("/");
+      
     } else {
       setAuth(false);
       // Redirect to the login page if not logged in
