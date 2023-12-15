@@ -40,7 +40,6 @@ const sideBarWidth = 250;
 
 function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  // const auth = true; 
   const {auth } = useLoggedInUser();
 
   const handleDrawerToggle = () => {
