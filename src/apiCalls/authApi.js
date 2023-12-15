@@ -1,9 +1,8 @@
-
-
+import { AUTH_ENDPOINTS } from "./endpoints";
 
 
 // ======================= LOG IN =======================
-const apiUrl = 'http://127.0.0.1:8000/auth/login/';
+const apiUrl = AUTH_ENDPOINTS.LOGIN;
 try {
 const response = await fetch(apiUrl, {
     method: 'POST',
@@ -42,9 +41,8 @@ console.log('Login successful:', error);
 
 
 // ======================= LOGOUT =======================
-const logoutApiUrl = 'http://127.0.0.1:8000/auth/logout/';
+const logoutApiUrl = AUTH_ENDPOINTS.LOGOUT;
 try {
-    // Make a request to the logout endpoint
     const response = await fetch(logoutApiUrl, {
     method: 'POST',
     headers: {
@@ -53,7 +51,6 @@ try {
     },
     });
 
-    // Check if the logout was successful
     if (response.ok) {
     localStorage.removeItem('token');
     // localStorage.removeItem('user');
