@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Sidebar from "./components/common/Sidebar";
 import Dashboard from "./pages/Dashboard";
+// import AdminDashboard from "./pages/AdminDashboard";
 import Authentication from "./pages/Authentication"
 import Navbar from "./components/common/Navbar";
 import {
@@ -28,6 +29,7 @@ import {
   SingleTeacher,
   Subjects,
   Classmates,
+  AdminDashboard
 } from "./pages";
 import Footer from "./components/common/Footer";
 import useLoggedInUser from "./data/loggedInUser";
@@ -69,11 +71,11 @@ function App() {
             {/* Routes */}
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              {/* <Route path="/" element={<AdminDashboard />} /> */}
               <Route path="/products" element={<Products />} />
               <Route path="/products/add" element={<AddProduct />} />
               <Route path="/products/:id" element={<SingleProduct />} />
               <Route path="/products/categories" element={<ProductCategories />} />
-              {/* <Route path="/customers" element={<Customers />} /> */}
               <Route path="/timetable" element={<Timetable />} />
               <Route path="/teachers" element={<Teachers />} />
               <Route path="/subjects" element={<Subjects />} />
