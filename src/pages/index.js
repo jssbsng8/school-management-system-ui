@@ -22,3 +22,4 @@ export { default as Teachers } from "./Teachers";
 export { default as SingleTeacher } from "./SingleTeacher";
 export { default as Subjects } from "./Subjects";
 export { default as Classmates } from "./Classmates";
+export { default as SuccessPage } from "./Success"

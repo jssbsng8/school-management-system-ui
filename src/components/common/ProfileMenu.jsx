@@ -34,10 +34,8 @@ const ProfileMenu = () => {
         });
 
         if (response.ok) {
-        localStorage.removeItem('token');
-        // localStorage.removeItem('user');
-
-        navigate('/login');
+          localStorage.removeItem('token');
+          navigate('/login');
         } else {
         // Handle logout failure
         const message = `Logout failed:, ${response.statusText}`

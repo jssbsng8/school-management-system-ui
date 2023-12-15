@@ -5,29 +5,33 @@ import Grid from '@mui/material/Grid';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+import { useNavigate } from "react-router-dom";
 import { FormControl } from '@mui/material';
 import { registrationValidator } from './utils/dataValidator';
 import { successToast, errorToast, warningToast } from './utils/toastUtils';
 import { useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { AUTH_ENDPOINTS } from '../apiCalls/endpoints';
 
 
 const RegisterForm = ({ onSubmit, onToggleForm }) => {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const handleRegister = async (event) => {
     event.preventDefault();
     setLoading(true);
     const data = {
-      firstName: event.target.elements.firstName.value,
-      lastName: event.target.elements.lastName.value,
-      email: event.target.elements.registerEmail.value,
       username: event.target.elements.username.value,
       password: event.target.elements.registerPassword.value,
-      confirmPassword: event.target.elements.confirmPassword.value,
-      dob: event.target.elements.dob.value,
+      sex: event.target.elements.registerGender.value,
+      first_name: event.target.elements.firstName.value,
+      last_name: event.target.elements.lastName.value,
       role: event.target.elements.registerRole.value,
+      email: event.target.elements.registerEmail.value,
+      confirmPassword: event.target.elements.confirmPassword.value,
+      date_of_birth: event.target.elements.dob.value,
       phone: event.target.elements.phone.value,
-      gender: event.target.elements.registerGender.value,
     }
     const validated = registrationValidator(data)
     if (validated[1] === 'error'){
@@ -39,18 +43,36 @@ const RegisterForm = ({ onSubmit, onToggleForm }) => {
       setLoading(false);
     }
     else{
+      
+      // ======================= REGISTRATION =======================
+      const URL = AUTH_ENDPOINTS.REGISTER
       try {
-        // Simulating an asynchronous registration process with a timeout
-        await new Promise(resolve => setTimeout(resolve, 2000));
+          const response = await fetch(URL, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(validated),
+              mode: 'cors'
+          })
+          console.log(JSON.stringify(validated));
+          if(response.ok){
+              const message = 'Registration Successful!, check your email for activation link'
+              successToast(message);
+              await new Promise(resolve => setTimeout(resolve, 5000));
+              setLoading(false);
+              navigate("/success");
+          }else{
+              const message = `Registration failed:, ${response.statusText}`
+              errorToast(message);
+              setLoading(false);
 
-        if (validated) {
-          successToast('Successful registration, check your email for activation');
-        }
-      } catch (error) {
-        errorToast('Error during registration')
-        console.error('Error during registration:', error);
-      } finally {
-        setLoading(false);
+          }
+      }
+      catch(error){
+          const message = `Error during registration: ${error}`
+          successToast(message);
+          setLoading(false);
       }
     }
   };

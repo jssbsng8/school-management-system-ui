@@ -1,11 +1,11 @@
 
 export const registrationValidator = (data) => {
-    if (data['firstName'].length < 3) {
+    if (data['first_name'].length < 3) {
         const [message, status] = ['First name must be greater than 2 characters', 'error']
         return [message, status]
     }
 
-    if (data['lastName'].length < 3) {
+    if (data['last_name'].length < 3) {
         const [message, status] = ['Last name must be greater than 2 characters', 'error']
         return [message, status]
     }
@@ -31,13 +31,13 @@ export const registrationValidator = (data) => {
             return [message, status]
         }
     }
-    if (!data['gender'] || data['gender'].length === 0) {
+    if (!data['sex'] || data['sex'].length === 0) {
         const [message, status] = ['Gender must be provided', 'error']
         return [message, status]
     } else {
-        const validGender = ['Male', 'Female', 'Other'];
+        const validGender = ['Male', 'Female'];
 
-        if (!validGender.includes(data['gender'])) {
+        if (!validGender.includes(data['sex'])) {
             const [message, status] = ['Invalid gender selected', 'error']
             return [message, status]
         }
@@ -52,9 +52,8 @@ export const registrationValidator = (data) => {
         const [message, status] = ['Password must be at least 8 characters long', 'error']
         return [message, status]
     }
-
-
-    return true;
+    delete data.confirmPassword
+    return data;
 }
 
 const isValidEmail = (email) => {
@@ -74,6 +73,5 @@ export const loginDataValidator = (data) => {
         const [message, status] = ['Password must be greater than 8 characters', 'error']
         return [message, status]
     }
-
     return true
 }

@@ -29,7 +29,8 @@ import {
   SingleTeacher,
   Subjects,
   Classmates,
-  AdminDashboard
+  AdminDashboard,
+  SuccessPage,
 } from "./pages";
 import Footer from "./components/common/Footer";
 import useLoggedInUser from "./data/loggedInUser";
@@ -101,6 +102,7 @@ function App() {
         <>
         <Routes>
           <Route path="/login" element={<Authentication />} />
+          <Route path="/success" element={<SuccessPage />} />
         </Routes>
         <ToastContainer />
         </>

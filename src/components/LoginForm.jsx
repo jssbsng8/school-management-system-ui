@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { successToast, errorToast, warningToast } from './utils/toastUtils';
+import { successToast, errorToast } from './utils/toastUtils';
 import { loginDataValidator } from './utils/dataValidator';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useNavigate } from "react-router-dom";
