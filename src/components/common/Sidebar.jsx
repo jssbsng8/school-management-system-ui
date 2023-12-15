@@ -5,7 +5,7 @@ import SidebarItem from "./SidebarItem";
 import SidebarItemCollapse from "./SidebarItemCollapse";
 
 const Sidebar = ({ window, sideBarWidth, mobileOpen, handleDrawerToggle }) => {
-  const ROLE = 'Admin'
+  const ROLE = 'Student'
   const links = navigationLinks(ROLE)
   const drawer = (
     <div>
