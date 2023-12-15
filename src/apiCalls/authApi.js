@@ -1,3 +1,4 @@
+import { errorToast } from "../components/utils/toastUtils";
 import { AUTH_ENDPOINTS } from "./endpoints";
 
 
@@ -63,5 +64,33 @@ try {
     }
 } catch (error) {
     const message = `Error during logout: ${error}`
+    successToast(message);
+}
+
+
+// ======================= REGISTRATION =======================
+const URL = AUTH_ENDPOINTS.REGISTER
+try {
+    const response = await fetch(URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        mode: 'cors'
+    })
+    if(response.ok){
+        const message = 'Registration Successful!, check your email for activation link'
+        successToast(message);
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setLoading(false);
+        navigate("/login");
+    }else{
+        const message = `Registration failed:, ${response.statusText}`
+        errorToast(message);
+    }
+}
+catch(error){
+    const message = `Error during registration: ${error}`
     successToast(message);
 }
