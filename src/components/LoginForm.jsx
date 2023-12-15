@@ -7,6 +7,7 @@ import { successToast, errorToast, warningToast } from './utils/toastUtils';
 import { loginDataValidator } from './utils/dataValidator';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useNavigate } from "react-router-dom";
+import { AUTH_ENDPOINTS } from '../apiCalls/endpoints';
 
 const LoginForm = ({ onSubmit, onToggleForm }) => {
   const navigate = useNavigate();
@@ -28,32 +29,42 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
       setLoading(false);
     }
     else{
+      const apiUrl = AUTH_ENDPOINTS.LOGIN;
       try {
-        // Simulating an asynchronous login process with a timeout
-        await new Promise(resolve => setTimeout(resolve, 2000));
+      const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ password, username }),
+          mode: 'cors',
+      });
 
-        if (validated) {
-          const hardcodedUsername = 'admin'
-          const hardcodedPassword = '12345678'
-          
-          console.log(data);
-          if (data['username'] === hardcodedUsername && data['password'] === hardcodedPassword){
-            localStorage.setItem("user", JSON.stringify(data));
-            const message = `Welcome ${data['username']}!`
-            successToast(message.toUpperCase());
-            navigate("/");
-          }
-          else{
-            warningToast('Incorrect username or password')
-          }
-        }
-      } catch (error) {
-        errorToast('Error during logging in')
-        console.error('Error during registration:', error);
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+          const errorMessage = await response.text();
+          console.log(errorMessage);
+          if (response.status === 400){
+          const message = 'Incorrect Username or password'
+          errorToast(message);
+          setLoading(false);
+          return;
+          }          
       }
-      
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Successful login
+      const responseData = await response.json();
+      // Store the token or user information in local storage or state
+      localStorage.setItem('token', responseData.auth_token);
+      const message = 'Login successful'
+      successToast(message.toUpperCase());
+      setLoading(false);
+      navigate("/");
+      } catch (error) {
+      const message = `Login error ${error.message}!`
+      errorToast(message);
+      setLoading(false);
+      console.log('Login successful:', error);
+      }
     }
   };
 

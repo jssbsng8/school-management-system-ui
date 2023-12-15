@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { athenticatedUser } from "../apiCalls/authApi";
+import { USER_ENDPOINTS } from "../apiCalls/endpoints";
 
 const useLoggedInUser = () => {
   const [user, setUser] = useState(null);
@@ -24,9 +26,9 @@ const useLoggedInUser = () => {
         img: "/images/avatars/avatar7.png",
       },
     ];
-    const storedUser = localStorage.getItem("user");
+    const storedUser = localStorage.getItem("token");
     const loggedInUserData = user[0];
-
+    // console.log(athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER));
     if (storedUser && loggedInUserData) {
       setUser(loggedInUserData);
       setAuth(true);

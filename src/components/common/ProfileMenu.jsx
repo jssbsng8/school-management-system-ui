@@ -11,6 +11,7 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import { successToast } from "../utils/toastUtils";
+import { AUTH_ENDPOINTS } from "../../apiCalls/endpoints";
 
 const ProfileMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,12 +22,31 @@ const ProfileMenu = () => {
   };
 
   const handleLogout = async () => {
-    // Clear user data from local storage
-    localStorage.removeItem("user");
-    navigate("/login");
+    // ======================= LOGOUT =======================
+    const logoutApiUrl = AUTH_ENDPOINTS.LOGOUT;
+    try {
+        const response = await fetch(logoutApiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        },
+        });
 
-    // Close the menu
-    setAnchorEl(null);
+        if (response.ok) {
+        localStorage.removeItem('token');
+        // localStorage.removeItem('user');
+
+        navigate('/login');
+        } else {
+        // Handle logout failure
+        const message = `Logout failed:, ${response.statusText}`
+        successToast(message);
+        }
+    } catch (error) {
+        const message = `Error during logout: ${error}`
+        successToast(message);
+    }
   };
 
   const handleClose = () => {
