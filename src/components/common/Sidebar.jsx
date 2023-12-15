@@ -1,10 +1,12 @@
 import { Box, Divider, Drawer, List, Toolbar, Typography } from "@mui/material";
 import React from "react";
-import { studentLinks, teacherLinks } from "../../data/links";
+import { navigationLinks } from "../../data/links";
 import SidebarItem from "./SidebarItem";
 import SidebarItemCollapse from "./SidebarItemCollapse";
 
 const Sidebar = ({ window, sideBarWidth, mobileOpen, handleDrawerToggle }) => {
+  const ROLE = 'Admin'
+  const links = navigationLinks(ROLE)
   const drawer = (
     <div>
       <Toolbar>
@@ -15,7 +17,7 @@ const Sidebar = ({ window, sideBarWidth, mobileOpen, handleDrawerToggle }) => {
       </Toolbar>
       <Divider />
       <List disablePadding>
-        {studentLinks?.map((link, index) =>
+        {links?.map((link, index) =>
           link?.subLinks ? (
             <SidebarItemCollapse {...link} key={index} />
           ) : (
