@@ -24,7 +24,7 @@ const useLoggedInUser = () => {
         img: "/images/avatars/avatar7.png",
       },
     ];
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedUser = localStorage.getItem("user");
     const loggedInUserData = user[0];
 
     if (storedUser && loggedInUserData) {
