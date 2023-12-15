@@ -29,7 +29,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
     }
     else{
       try {
-        // Simulating an asynchronous registration process with a timeout
+        // Simulating an asynchronous login process with a timeout
         await new Promise(resolve => setTimeout(resolve, 2000));
 
         if (validated) {
@@ -53,6 +53,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
       } finally {
         setLoading(false);
       }
+      
     }
   };
 
@@ -66,6 +67,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         id="username"
         label="Username"
         name="username"
+        // value={"ademic"}
         autoComplete="username"
         autoFocus
       />
@@ -77,6 +79,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         label="Password"
         type="password"
         id="password"
+        // value={"string@1234"}
         autoComplete="current-password"
       />
       <FormControlLabel
