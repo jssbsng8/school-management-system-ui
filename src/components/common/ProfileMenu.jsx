@@ -10,6 +10,7 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
+import { successToast } from "../utils/toastUtils";
 
 const ProfileMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -19,11 +20,11 @@ const ProfileMenu = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     // Clear user data from local storage
     localStorage.removeItem("user");
     navigate("/login");
-    
+
     // Close the menu
     setAnchorEl(null);
   };
