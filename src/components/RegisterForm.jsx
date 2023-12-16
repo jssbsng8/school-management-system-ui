@@ -185,7 +185,6 @@ const RegisterForm = ({ onSubmit, onToggleForm }) => {
             >
               <MenuItem value="Male">Male</MenuItem>
               <MenuItem value="Female">Female</MenuItem>
-              <MenuItem value="Other">Other</MenuItem>
             </Select>
           </FormControl>
         </Grid>

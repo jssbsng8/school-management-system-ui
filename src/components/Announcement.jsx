@@ -39,7 +39,7 @@ export default function AlignItemsList() {
           <ListItemText
             primary={
                 <Typography variant="body1" fontWeight="bold">
-                  Brunch this weekend?
+                  Peter's Team Graduating
                 </Typography>
             }
             secondary={
@@ -69,7 +69,7 @@ export default function AlignItemsList() {
           <ListItemText
             primary={
                 <Typography variant="body1" fontWeight="bold">
-                  Summer BBQ
+                  Fatimah Success Story
                 </Typography>
             }
             secondary={
