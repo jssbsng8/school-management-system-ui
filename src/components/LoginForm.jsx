@@ -7,12 +7,15 @@ import { successToast, errorToast } from './utils/toastUtils';
 import { loginDataValidator } from './utils/dataValidator';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useNavigate } from "react-router-dom";
-import { AUTH_ENDPOINTS } from '../apiCalls/endpoints';
+import { AUTH_ENDPOINTS, USER_ENDPOINTS } from '../apiCalls/endpoints';
+import { useUser } from './utils/userContext';
+import { athenticatedUser } from '../apiCalls/authApi';
+
 
 const LoginForm = ({ onSubmit, onToggleForm }) => {
+  const { setUserContext } = useUser();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
   const handleLogin = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -55,6 +58,13 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
       const responseData = await response.json();
       // Store the token or user information in local storage or state
       localStorage.setItem('token', responseData.auth_token);
+      const loggedInUserData = await athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER)
+      // const loggedInUserData = {
+      //   'first_name': 'adeeyo', 'last_name': 'michael'
+      // }
+      // console.log(typeof(JSON.parse(loggedInUserData)));
+      setUserContext(JSON.parse(loggedInUserData), true);
+
       const message = 'Login successful'
       successToast(message.toUpperCase());
       setLoading(false);
