@@ -59,7 +59,7 @@ const RegisterForm = ({ onSubmit, onToggleForm }) => {
           if(response.ok){
               const message = 'Registration Successful!, check your email for activation link'
               successToast(message);
-              await new Promise(resolve => setTimeout(resolve, 5000));
+              await new Promise(resolve => setTimeout(resolve, 3000));
               setLoading(false);
               navigate("/success");
           }else{
