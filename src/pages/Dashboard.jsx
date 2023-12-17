@@ -7,17 +7,16 @@ import TeachersList from "../components/home/TeachersList";
 import Subjects from "../components/home/Subjects";
 import {Table} from "../components/Table";
 import { timetableData, timetableColumns } from "../data/timetable";
-import useLoggedInUser from "../data/loggedInUser";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useUser } from "../components/utils/userContext";
 
 const Dashboard = () => {
   const ComponentWrapper = styled(Box)({
     marginTop: "10px",
     paddingBottom: "10px",
   });
-  const { user, auth } = useLoggedInUser();
-
+  const { user, auth} = useUser();
   if (!auth) {
     // User is not logged in, redirecting is handled in the custom hook
     return null;
