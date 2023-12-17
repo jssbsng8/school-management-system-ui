@@ -1,10 +1,10 @@
 import { Avatar, Divider, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import useLoggedInUser from "../../data/loggedInUser";
+import { useUser } from "../utils/userContext";
 
 const Profile = () => {
-  const { user, auth } = useLoggedInUser();
+  const { user, auth } = useUser();
 
   if (!auth) {
     // User is not logged in, redirecting is handled in the custom hook
