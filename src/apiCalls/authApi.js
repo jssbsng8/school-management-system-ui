@@ -1,5 +1,4 @@
-import { errorToast, successToast } from "../components/utils/toastUtils";
-import { AUTH_ENDPOINTS, USER_ENDPOINTS} from "./endpoints";
+import { successToast } from "../components/utils/toastUtils";
 
 // ======================= GET AUTHENTICATED USER DATA =======================
 
@@ -15,8 +14,6 @@ export const athenticatedUser = async (url) => {
     
         if (response.ok) {
             const responseData = await response.json();
-            // localStorage.setItem('user', responseData);
-            console.log(JSON.stringify(responseData));
             return JSON.stringify(responseData);
         } else {
             const message = `Fetch User Failed:, ${response.statusText}`
