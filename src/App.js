@@ -29,19 +29,18 @@ import {
   SingleTeacher,
   Subjects,
   Classmates,
-  AdminDashboard,
   SuccessPage,
 } from "./pages";
 import Footer from "./components/common/Footer";
-import useLoggedInUser from "./data/loggedInUser";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useUser } from "./components/utils/userContext";
 
 const sideBarWidth = 250;
 
 function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const {auth } = useLoggedInUser();
+  const {auth} = useUser();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
