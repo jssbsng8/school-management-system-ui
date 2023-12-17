@@ -12,10 +12,13 @@ import Logout from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import { successToast } from "../utils/toastUtils";
 import { AUTH_ENDPOINTS } from "../../apiCalls/endpoints";
+import { useUser } from "../utils/userContext";
 
 const ProfileMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
+  const { setUserContext } = useUser();
+  
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -35,6 +38,11 @@ const ProfileMenu = () => {
 
         if (response.ok) {
           localStorage.removeItem('token');
+
+          setUserContext(null, false);
+          localStorage.removeItem('loggedInUser');
+          localStorage.removeItem('auth');
+
           navigate('/login');
         } else {
         // Handle logout failure
