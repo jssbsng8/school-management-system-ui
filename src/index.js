@@ -12,11 +12,11 @@ root.render(
   <React.StrictMode>
     <ThemeToggleProvider>
       <CssBaseline />
-        <UserProvider>
       <Router>
+        <UserProvider>
           <App />
-      </Router>
         </UserProvider>
+      </Router>
     </ThemeToggleProvider>
   </React.StrictMode>
 );

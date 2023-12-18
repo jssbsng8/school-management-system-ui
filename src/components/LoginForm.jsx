@@ -59,10 +59,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
       // Store the token or user information in local storage or state
       localStorage.setItem('token', responseData.auth_token);
       const loggedInUserData = await athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER)
-      // const loggedInUserData = {
-      //   'first_name': 'adeeyo', 'last_name': 'michael'
-      // }
-      // console.log(typeof(JSON.parse(loggedInUserData)));
+      
       setUserContext(JSON.parse(loggedInUserData), true);
 
       const message = 'Login successful'
@@ -70,7 +67,8 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
       setLoading(false);
       navigate("/");
       } catch (error) {
-      const message = `Login error ${error.message}!`
+      // const message = `Login error ${error.message}!`
+      const message = `Login error Server is Down!`
       errorToast(message);
       setLoading(false);
       console.log('Login successful:', error);
@@ -88,7 +86,6 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         id="username"
         label="Username"
         name="username"
-        // value={"ademic"}
         autoComplete="username"
         autoFocus
       />

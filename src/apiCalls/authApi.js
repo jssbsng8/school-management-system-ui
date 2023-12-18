@@ -1,4 +1,4 @@
-import { successToast } from "../components/utils/toastUtils";
+import { errorToast, successToast } from "../components/utils/toastUtils";
 
 // ======================= GET AUTHENTICATED USER DATA =======================
 
@@ -16,8 +16,8 @@ export const athenticatedUser = async (url) => {
             const responseData = await response.json();
             return JSON.stringify(responseData);
         } else {
-            const message = `Fetch User Failed:, ${response.statusText}`
-            successToast(message);
+            const message = `Access Denied: ${response.statusText}!`
+            errorToast(message);
         }
     } catch (error) {
         const message = `Error during logout: ${error}`
@@ -26,29 +26,3 @@ export const athenticatedUser = async (url) => {
 }
 
 
-// // ======================= REGISTRATION =======================
-// const URL = AUTH_ENDPOINTS.REGISTER
-// try {
-//     const response = await fetch(URL, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(data),
-//         mode: 'cors'
-//     })
-//     if(response.ok){
-//         const message = 'Registration Successful!, check your email for activation link'
-//         successToast(message);
-//         await new Promise(resolve => setTimeout(resolve, 2000));
-//         setLoading(false);
-//         navigate("/login");
-//     }else{
-//         const message = `Registration failed:, ${response.statusText}`
-//         errorToast(message);
-//     }
-// }
-// catch(error){
-//     const message = `Error during registration: ${error}`
-//     successToast(message);
-// }

@@ -2,7 +2,7 @@ import { Avatar } from "@mui/material";
 
 export const customersColumns = [
   {
-    accessorKey: "img", //access nested data with dot notation
+    accessorKey: "img",
     header: "Image",
     size: 100,
     Cell: ({ cell }) => (
@@ -12,7 +12,7 @@ export const customersColumns = [
     ),
   },
   {
-    accessorKey: "customer_name", //access nested data with dot notation
+    accessorKey: "customer_name",
     header: "Customer Name",
   },
   {
@@ -20,7 +20,7 @@ export const customersColumns = [
     header: "Email",
   },
   {
-    accessorKey: "address", //normal accessorKey
+    accessorKey: "address",
     header: "Address",
   },
   {
