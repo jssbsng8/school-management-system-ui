@@ -1,4 +1,4 @@
-import { errorToast, successToast } from "../components/utils/toastUtils";
+import { errorToast } from "../components/utils/toastUtils";
 
 // ======================= GET AUTHENTICATED USER DATA =======================
 
@@ -16,12 +16,13 @@ export const athenticatedUser = async (url) => {
             const responseData = await response.json();
             return JSON.stringify(responseData);
         } else {
-            const message = `Access Denied: ${response.statusText}!`
-            errorToast(message);
+            // const message = `Access Denied: ${response.statusText}!`
+            // errorToast(message);
+            return
         }
     } catch (error) {
         const message = `Error during logout: ${error}`
-        successToast(message);
+        errorToast(message);
     }
 }
 
