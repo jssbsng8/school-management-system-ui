@@ -19,12 +19,18 @@ export const UserProvider = ({ children }) => {
         if (getUser) {
           setUser(JSON.parse(getUser));
           setAuth(true);
+          
+          const parsedUserData = JSON.parse(getUser);
+          localStorage.setItem('userData', JSON.stringify({
+            'auth': true,
+            'role': parsedUserData.role
+          }));
         } else {
           setUserContext(null, false);
   
           localStorage.removeItem('token');
-          localStorage.removeItem('loggedInUser');
-          localStorage.removeItem('auth');
+          localStorage.removeItem('userData');
+          navigate('/login')
         }
       } catch (error) {
         console.error("Error fetching authenticated user:", error);
@@ -37,10 +43,6 @@ export const UserProvider = ({ children }) => {
   const setUserContext = (userData, authStatus) => {
     setUser(userData);
     setAuth(authStatus);
-
-    // Save user data and auth status to local storage
-    localStorage.setItem('loggedInUser', JSON.stringify(userData));
-    localStorage.setItem('auth', JSON.stringify(authStatus));
   };
 
   const setAuthStatus = (newAuthStatus) => {

@@ -71,7 +71,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
       const message = `Login error Server is Down!`
       errorToast(message);
       setLoading(false);
-      console.log('Login successful:', error);
+      console.log('error loggin in:', error);
       }
     }
   };

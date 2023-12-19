@@ -102,10 +102,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Authentication />} />
           <Route path="/success" element={<SuccessPage />} />
-          <Route
-            path="/*"
-            element={<Navigate to="/login" />}
-          />
+          
         </Routes>
         <ToastContainer />
         </>

@@ -27,22 +27,20 @@ const ProfileMenu = () => {
   const handleLogout = async () => {
     // ======================= LOGOUT =======================
     const logoutApiUrl = AUTH_ENDPOINTS.LOGOUT;
+    const token = localStorage.getItem('token');
     try {
         const response = await fetch(logoutApiUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Token ${localStorage.getItem('token')}`,
+            Authorization: `Token ${token}`,
         },
         });
 
         if (response.ok) {
-          localStorage.removeItem('token');
-
           setUserContext(null, false);
-          localStorage.removeItem('loggedInUser');
-          localStorage.removeItem('auth');
-
+          localStorage.removeItem('userData');
+          localStorage.removeItem('token');
           navigate('/login');
         } else {
         // Handle logout failure

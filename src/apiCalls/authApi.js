@@ -15,9 +15,8 @@ export const athenticatedUser = async (url) => {
         if (response.ok) {
             const responseData = await response.json();
             return JSON.stringify(responseData);
-        } else {
-            // const message = `Access Denied: ${response.statusText}!`
-            // errorToast(message);
+        } 
+        else {
             return
         }
     } catch (error) {
