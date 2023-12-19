@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Sidebar from "./components/common/Sidebar";
 import Dashboard from "./pages/Dashboard";
@@ -9,7 +9,6 @@ import Navbar from "./components/common/Navbar";
 import {
   AddProduct,
   Brands,
-  // Customers,
   Inbox,
   Orders,
   OrderTemplate,
@@ -102,7 +101,6 @@ function App() {
         <Routes>
           <Route path="/login" element={<Authentication />} />
           <Route path="/success" element={<SuccessPage />} />
-          
         </Routes>
         <ToastContainer />
         </>

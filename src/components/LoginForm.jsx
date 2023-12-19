@@ -59,8 +59,9 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
       // Store the token or user information in local storage or state
       localStorage.setItem('token', responseData.auth_token);
       const loggedInUserData = await athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER)
-      
-      setUserContext(JSON.parse(loggedInUserData), true);
+
+      const parsedUserData = JSON.parse(loggedInUserData);
+      setUserContext(JSON.parse(loggedInUserData), true, parsedUserData.role);
 
       const message = 'Login successful'
       successToast(message.toUpperCase());

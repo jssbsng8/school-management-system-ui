@@ -3,55 +3,54 @@ import { useNavigate } from 'react-router-dom';
 import { athenticatedUser } from '../../apiCalls/authApi';
 import { USER_ENDPOINTS } from '../../apiCalls/endpoints';
 
-
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
-  const navigate = useNavigate()
+  const [role, setRole] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAuthenticatedUser = async () => {
       try {
         const getUser = await athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER);
-  
+
         if (getUser) {
-          setUser(JSON.parse(getUser));
-          setAuth(true);
-          
           const parsedUserData = JSON.parse(getUser);
-          localStorage.setItem('userData', JSON.stringify({
-            'auth': true,
-            'role': parsedUserData.role
-          }));
+          setUser(parsedUserData);
+          setAuth(true);
+          setRole(parsedUserData.role);
+          // localStorage.setItem('userData', JSON.stringify({
+          //   'auth': true,
+          //   'role': parsedUserData.role
+          // }));
         } else {
-          setUserContext(null, false);
-  
+          setUserContext(null, false, null);
           localStorage.removeItem('token');
-          localStorage.removeItem('userData');
-          navigate('/login')
+          // localStorage.removeItem('userData');
+          navigate('/login');
         }
       } catch (error) {
         console.error("Error fetching authenticated user:", error);
       }
     };
-  
+
     fetchAuthenticatedUser();
   }, [navigate]);
 
-  const setUserContext = (userData, authStatus) => {
+  const setUserContext = (userData, authStatus, UserRole) => {
     setUser(userData);
     setAuth(authStatus);
+    setRole(UserRole);
   };
 
   const setAuthStatus = (newAuthStatus) => {
     setAuth(newAuthStatus);
-    localStorage.setItem('auth', JSON.stringify(newAuthStatus));
   };
 
   return (
-    <UserContext.Provider value={{ user, auth, setUserContext, setAuthStatus }}>
+    <UserContext.Provider value={{ user, auth, role, setUserContext, setAuthStatus, setRole }}>
       {children}
     </UserContext.Provider>
   );
