@@ -72,7 +72,6 @@ export const navigationLinks = (ROLE) => {
       {
         name: "Attendance",
         icon: <FaShare />,
-        url: "/suppliers",
         subLinks: [
           {
             name: "Take Attendance",
@@ -80,7 +79,7 @@ export const navigationLinks = (ROLE) => {
           },
           {
             name: "Attendance Record",
-            url: "/products",
+            url: "/",
           },
         ],
       },
@@ -304,10 +303,6 @@ export const navigationLinks = (ROLE) => {
         name: "Reviews",
         icon: <FiMessageCircle />,
         subLinks: [
-          {
-            name: "Teachers Review",
-            url: "/reviews",
-          },
           {
             name: "Student Review",
             url: "/products",
