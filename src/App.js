@@ -50,6 +50,7 @@ function App() {
     <>
       {auth ? (
         <Box sx={{ display: "flex" }}>
+          <ToastContainer />
           <Navbar
             sideBarWidth={sideBarWidth}
             handleDrawerToggle={handleDrawerToggle}
