@@ -300,11 +300,16 @@ export const navigationLinks = (ROLE) => {
         url: "/brands",
       },
       {
+        name: "Apply Leave",
+        icon: <FaHandshake />,
+        url: "/leave",
+      },
+      {
         name: "Reviews",
         icon: <FiMessageCircle />,
         subLinks: [
           {
-            name: "Student Review",
+            name: "Teachers Reviews",
             url: "/products",
           },
         ],
@@ -322,6 +327,11 @@ export const navigationLinks = (ROLE) => {
             url: "/orders/template",
           },
         ],
+      },
+      {
+        name: "Notice Board",
+        icon: <FaHandshake />,
+        url: "/notice_board",
       },
       {
         name: "Settings",
