@@ -280,7 +280,7 @@ export const navigationLinks = (ROLE) => {
           },
           {
             name: "Exam Results",
-            url: "/results",
+            url: "/exam_result",
           },
         ],
       },
@@ -292,7 +292,7 @@ export const navigationLinks = (ROLE) => {
       {
         name: "Results",
         icon: <FaHandshake />,
-        url: "/transactions",
+        url: "/results",
       },
       {
         name: "Notifications",
