@@ -28,5 +28,7 @@ export { default as ExamSchedule } from  "./ExamSchedule";
 export { default as Attendance } from  "./Attendance";
 export { default as GeneralResult } from  "./GeneralResult";
 export { default as StudentLeave } from "./StudentLeave";
-export { default as StudentLeaveApply} from "./StudentLeaveApply"
-export { default as NoticeBoard} from "./NoticeBoard"
+export { default as StudentLeaveApply} from "./StudentLeaveApply";
+export { default as NoticeBoard} from "./NoticeBoard";
+export { default as TeachersReviews } from "./TeachersReview";
+export { default as TeachersAddReview} from "./TeachersAddReview";
