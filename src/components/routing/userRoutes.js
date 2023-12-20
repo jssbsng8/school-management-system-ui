@@ -26,7 +26,9 @@ import {
     GeneralResult,
     StudentLeave,
     StudentLeaveApply,
-    NoticeBoard
+    NoticeBoard,
+    TeachersReviews,
+    TeachersAddReview
   } from '../../pages';
   
 export const roleRoutes = {
@@ -69,6 +71,8 @@ export const roleRoutes = {
         <Route path="/exam_schedules" element={<ExamSchedule />} />,
         <Route path="/results" element={<GeneralResult />} />,
         <Route path="/notice_board" element={<NoticeBoard />} />,
+        <Route path="/teachers_reviews" element={<TeachersReviews />} />,
+        <Route path="/review_teacher" element={<TeachersAddReview />} />,
     ],
   };
 
