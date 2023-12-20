@@ -26,7 +26,7 @@ const Teachers = () => {
         enablePagination={true}
         enableRowSelection={false}
         enableColumnFilters={true}
-        enableEditing={true}
+        enableEditing={false}
         enableColumnDragging={true}
         showPreview={true}
         routeLink="teachers"
