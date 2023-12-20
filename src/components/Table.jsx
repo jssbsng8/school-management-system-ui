@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useMemo, useState } from "react";
 import MaterialReactTable from "material-react-table";
-import { Button, IconButton, Tooltip } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { FiEye, FiTrash } from "react-icons/fi";
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
@@ -68,17 +68,17 @@ export const Table = ({
         </Box>
         
       )}
-      renderTopToolbarCustomActions={({ table }) => (
-        <Button
-          disableElevation
-          color="error"
-          // disabled={!table.getIsSomeRowsSelected()}
-          variant="contained"
-          // onClick={handleDelete}
-        >
-          Delete Selected
-        </Button>
-      )}
+      // renderTopToolbarCustomActions={({ table }) => (
+      //   <Button
+      //     disableElevation
+      //     color="error"
+      //     // disabled={!table.getIsSomeRowsSelected()}
+      //     variant="contained"
+      //     onClick={handleDelete}
+      //   >
+      //     Delete Selected
+      //   </Button>
+      // )}
       muiTableBodyRowProps={{ hover: false }}
       muiTablePaperProps={{
         sx: {
