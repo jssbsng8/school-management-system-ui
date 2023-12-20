@@ -24,7 +24,9 @@ import {
     ExamResult,
     ExamSchedule,
     Attendance,
-    GeneralResult
+    GeneralResult,
+    StudentLeave,
+    StudentLeaveApply
   } from '../../pages';
   
 export const roleRoutes = {
@@ -58,7 +60,8 @@ export const roleRoutes = {
         <Route path="/orders/:id" element={<SingleOrder />} />,
         <Route path="/attendance" element={<Attendance />} />,
         <Route path="/transactions" element={<Transactions />} />,
-        <Route path="/brands" element={<Brands />} />,
+        <Route path="/leave" element={<StudentLeave />} />,
+        <Route path="/leave/apply" element={<StudentLeaveApply />} />,
         <Route path="/reviews" element={<Reviews />} />,
         <Route path="/settings" element={<Settings />} />,
         <Route path="/reviews" element={<Reviews />} />,
