@@ -2,49 +2,50 @@ import * as React from "react";
 import { Routes, Route } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Sidebar from "./components/common/Sidebar";
-import Dashboard from "./pages/Dashboard";
+// import Dashboard from "./pages/Dashboard";
 // import AdminDashboard from "./pages/AdminDashboard";
 import Authentication from "./pages/Authentication"
 import Navbar from "./components/common/Navbar";
 import {
-  AddProduct,
-  Brands,
-  Inbox,
-  Orders,
-  OrderTemplate,
-  ProductCategories,
-  Products,
-  ProductSales,
-  Reviews,
-  SalesAnalytics,
-  Settings,
-  SingleCustomer,
-  SingleOrder,
-  SingleProduct,
-  Suppliers,
-  Transactions,
-  Timetable,
-  Teachers,
-  SingleTeacher,
-  Subjects,
-  Classmates,
+  // AddProduct,
+  // Brands,
+  // Inbox,
+  // Orders,
+  // OrderTemplate,
+  // ProductCategories,
+  // Products,
+  // ProductSales,
+  // Reviews,
+  // SalesAnalytics,
+  // Settings,
+  // SingleCustomer,
+  // SingleOrder,
+  // SingleProduct,
+  // Suppliers,
+  // Transactions,
+  // Timetable,
+  // Teachers,
+  // SingleTeacher,
+  // Subjects,
+  // Classmates,
   SuccessPage,
 } from "./pages";
 import Footer from "./components/common/Footer";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useUser } from "./components/utils/userContext";
+import { roleRoutes } from "./components/routing/userRoutes";
 
 const sideBarWidth = 250;
 
 function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const {auth} = useUser();
+  const {auth, role} = useUser();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  const userRoutes = roleRoutes[role] || roleRoutes.Student; // Default to Student if role is not recognized
   return (
     <>
       {auth ? (
@@ -68,30 +69,7 @@ function App() {
           >
             {/* Routes */}
             <Routes>
-              <Route path="/" element={<Dashboard />} />
-              {/* <Route path="/" element={<AdminDashboard />} /> */}
-              <Route path="/products" element={<Products />} />
-              <Route path="/products/add" element={<AddProduct />} />
-              <Route path="/products/:id" element={<SingleProduct />} />
-              <Route path="/products/categories" element={<ProductCategories />} />
-              <Route path="/timetable" element={<Timetable />} />
-              <Route path="/teachers" element={<Teachers />} />
-              <Route path="/subjects" element={<Subjects />} />
-              <Route path="/classmates" element={<Classmates />} />
-              <Route path="/customers/:id" element={<SingleCustomer />} />
-              <Route path="/teachers/:id" element={<SingleTeacher />} />
-              <Route path="/sales/analysis" element={<SalesAnalytics />} />
-              <Route path="/sales" element={<ProductSales />} />
-              <Route path="/orders" element={<Orders />} />
-              <Route path="/orders/template" element={<OrderTemplate />} />
-              <Route path="/orders/:id" element={<SingleOrder />} />
-              <Route path="/suppliers" element={<Suppliers />} />
-              <Route path="/transactions" element={<Transactions />} />
-              <Route path="/brands" element={<Brands />} />
-              <Route path="/reviews" element={<Reviews />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/reviews" element={<Reviews />} />
-              <Route path="/inbox" element={<Inbox />} />
+              {userRoutes}
             </Routes>
             <Footer />
           </Box>
