@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   FormControl,
   InputLabel,
   MenuItem,
@@ -10,9 +9,45 @@ import {
   Typography,
 } from "@mui/material";
 import { teachersReviewData } from "../data/teachersReviewsData";
+import LoadingButton from '@mui/lab/LoadingButton';
+import { successToast, errorToast } from "../components/utils/toastUtils";
+import React, { useState } from "react";
 
 const TeachersAddReview = () => {
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    teacherName: "",
+    classroom: "",
+    rating: 1,
+    review: "",
+  });
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleRatingChange = (event) => {
+    const rating = parseFloat(event.target.value);
+    setFormData({ ...formData, rating });
+  };
+
+  const handleFormSubmit = async() => {
+    setLoading(true)
+    // Handle logic for checking exam results based on selectedSession and selectedClassroom
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    
+    const response = {"ok": true, "status_code": 200};
+    if (response.ok){
+        console.log(formData);
+        setLoading(false)
+        successToast('Submitted!')
+    }
+    else{
+        errorToast('Error Submitting Form')
+        setLoading(false)
+    }
+};
   return (
     <Box sx={{ pt: "80px", pb: "20px" }}>
       <Typography variant="h6" sx={{ marginBottom: "14px" }}>
@@ -37,11 +72,13 @@ const TeachersAddReview = () => {
             <InputLabel id="role-label">Teacher Name</InputLabel>
             <Select
               labelId="role-label"
-              id="name"
-              name="name"
-              autoComplete=""
+              id="teacherName"
+              name="teacherName"
+              autoComplete="teacherName"
               label="Teacher Name"
               required
+              value={formData.teacherName}
+              onChange={handleInputChange}
             >
               {teachersReviewData?.map(({ id, name }) => (
                 <MenuItem value={name} key={id}>
@@ -54,20 +91,22 @@ const TeachersAddReview = () => {
 
         <Box sx={{ mt: 4 }}>
         <FormControl fullWidth margin="normal" required>
-            <InputLabel id="role-label">Class Room</InputLabel>
-            <Select
-              labelId="role-label"
-              id="classroom"
-              name="classroom"
-              autoComplete="classroom"
-              label="Class Room"
-              required
-            >
-              <MenuItem value="Admin">Class A</MenuItem>
-              <MenuItem value="Student">Class B</MenuItem>
-              <MenuItem value="Teacher">Class C</MenuItem>
-            </Select>
-          </FormControl>
+          <InputLabel id="role-label">Class Room</InputLabel>
+          <Select
+            labelId="role-label"
+            id="classroom"
+            name="classroom"
+            autoComplete="classroom"
+            label="Class Room"
+            required
+            value={formData.classroom}
+            onChange={handleInputChange}
+          >
+            <MenuItem value="Class A">Class A</MenuItem>
+            <MenuItem value="Class B">Class B</MenuItem>
+            <MenuItem value="Class C">Class C</MenuItem>
+          </Select>
+        </FormControl>
         </Box>
 
         <Box sx={{ mt: 4 }}>
@@ -82,16 +121,22 @@ const TeachersAddReview = () => {
                 max: 5,
                 step: 0.1,
                 }}
+                name="rating"
+                value={formData.rating}
+                onChange={handleRatingChange}
             />
         </Box>
 
         <Box sx={{ mt: 4 }}>
           <TextField
-            label="Product Description"
+            label="Review"
             variant="outlined"
             rows={4}
             fullWidth
             multiline
+            name="review"
+            value={formData.review}
+            onChange={handleInputChange}
           />
         </Box>
 
@@ -103,9 +148,15 @@ const TeachersAddReview = () => {
             mt: "30px",
           }}
         >
-          <Button variant="contained" sx={{ borderRadius: "20px" }}>
-            Submit
-          </Button>
+          <LoadingButton 
+                variant="contained" 
+                onClick={handleFormSubmit} 
+                loading={loading}
+                loadingPosition="start"
+                sx={{ mt: 3, mb: 2, width: "25%" }}
+                >
+                {loading ? 'Submitting...' : 'Submit'}
+          </LoadingButton>
         </Box>
       </Paper>
     </Box>
