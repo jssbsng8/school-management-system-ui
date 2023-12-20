@@ -39,8 +39,7 @@ const ProfileMenu = () => {
 
         if (response.ok) {
           setUserContext(null, false);
-          localStorage.removeItem('userData');
-          localStorage.removeItem('token');
+          localStorage.clear()
           navigate('/login');
         } else {
         // Handle logout failure
