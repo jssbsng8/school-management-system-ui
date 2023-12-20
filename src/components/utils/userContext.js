@@ -21,14 +21,13 @@ export const UserProvider = ({ children }) => {
           setUser(parsedUserData);
           setAuth(true);
           setRole(parsedUserData.role);
-          // localStorage.setItem('userData', JSON.stringify({
-          //   'auth': true,
-          //   'role': parsedUserData.role
-          // }));
+          localStorage.setItem('userData', JSON.stringify({
+            'auth': true,
+            'role': parsedUserData.role
+          }));
         } else {
           setUserContext(null, false, null);
-          localStorage.removeItem('token');
-          // localStorage.removeItem('userData');
+          localStorage.clear()
           navigate('/login');
         }
       } catch (error) {
