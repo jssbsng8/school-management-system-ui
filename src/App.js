@@ -2,34 +2,9 @@ import * as React from "react";
 import { Routes, Route } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Sidebar from "./components/common/Sidebar";
-// import Dashboard from "./pages/Dashboard";
-// import AdminDashboard from "./pages/AdminDashboard";
 import Authentication from "./pages/Authentication"
 import Navbar from "./components/common/Navbar";
-import {
-  // AddProduct,
-  // Brands,
-  // Inbox,
-  // Orders,
-  // OrderTemplate,
-  // ProductCategories,
-  // Products,
-  // ProductSales,
-  // Reviews,
-  // SalesAnalytics,
-  // Settings,
-  // SingleCustomer,
-  // SingleOrder,
-  // SingleProduct,
-  // Suppliers,
-  // Transactions,
-  // Timetable,
-  // Teachers,
-  // SingleTeacher,
-  // Subjects,
-  // Classmates,
-  SuccessPage,
-} from "./pages";
+import { SuccessPage } from "./pages";
 import Footer from "./components/common/Footer";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
