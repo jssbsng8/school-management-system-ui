@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 import BarChart from "../components/home/charts/BarChart";
-// import Stats from "../components/home/stats/Stats";
 import TeachersList from "../components/home/TeachersList";
 import Subjects from "../components/home/Subjects";
 import {Table} from "../components/Table";
