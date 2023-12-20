@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Paper, FormControl, InputLabel, MenuItem, Select, Button, Box } from "@mui/material";
+import { Typography, Paper, FormControl, InputLabel, MenuItem, Select, Box } from "@mui/material";
 import LoadingButton from '@mui/lab/LoadingButton';
 
 const GeneralResultForm = ({ onSubmit }) => {
