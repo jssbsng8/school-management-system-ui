@@ -276,18 +276,18 @@ export const navigationLinks = (ROLE) => {
         subLinks: [
           {
             name: "Exam Schedules",
-            url: "/sales/analysis",
+            url: "/exam_schedules",
           },
           {
             name: "Exam Results",
-            url: "/sales",
+            url: "/results",
           },
         ],
       },
       {
         name: "Attendance",
         icon: <FaShare />,
-        url: "/suppliers",
+        url: "/attendance",
       },
       {
         name: "Results",
