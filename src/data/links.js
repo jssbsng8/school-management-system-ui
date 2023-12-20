@@ -310,7 +310,7 @@ export const navigationLinks = (ROLE) => {
         subLinks: [
           {
             name: "Teachers Reviews",
-            url: "/products",
+            url: "/teachers_reviews",
           },
         ],
       },
