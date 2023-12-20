@@ -2,7 +2,6 @@
 import { Route } from "react-router-dom";
 import {
     AddProduct,
-    Brands,
     Inbox,
     Orders,
     OrderTemplate,
@@ -26,7 +25,8 @@ import {
     Attendance,
     GeneralResult,
     StudentLeave,
-    StudentLeaveApply
+    StudentLeaveApply,
+    NoticeBoard
   } from '../../pages';
   
 export const roleRoutes = {
@@ -68,6 +68,7 @@ export const roleRoutes = {
         <Route path="/inbox" element={<Inbox />} />,
         <Route path="/exam_schedules" element={<ExamSchedule />} />,
         <Route path="/results" element={<GeneralResult />} />,
+        <Route path="/notice_board" element={<NoticeBoard />} />,
     ],
   };
 
