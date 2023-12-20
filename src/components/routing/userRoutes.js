@@ -23,7 +23,8 @@ import {
     Dashboard,
     ExamResult,
     ExamSchedule,
-    Attendance
+    Attendance,
+    GeneralResult
   } from '../../pages';
   
 export const roleRoutes = {
@@ -51,7 +52,7 @@ export const roleRoutes = {
         <Route path="/customers/:id" element={<SingleCustomer />} />,
         <Route path="/teachers/:id" element={<SingleTeacher />} />,
         <Route path="/sales/analysis" element={<SalesAnalytics />} />,
-        <Route path="/results" element={<ExamResult />} />,
+        <Route path="/exam_result" element={<ExamResult />} />,
         <Route path="/orders" element={<Orders />} />,
         <Route path="/orders/template" element={<OrderTemplate />} />,
         <Route path="/orders/:id" element={<SingleOrder />} />,
@@ -63,6 +64,7 @@ export const roleRoutes = {
         <Route path="/reviews" element={<Reviews />} />,
         <Route path="/inbox" element={<Inbox />} />,
         <Route path="/exam_schedules" element={<ExamSchedule />} />,
+        <Route path="/results" element={<GeneralResult />} />,
     ],
   };
 
