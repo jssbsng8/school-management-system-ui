@@ -8,8 +8,8 @@ export const subjectColumns = [
     header: "Code",
   },
   {
-    accessorKey: "last_score",
-    header: "Last Score",
+    accessorKey: "class_room",
+    header: "Class Room",
   },
 ];
 
