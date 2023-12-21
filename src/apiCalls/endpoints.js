@@ -27,5 +27,7 @@ export const CORE = {
   GET_STUDENT: (studentId) => `${BASE_URL}/auth/users/${studentId}/`,
   GET_SUBJECT: (subjectId) => `${BASE_URL}/auth/users/${subjectId}/`,
   GET_TEACHER: (teacherId) => `${BASE_URL}/auth/users/${teacherId}/`,
+  GET_ASSIGNED_SUBJECTS:  `${BASE_URL}/core/teachers/get_assigned_subjects/`,
+  GET_ENROLLED_SUBJECTS:  `${BASE_URL}/core/students/get_enrolled_subjects/`,
 };
 
