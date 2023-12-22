@@ -1,10 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import Table from "../components/Table";
-
-import { subjects, subjectColumns } from "../data/subjects";
+import { useUser } from "../components/utils/userContext";
+import { subjectColumns } from "../data/subjects";
 
 const Subjects = () => {
+  const { subjects, role } = useUser()
   return (
     <Box sx={{ pt: "80px", pb: "20px" }}>
       <Box
@@ -15,7 +16,9 @@ const Subjects = () => {
           marginBottom: "16px",
         }}
       >
-        <Typography variant="h6">Assigned Subjects</Typography>
+        <Typography variant="h6">
+          {role === 'Student' ? 'Enrolled Subjects' : 'Assigned Subjects'}
+        </Typography>
       </Box>
       <Table
         data={subjects}
