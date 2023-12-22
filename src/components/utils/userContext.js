@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { athenticatedUser } from '../../apiCalls/authApi';
-import { USER_ENDPOINTS } from '../../apiCalls/endpoints';
+import { athenticatedUser, get_enrolled_subjects, get_assigned_subjects } from '../../apiCalls/authApi';
+import { USER_ENDPOINTS, CORE } from '../../apiCalls/endpoints';
 
 const UserContext = createContext();
 
@@ -9,15 +9,17 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
   const [role, setRole] = useState(null);
+  const [subjects, setSubject] = useState(null);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     const fetchAuthenticatedUser = async () => {
       try {
         const getUser = await athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER);
+        const parsedUserData = JSON.parse(getUser);
 
         if (getUser) {
-          const parsedUserData = JSON.parse(getUser);
           setUser(parsedUserData);
           setAuth(true);
           setRole(parsedUserData.role);
@@ -25,6 +27,7 @@ export const UserProvider = ({ children }) => {
             'auth': true,
             'role': parsedUserData.role
           }));
+          
         } else {
           setUserContext(null, false, null);
           localStorage.clear()
@@ -34,10 +37,35 @@ export const UserProvider = ({ children }) => {
         console.error("Error fetching authenticated user:", error);
       }
     };
-
     fetchAuthenticatedUser();
+    // console.log(role);
   }, [navigate]);
 
+
+  useEffect(()=> {
+    const fetchData = async () => {
+      try {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        const getRole = userData.role;
+  
+        if (getRole === "Student") {
+          const enrolledSubjectsJsonString = await get_enrolled_subjects(CORE.GET_ENROLLED_SUBJECTS);
+          const enrolledSubjects = JSON.parse(enrolledSubjectsJsonString);
+          setSubject(enrolledSubjects);
+        }
+        else if (getRole === "Teacher"){
+          const assignedSubjectsJsonString = await get_assigned_subjects(CORE.GET_ASSIGNED_SUBJECTS);
+          const assignedSubjects = JSON.parse(assignedSubjectsJsonString);
+          setSubject(assignedSubjects);
+        }
+      } catch (error) {
+        console.error('Error fetching enrolled subjects:', error);
+      }
+    };
+  
+    fetchData();
+  },[])
+  console.log(subjects);
   const setUserContext = (userData, authStatus, UserRole) => {
     setUser(userData);
     setAuth(authStatus);
@@ -47,9 +75,9 @@ export const UserProvider = ({ children }) => {
   const setAuthStatus = (newAuthStatus) => {
     setAuth(newAuthStatus);
   };
-
+  
   return (
-    <UserContext.Provider value={{ user, auth, role, setUserContext, setAuthStatus, setRole }}>
+    <UserContext.Provider value={{ user, auth, role, subjects, setUserContext, setAuthStatus, setRole }}>
       {children}
     </UserContext.Provider>
   );
