@@ -1,19 +1,20 @@
-import { BsCurrencyDollar } from "react-icons/bs";
-import { FaHandshake, FaShare } from "react-icons/fa";
+import { HiOutlineClipboardList } from "react-icons/hi";
+import { FaRegCalendarCheck } from "react-icons/fa";
+import { MdOutlineRateReview, MdCheckCircleOutline, MdNotificationsNone } from "react-icons/md";
+import { IoDocumentAttachOutline } from "react-icons/io5";
+import { GiBlackBook } from "react-icons/gi";
+import { IoMdCheckboxOutline } from "react-icons/io";
 import {
   FiHome,
-  FiLayers,
   FiMail,
   FiMessageCircle,
   FiSettings,
-  FiShoppingBag,
-  FiShoppingCart,
   FiUsers,
 } from "react-icons/fi";
 
 
-export const navigationLinks = (ROLE) => {
-  if (ROLE === 'Admin') {
+export const navigationLinks = (role) => {
+  if (role === 'Admin') {
     return [
       {
         name: "Dashboard",
@@ -22,7 +23,7 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Activities",
-        icon: <FiShoppingBag />,
+        icon: <HiOutlineClipboardList />,
         subLinks: [
           {
             name: "Students",
@@ -57,7 +58,7 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Examination",
-        icon: <BsCurrencyDollar />,
+        icon: <GiBlackBook />,
         subLinks: [
           {
             name: "Exam Schedules",
@@ -71,7 +72,7 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Attendance",
-        icon: <FaShare />,
+        icon: <FaRegCalendarCheck />,
         subLinks: [
           {
             name: "Take Attendance",
@@ -85,17 +86,17 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Results",
-        icon: <FaHandshake />,
+        icon: <IoMdCheckboxOutline />,
         url: "/transactions",
       },
       {
         name: "Notifications",
-        icon: <FiLayers />,
+        icon: <MdNotificationsNone />,
         url: "/brands",
       },
       {
         name: "Reviews",
-        icon: <FiMessageCircle />,
+        icon: <MdOutlineRateReview />,
         subLinks: [
           {
             name: "Teachers Review",
@@ -109,7 +110,7 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Documentation",
-        icon: <FiShoppingCart />,
+        icon: <IoDocumentAttachOutline />,
         subLinks: [
           {
             name: "Registration Information",
@@ -128,11 +129,11 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Inbox",
-        icon: <FiMail />,
+        icon: <FiMessageCircle />,
         url: "/inbox",
       },
     ];
-  } else if (ROLE === 'Teacher') {
+  } else if (role === 'Teacher') {
     return [
       {
         name: "Dashboard",
@@ -141,30 +142,30 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Activities",
-        icon: <FiShoppingBag />,
+        icon: <HiOutlineClipboardList />,
         subLinks: [
           {
             name: "Students",
-            url: "/products",
+            url: "/students",
           },
           {
             name: "Subjects Taken",
-            url: "/products/add",
+            url: "/subjects",
           },
           {
             name: "Class Rooms",
-            url: "/products/categories",
+            url: "/classrooms",
           },
         ],
       },
       {
         name: "Class Timetable",
         icon: <FiUsers />,
-        url: "/customers",
+        url: "/timetable",
       },
       {
         name: "Examination",
-        icon: <BsCurrencyDollar />,
+        icon: <GiBlackBook />,
         subLinks: [
           {
             name: "Exam Schedules",
@@ -178,7 +179,7 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Attendance",
-        icon: <FaShare />,
+        icon: <FaRegCalendarCheck />,
         url: "/suppliers",
         subLinks: [
           {
@@ -193,31 +194,27 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Results",
-        icon: <FaHandshake />,
+        icon: <IoMdCheckboxOutline />,
         url: "/transactions",
       },
       {
         name: "Notifications",
-        icon: <FiLayers />,
+        icon: <MdNotificationsNone />,
         url: "/brands",
       },
       {
         name: "Reviews",
-        icon: <FiMessageCircle />,
+        icon: <MdOutlineRateReview />,
         subLinks: [
           {
-            name: "Teachers Review",
-            url: "/reviews",
-          },
-          {
-            name: "Student Review",
-            url: "/reviews",
+            name: "Student Reviews",
+            url: "/teachers_reviews",
           },
         ],
       },
       {
         name: "Documentation",
-        icon: <FiShoppingCart />,
+        icon: <IoDocumentAttachOutline />,
         subLinks: [
           {
             name: "Registration Information",
@@ -236,7 +233,7 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Inbox",
-        icon: <FiMail />,
+        icon: <FiMessageCircle />,
         url: "/inbox",
       },
     ];
@@ -249,7 +246,7 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Activities",
-        icon: <FiShoppingBag />,
+        icon: <HiOutlineClipboardList />,
         subLinks: [
           {
             name: "Teachers",
@@ -272,7 +269,7 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Examination",
-        icon: <BsCurrencyDollar />,
+        icon: <GiBlackBook />,
         subLinks: [
           {
             name: "Exam Schedules",
@@ -286,27 +283,27 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Attendance",
-        icon: <FaShare />,
+        icon: <FaRegCalendarCheck />,
         url: "/attendance",
       },
       {
         name: "Results",
-        icon: <FaHandshake />,
+        icon: <IoMdCheckboxOutline />,
         url: "/results",
       },
       {
         name: "Notifications",
-        icon: <FiLayers />,
+        icon: <MdNotificationsNone />,
         url: "/brands",
       },
       {
         name: "Apply Leave",
-        icon: <FaHandshake />,
+        icon: <MdCheckCircleOutline />,
         url: "/leave",
       },
       {
         name: "Reviews",
-        icon: <FiMessageCircle />,
+        icon: <MdOutlineRateReview />,
         subLinks: [
           {
             name: "Teachers Reviews",
@@ -316,7 +313,7 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Documentation",
-        icon: <FiShoppingCart />,
+        icon: <IoDocumentAttachOutline />,
         subLinks: [
           {
             name: "Registration Information",
@@ -330,7 +327,7 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Notice Board",
-        icon: <FaHandshake />,
+        icon: <FiMail />,
         url: "/notice_board",
       },
       {
@@ -340,7 +337,7 @@ export const navigationLinks = (ROLE) => {
       },
       {
         name: "Inbox",
-        icon: <FiMail />,
+        icon: <FiMessageCircle />,
         url: "/inbox",
       },
     ];
