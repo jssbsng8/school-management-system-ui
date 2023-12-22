@@ -45,7 +45,9 @@ function App() {
           >
             {/* Routes */}
             <Routes>
-              {userRoutes}
+            {userRoutes.map((route) => (
+              <Route key={route.id} path={route.path} element={route.element} />
+            ))}
             </Routes>
             <Footer />
           </Box>
