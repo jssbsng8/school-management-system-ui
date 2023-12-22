@@ -28,7 +28,8 @@ import {
     StudentLeaveApply,
     NoticeBoard,
     TeachersReviews,
-    TeachersAddReview
+    TeachersAddReview,
+
   } from '../../pages';
   
 export const roleRoutes = {
@@ -40,7 +41,15 @@ export const roleRoutes = {
     Teacher: [
       // Teacher Routes
       <Route key="teacher-dashboard" path="/" element={<Dashboard />} />,
-      <Route key="teacher-products" path="/products" element={<Products />} />,
+      <Route path="/subjects" element={<Subjects />} />,
+      <Route path="/settings" element={<Settings />} />,
+      <Route path="/notice_board" element={<NoticeBoard />} />,
+      <Route path="/attendance" element={<Attendance />} />,
+      <Route path="/timetable" element={<Timetable />} />,
+      <Route path="/leave" element={<StudentLeave />} />,
+      <Route path="/inbox" element={<Inbox />} />,
+
+
     ],
     Student: [
       // Student Routes
