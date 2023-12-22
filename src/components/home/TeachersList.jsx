@@ -32,7 +32,7 @@ const TeachersList = () => {
           <Box sx={{ marginTop: 1 }}>
             {Users
               .slice(0, 2)
-              .map(({ customer_id, customer_name, email, img }) => (
+              .map(({ id, customer_name, email, img }) => (
                 <Box
                   sx={{
                     display: "flex",
@@ -40,7 +40,7 @@ const TeachersList = () => {
                     justifyContent: "space-between",
                     margin: "10px 0",
                   }}
-                  key={customer_id}
+                  key={id}
                 >
                   <Box
                     sx={{
