@@ -16,10 +16,9 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const fetchAuthenticatedUser = async () => {
       try {
-        const getUser = await athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER);
-        const parsedUserData = JSON.parse(getUser);
-
+        const getUser = await athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER);        
         if (getUser) {
+          const parsedUserData = JSON.parse(getUser);
           setUser(parsedUserData);
           setAuth(true);
           setRole(parsedUserData.role);
@@ -46,7 +45,7 @@ export const UserProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         const userData = JSON.parse(localStorage.getItem('userData'));
-        const getRole = userData.role;
+        const getRole = userData ? userData.role : null;
   
         if (getRole === "Student") {
           const enrolledSubjectsJsonString = await get_enrolled_subjects(CORE.GET_ENROLLED_SUBJECTS);
@@ -65,7 +64,7 @@ export const UserProvider = ({ children }) => {
   
     fetchData();
   },[])
-  console.log(subjects);
+  
   const setUserContext = (userData, authStatus, UserRole) => {
     setUser(userData);
     setAuth(authStatus);
