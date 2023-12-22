@@ -34,7 +34,7 @@ export const ordersColumns = [
     ),
   },
   {
-    accessorKey: "amount",
+    accessorKey: "ll",
     header: "Amount",
   },
 ];
