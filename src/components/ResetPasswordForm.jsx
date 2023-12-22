@@ -5,10 +5,12 @@ import Link from '@mui/material/Link';
 import { successToast, errorToast } from './utils/toastUtils';
 import { isEmailValid } from './utils/dataValidator';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { useNavigate } from "react-router-dom";
 
 
 const ResetPasswordForm = ({ onSubmit, onCancel }) => {
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     const handleResetPassword = async (event) => {
         event.preventDefault();
         setLoading(true);
@@ -18,17 +20,17 @@ const ResetPasswordForm = ({ onSubmit, onCancel }) => {
         if (validated[1] === 'error'){
             errorToast(validated[0])
             setLoading(false);
-            console.log('here');
         }
         else{
             await new Promise(resolve => setTimeout(resolve, 2000));
-            successToast("reset link has been sent to your email address!")
+            navigate("/reset_password")
+            successToast("Reset link has been sent to your email address!")
             setLoading(false);
         }
     }
     return (
         <Box component="form" noValidate onSubmit={handleResetPassword} sx={{ mt: 5 }}>
-        {/* Login form fields */}
+        {/* Reset Password form fields */}
         <TextField
             margin="normal"
             required
