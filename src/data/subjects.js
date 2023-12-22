@@ -13,7 +13,8 @@ export const subjectColumns = [
   },
 ];
 
-export const subjects = [
+
+export const subject = [
     {
       id: 1,
       title: "English Language",
@@ -21,7 +22,7 @@ export const subjects = [
       last_score: "72%",
     },
     {
-      id: 2,
+      id: 8,
       title: "Mathematics",
       code: "MTH",
       last_score: "78%",
@@ -33,7 +34,7 @@ export const subjects = [
       last_score: "50%",
     },
     {
-      id: 4,
+      id: 7,
       title: "Civic Education",
       code: "CVE",
       last_score: "49%",
@@ -45,7 +46,7 @@ export const subjects = [
       last_score: "40%",
     },
     {
-      id: 6,
+      id: 4,
       title: "Social Studies",
       code: "SOS",
       last_score: "40%",
@@ -75,4 +76,4 @@ export const subjects = [
       last_score: "40%",
     },
   ];
-  
+  console.log(typeof(subjects));
