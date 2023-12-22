@@ -12,15 +12,15 @@ import { getRandomIndex } from '../data/loginImages';
 import AlignItemsList from '../components/Announcement';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
-
+import ResetPasswordForm from '../components/ResetPasswordForm';
 
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="#">
+        The Gem
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -28,9 +28,11 @@ function Copyright(props) {
   );
 }
 
-function Authenticaton() {
+function Authentication() {
   const [randomImageUrl, setRandomImageUrl] = useState('');
   const [showLoginForm, setShowLoginForm] = useState(true);
+  const [showResetPasswordForm, setShowResetPasswordForm] = useState(false); // New state
+  
 
   useEffect(() => {
     const randomImage = getRandomIndex();
@@ -39,8 +41,12 @@ function Authenticaton() {
 
   const handleToggleForm = () => {
     setShowLoginForm((prev) => !prev);
+    setShowResetPasswordForm(false);
   };
-
+  const handleForgotPasswordClick = () => {
+    setShowResetPasswordForm(true);
+    setShowLoginForm(false);
+  };
   const handleFormSubmit = (formData) => {
     // Handle form submission based on current form type (login/register)
     if (showLoginForm) {
@@ -51,7 +57,11 @@ function Authenticaton() {
       console.log('Registration data:', formData);
     }
   };
-
+  const handleResetPasswordSubmit = (formData) => {
+    // Handle reset password form submission
+    console.log('Reset Password data:', formData);
+    // Implement the logic for sending a reset password link to the user's email
+  };
   return (
     <ThemeProvider theme={createTheme()}>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -82,7 +92,7 @@ function Authenticaton() {
               width: '90%',
             }}
           >
-            <Typography variant="h4">Welcome to Our Website</Typography>
+            <Typography variant="h4">Welcome to The Gem International School</Typography>
             {/* Add any additional overlay text here */}
             <AlignItemsList />
           </Box>
@@ -101,26 +111,34 @@ function Authenticaton() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              {showLoginForm ? 'Sign In' : 'Register'}
+              {showLoginForm ? 'Sign In' : showResetPasswordForm ? 'Reset Password' : 'Register'}
             </Typography>
-            {/* Toggle between login and registration forms */}
-            {showLoginForm ? (
-              <LoginForm onSubmit={handleFormSubmit} />
-            ) : (
+            {/* Toggle between login, registration, and reset password forms */}
+            {showLoginForm && !showResetPasswordForm && (
+              <LoginForm onSubmit={handleFormSubmit} onForgotPassword={handleForgotPasswordClick} />
+            )}
+            {!showLoginForm && !showResetPasswordForm && (
               <RegisterForm onSubmit={handleFormSubmit} />
             )}
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+            {showResetPasswordForm && (
+              <ResetPasswordForm onSubmit={handleResetPasswordSubmit} onCancel={handleToggleForm} />
+            )}
+            {!showResetPasswordForm && (
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2" onClick={handleForgotPasswordClick}>
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="#" variant="body2" onClick={handleToggleForm}>
+                    {showLoginForm
+                      ? "Don't have an account? Sign Up"
+                      : 'Already have an account? Sign In'}
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Link href="#" variant="body2" onClick={handleToggleForm}>
-                  {showLoginForm ? "Don't have an account? Sign Up" : 'Already have an account? Sign In'}
-                </Link>
-              </Grid>
-            </Grid>
+            )}
             <Copyright sx={{ mt: 5 }} />
           </Box>
         </Grid>
@@ -129,4 +147,5 @@ function Authenticaton() {
   );
 }
 
-export default Authenticaton;
+
+export default Authentication;
