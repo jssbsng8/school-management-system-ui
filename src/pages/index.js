@@ -32,3 +32,4 @@ export { default as StudentLeaveApply} from "./StudentLeaveApply";
 export { default as NoticeBoard} from "./NoticeBoard";
 export { default as TeachersReviews } from "./TeachersReview";
 export { default as TeachersAddReview} from "./TeachersAddReview";
+export { default as ResetLinkSent } from "./ResetLinkSent"
