@@ -63,6 +63,18 @@ const isValidEmail = (email) => {
     return emailRegex.test(email);
 };
 
+export const isEmailValid = (email) => {
+    // Regular expression for basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const valid = emailRegex.test(email);
+    if(!valid){
+        const [message, status] = ['Please enter a valid email!', 'error']
+        return [message, status]
+    }
+    return valid
+    
+};
+
 export const loginDataValidator = (data) => {
     if (data['username'].length === 0 || data['username'].length < 3) {
         const [message, status] = ['Invalid Username', 'error']
