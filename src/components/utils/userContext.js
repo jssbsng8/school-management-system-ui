@@ -109,31 +109,35 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const fetchAuthenticatedUser = async () => {
       try {
-        const getUser = await athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER);        
-        if (getUser) {
-          const parsedUserData = JSON.parse(getUser);
-          setUser(parsedUserData);
-          setAuth(true);
-          setRole(parsedUserData.role);
-          localStorage.setItem('userData', JSON.stringify({
-            'auth': true,
-            'role': parsedUserData.role
-          }));
-          
-        } else {
-          setUserContext(null, false, null);
-          localStorage.clear() 
-          // navigate("/login") 
-          const currentRoute = location.pathname;
-          const excludedRoutes = ['/login', '/success']; // Add routes to exclude from navigation
-          if (!excludedRoutes.includes(currentRoute)) {
-            navigate("/login");
-          } 
+        const currentRoute = location.pathname;
+        const excludedRoutes = ['/login', '/success', '/reset_password']; // Add routes to exclude from navigation
+        if (!excludedRoutes.includes(currentRoute)) {
+          const getUser = await athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER);
+
+          if (getUser) {
+            const parsedUserData = JSON.parse(getUser);
+            setUser(parsedUserData);
+            setAuth(true);
+            setRole(parsedUserData.role);
+            localStorage.setItem('userData', JSON.stringify({
+              'auth': true,
+              'role': parsedUserData.role
+            }));
+          } else {
+            setUserContext(null, false, null);
+            localStorage.clear();
+
+            // Navigate only if not in the excluded routes
+            if (!excludedRoutes.includes(currentRoute)) {
+              navigate("/login");
+            }
+          }
         }
       } catch (error) {
         console.error("Error fetching authenticated user:", error);
       }
     };
+
     
     fetchAuthenticatedUser();
   }, [navigate, location.pathname]);
