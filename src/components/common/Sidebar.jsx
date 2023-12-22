@@ -3,10 +3,12 @@ import React from "react";
 import { navigationLinks } from "../../data/links";
 import SidebarItem from "./SidebarItem";
 import SidebarItemCollapse from "./SidebarItemCollapse";
+import { useUser } from "../utils/userContext";
 
 const Sidebar = ({ window, sideBarWidth, mobileOpen, handleDrawerToggle }) => {
-  const ROLE = 'Student'
-  const links = navigationLinks(ROLE)
+  const { role } = useUser()
+
+  const links = navigationLinks(role)
   const drawer = (
     <div>
       <Toolbar>
