@@ -76,4 +76,3 @@ export const subject = [
       last_score: "40%",
     },
   ];
-  console.log(typeof(subjects));
