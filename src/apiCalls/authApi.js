@@ -54,7 +54,6 @@ export const get_assigned_subjects = async(url) => {
 
 
 export const get_enrolled_subjects = async(url) => {
-    console.log(`Token ${localStorage.getItem('token')}`);
     try{
         const response = await fetch(url, {
             method: "GET",
