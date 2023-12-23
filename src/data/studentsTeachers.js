@@ -128,3 +128,38 @@ export const students = [
     img: "/images/avatars/avatar8.png",
   },
 ];
+
+
+export const users = [
+  {
+    id: 1,
+    name: "John Doe",
+    profileImage: "/images/avatars/avatar1.png",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    profileImage: "/images/avatars/avatar2.png",
+  },
+  {
+    id: 3,
+    name: "Alice Johnson",
+    profileImage: "/images/avatars/avatar3.png",
+  },
+  {
+    id: 4,
+    name: "Bob Williams",
+    profileImage: "/images/avatars/avatar4.png",
+  },
+  {
+    id: 5,
+    name: "Eva Davis",
+    profileImage: "/images/avatars/avatar5.png",
+  },
+  {
+    id: 6,
+    name: "Michael Brown",
+    profileImage: "/images/avatars/avatar6.png",
+  },
+];
+
