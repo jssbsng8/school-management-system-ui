@@ -173,7 +173,7 @@ export const navigationLinks = (role) => {
           },
           {
             name: "Exam Results",
-            url: "/sales",
+            url: "/results",
           },
         ],
       },
@@ -201,6 +201,11 @@ export const navigationLinks = (role) => {
         name: "Notifications",
         icon: <MdNotificationsNone />,
         url: "/brands",
+      },
+      {
+        name: "Apply Leave",
+        icon: <MdCheckCircleOutline />,
+        url: "/leave",
       },
       {
         name: "Reviews",
