@@ -14,7 +14,7 @@ export const subjectColumns = [
 ];
 
 
-export const subject = [
+export const subjects = [
     {
       id: 1,
       title: "English Language",
