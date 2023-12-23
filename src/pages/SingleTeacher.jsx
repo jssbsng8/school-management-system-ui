@@ -2,7 +2,7 @@ import { Avatar, Box, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 import { useParams } from "react-router-dom";
 import Table from "../components/Table";
-import { teachers } from "../data/teachers";
+import { teachers } from "../data/studentsTeachers";
 import { invoiceData, invoiceDataColumns } from "../data/invoiceList";
 
 const SingleTeacher = () => {
