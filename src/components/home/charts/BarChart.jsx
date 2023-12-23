@@ -1,6 +1,7 @@
 import { Paper, Typography, Grid } from "@mui/material";
 
 const BarChart = ({ userName, attendancePercentage }) => {
+  const role = localStorage.getItem
   return (
     <Paper elevation={3} style={{ padding: 20 }}>
       <Grid container spacing={2} alignItems="center">
@@ -19,10 +20,12 @@ const BarChart = ({ userName, attendancePercentage }) => {
           <Typography variant="h4" gutterBottom>
             Welcome, {userName}! Keep Going.
           </Typography>
+          {
           <Typography paragraph>
             Your current attendance is {attendancePercentage.toFixed(2)}%, which is{' '}
             {attendancePercentage > 75 ? 'above' : 'below or equal to'} 75.00% of the minimum attendance mark.
           </Typography>
+          }
         </Grid>
       </Grid>
     </Paper>
