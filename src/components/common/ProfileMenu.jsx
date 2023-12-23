@@ -38,7 +38,8 @@ const ProfileMenu = () => {
         });
 
         if (response.ok) {
-          setUserContext(null, false);
+          setUserContext(null, false, null, null);
+
           localStorage.clear()
           navigate('/login');
         } else {
@@ -51,7 +52,7 @@ const ProfileMenu = () => {
         successToast(message);
     }
   };
-
+console.log();
   const handleClose = () => {
     setAnchorEl(null);
   };
