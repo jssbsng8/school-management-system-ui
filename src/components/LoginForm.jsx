@@ -69,7 +69,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         'auth': true,
         'role': parsedUserData.role
       }));
-      
+
       setUserContext(JSON.parse(loggedInUserData), true, parsedUserData.role);
 
       await fetchDatas(setSubject)
@@ -100,7 +100,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         label="Username"
         name="username"
         autoComplete="username"
-        value= "adewale"
+        // value= "adewale"
         autoFocus
       />
       <TextField
