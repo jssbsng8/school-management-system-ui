@@ -9,13 +9,13 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { useNavigate } from "react-router-dom";
 import { AUTH_ENDPOINTS, USER_ENDPOINTS } from '../apiCalls/endpoints';
 import { useUser } from './utils/userContext';
-import { athenticatedUser } from '../apiCalls/authApi';
-
+import { athenticatedUser, fetchDatas } from '../apiCalls/authApi';
 
 const LoginForm = ({ onSubmit, onToggleForm }) => {
-  const { setUserContext } = useUser();
+  const { setUserContext, setSubject } = useUser();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
   const handleLogin = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -53,20 +53,32 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
           return;
           }          
       }
-      await new Promise(resolve => setTimeout(resolve, 2000));
       // Successful login
       const responseData = await response.json();
-      // Store the token or user information in local storage or state
-      localStorage.setItem('token', responseData.auth_token);
-      const loggedInUserData = await athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER)
 
+      // Store the token or user information in local storage or state
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      localStorage.setItem('token', responseData.auth_token);
+
+      const loggedInUserData = await athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER)
+      
       const parsedUserData = JSON.parse(loggedInUserData);
+
+      localStorage.setItem('userData', JSON.stringify({
+        'auth': true,
+        'role': parsedUserData.role
+      }));
+      
       setUserContext(JSON.parse(loggedInUserData), true, parsedUserData.role);
+
+      await fetchDatas(setSubject)
 
       const message = 'Login successful'
       successToast(message.toUpperCase());
       setLoading(false);
       navigate("/");
+
       } catch (error) {
       // const message = `Login error ${error.message}!`
       const message = `Login error Server is Down!`
@@ -88,7 +100,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         label="Username"
         name="username"
         autoComplete="username"
-        value= "david"
+        value= "adewale"
         autoFocus
       />
       <TextField
