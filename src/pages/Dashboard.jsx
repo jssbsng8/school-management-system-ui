@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
-import BarChart from "../components/home/charts/BarChart";
+import ProfileOverview from "../components/home/ProfileOverview";
 import TeachersList from "../components/home/TeachersList";
 import Subjects from "../components/home/Subjects";
 import {Table} from "../components/Table";
@@ -35,7 +35,7 @@ const Dashboard = () => {
       <ComponentWrapper>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={8}>
-            <BarChart fullName={user.first_name + ' ' + user.last_name} attendancePercentage={91.67} userName={user.username} />
+            <ProfileOverview fullName={user.first_name + ' ' + user.last_name} attendancePercentage={91.67} userName={user.username} />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <Paper
