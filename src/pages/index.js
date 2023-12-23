@@ -18,7 +18,7 @@ export { default as Reviews } from "./Reviews";
 export { default as Settings } from "./Settings";
 export { default as Inbox } from "./Inbox";
 export { default as Timetable } from "./Timetable";
-export { default as Teachers } from "./Teachers";
+export { default as StudentsTeachers } from "./StudentsTeachers";
 export { default as SingleTeacher } from "./SingleTeacher";
 export { default as Subjects } from "./Subjects";
 export { default as Classmates } from "./Classmates";
@@ -33,3 +33,4 @@ export { default as NoticeBoard} from "./NoticeBoard";
 export { default as TeachersReviews } from "./TeachersReview";
 export { default as TeachersAddReview} from "./TeachersAddReview";
 export { default as ResetLinkSent } from "./ResetLinkSent"
+export { default as Classrooms } from "./Classrooms"
