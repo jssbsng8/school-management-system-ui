@@ -71,11 +71,11 @@ const Profile = () => {
         </Box>
         <Box sx={{ my: 2 }}>
           <TextField
-            label="Phone"
+            label="Address"
             variant="outlined"
             size="small"
             fullWidth
-            defaultValue={user.phone}
+            defaultValue={user.address}
           />
         </Box>
       </Box>
