@@ -35,6 +35,7 @@ export const roleRoutes = {
     Admin: [
       { id: "admin-dashboard", path: "/", element: <Dashboard /> },
       { id: "admin-products", path: "/products", element: <Products /> },
+      // { id: "admin-subjects", path: "/subjects", element: <Subjects /> },
     ],
     Teacher: [
       { id: "teacher-dashboard", path: "/", element: <Dashboard /> },
