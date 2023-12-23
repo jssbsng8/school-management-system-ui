@@ -29,6 +29,7 @@ import {
     TeachersReviews,
     TeachersAddReview,
     Classrooms,
+    RecordResult,
   } from '../../pages';
   
 export const roleRoutes = {
@@ -45,9 +46,11 @@ export const roleRoutes = {
       { id: "teacher-attendance", path: "/attendance", element: <Attendance /> },
       { id: "teacher-timetable", path: "/timetable", element: <Timetable /> },
       { id: "teacher-leave", path: "/leave", element: <StudentLeave /> },
+      { id: "teacher-leave-apply", path: "/leave/apply", element: <StudentLeaveApply /> },
       { id: "teacher-inbox", path: "/inbox", element: <Inbox /> },
       { id: "teacher-students", path: "/students", element: <StudentsTeachers /> },
       { id: "teacher-classrooms", path: "/classrooms", element: <Classrooms /> },
+      { id: "teacher-results", path: "/results", element: <RecordResult /> },
     ],
     
     Student: [
