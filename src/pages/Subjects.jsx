@@ -20,20 +20,26 @@ const Subjects = () => {
           {role === 'Student' ? 'Enrolled Subjects' : 'Assigned Subjects'}
         </Typography>
       </Box>
-      <Table
-        data={subjects}
-        fields={subjectColumns}
-        numberOfRows={subjects.length}
-        enableTopToolBar={true}
-        enableBottomToolBar={true}
-        enablePagination={true}
-        enableRowSelection={false}
-        enableColumnFilters={true}
-        enableEditing={false}
-        enableColumnDragging={true}
-        showPreview={false}
-        routeLink="subjects"
-      />
+      {
+      subjects ? (
+        <Table
+          data={subjects}
+          fields={subjectColumns}
+          numberOfRows={subjects.length}
+          enableTopToolBar={true}
+          enableBottomToolBar={true}
+          enablePagination={true}
+          enableRowSelection={false}
+          enableColumnFilters={true}
+          enableEditing={false}
+          enableColumnDragging={true}
+          showPreview={false}
+          routeLink="subjects"
+        />
+      ) : (
+        <p>{role === 'Teacher' ? 'No Subject Assigned Yet!' : 'No Subjects Enrolled Yet'}</p>
+      )
+      }
     </Box>
   );
 };
