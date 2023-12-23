@@ -14,7 +14,7 @@ import {
     SingleProduct,
     Transactions,
     Timetable,
-    Teachers,
+    StudentsTeachers,
     SingleTeacher,
     Subjects,
     Classmates,
@@ -28,7 +28,7 @@ import {
     NoticeBoard,
     TeachersReviews,
     TeachersAddReview,
-
+    Classrooms,
   } from '../../pages';
   
 export const roleRoutes = {
@@ -46,6 +46,8 @@ export const roleRoutes = {
       { id: "teacher-timetable", path: "/timetable", element: <Timetable /> },
       { id: "teacher-leave", path: "/leave", element: <StudentLeave /> },
       { id: "teacher-inbox", path: "/inbox", element: <Inbox /> },
+      { id: "teacher-students", path: "/students", element: <StudentsTeachers /> },
+      { id: "teacher-classrooms", path: "/classrooms", element: <Classrooms /> },
     ],
     
     Student: [
@@ -55,7 +57,7 @@ export const roleRoutes = {
       { id: "student-single-product", path: "/products/:id", element: <SingleProduct /> },
       { id: "student-product-categories", path: "/products/categories", element: <ProductCategories /> },
       { id: "student-timetable", path: "/timetable", element: <Timetable /> },
-      { id: "student-teachers", path: "/teachers", element: <Teachers /> },
+      { id: "student-teachers", path: "/teachers", element: <StudentsTeachers /> },
       { id: "student-subjects", path: "/subjects", element: <Subjects /> },
       { id: "student-classmates", path: "/classmates", element: <Classmates /> },
       { id: "student-single-customer", path: "/customers/:id", element: <SingleCustomer /> },
@@ -79,5 +81,3 @@ export const roleRoutes = {
       { id: "student-review-teacher", path: "/review_teacher", element: <TeachersAddReview /> },
     ],
   };
-
-//   export const userRoutes = roleRoutes[role] || roleRoutes.Student; // Default to Student if role is not recognized
