@@ -9,13 +9,14 @@ import { timetableData, timetableColumns } from "../data/timetable";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useUser } from "../components/utils/userContext";
+import TopStudents from "../components/home/TopStudents";
 
 const Dashboard = () => {
   const ComponentWrapper = styled(Box)({
     marginTop: "10px",
     paddingBottom: "10px",
   });
-  const { user, auth} = useUser();
+  const { user, auth, role} = useUser();
   if (!auth) {
     // User is not logged in, redirecting is handled in the custom hook
     return null;
@@ -34,7 +35,7 @@ const Dashboard = () => {
       <ComponentWrapper>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={8}>
-            <BarChart userName={user.first_name + ' ' + user.last_name} attendancePercentage={91.67}/>
+            <BarChart fullName={user.first_name + ' ' + user.last_name} attendancePercentage={91.67} userName={user.username} />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <Paper
@@ -47,7 +48,13 @@ const Dashboard = () => {
                 height: "100%",
               }}
             >
-              <TeachersList />
+              {role === 'Student' && (
+                <TeachersList />
+              )}
+
+              {role === 'Teacher' && (
+                <TopStudents />
+              )}
             </Paper>
           </Grid>
         </Grid>
