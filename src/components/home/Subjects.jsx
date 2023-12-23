@@ -1,12 +1,14 @@
-import { Avatar, Box, Divider, Grid, Paper, Typography } from "@mui/material";
+import { Box, Divider, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 import { FaEllipsisH } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { customers } from "../../data/customers";
 import { transactions, transactionsColumns } from "../../data/transactions";
 import Table from "../Table";
+import { subjects } from "../../data/subjects";
+import { useUser } from "../utils/userContext";
 
 const Subjects = () => {
+  const { role } = useUser()
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={6} lg={4}>
@@ -28,16 +30,24 @@ const Subjects = () => {
               justifyContent: "space-between",
             }}
           >
-            <Typography variant="h5" sx={{ pb: 1 }}>
-              Subject Offered
-            </Typography>
+            {role === "Student" && (
+              <Typography variant="h5" sx={{ pb: 1 }}>
+                Enrolled Subject
+              </Typography>
+            )}
+            {role == "Teacher" && (
+              <Typography variant="h5" sx={{ pb: 1 }}>
+                Subject Offered
+              </Typography>
+            )}
+
             <FaEllipsisH />
           </Box>
           <Divider />
           <Box sx={{ marginTop: 1 }}>
-            {customers
+            {subjects
               .slice(0, 4)
-              .map(({ customer_id, customer_name, email, img }) => (
+              .map(({ id, title, code, img }) => (
                 <Box
                   sx={{
                     display: "flex",
@@ -45,7 +55,7 @@ const Subjects = () => {
                     justifyContent: "space-between",
                     margin: "10px 0",
                   }}
-                  key={customer_id}
+                  key={id}
                 >
                   <Box
                     sx={{
@@ -54,13 +64,13 @@ const Subjects = () => {
                       gap: 2,
                     }}
                   >
-                    <Avatar src={img} sx={{ width: 30, height: 30 }} />
+                    {/* <Avatar src={img} sx={{ width: 30, height: 30 }} /> */}
                     <Box>
                       <Typography variant="h6" sx={{ fontSize: "18px" }}>
-                        {customer_name}
+                        {title}
                       </Typography>
                       <Typography variant="subtitle1" sx={{ opacity: 0.7 }}>
-                        {email}
+                        {code}
                       </Typography>
                     </Box>
                   </Box>
