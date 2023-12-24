@@ -2,9 +2,26 @@ import { Divider, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
+import { successToast, errorToast } from "../utils/toastUtils";
 
 const Password = () => {
   const [loading, setLoading] = useState(false);
+
+  const handlePasswordChange = async () => {
+    setLoading(true)
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    // function to change user password
+    const passwordChange = true;
+    if (passwordChange){
+      successToast("Password updated succesfully")
+      setLoading(false)
+    }
+    else{
+      errorToast("Failed to update profile")
+      setLoading(false)
+    }
+  }
   return (
     <Box>
       <Typography variant="subtitle1">Password Reset</Typography>
@@ -55,8 +72,10 @@ const Password = () => {
             loading={loading}
             loadingPosition="start"
             variant="contained"
+            onClick={handlePasswordChange}
+            sx={{ width: "200px" }}
           >
-            {loading ? 'Please Wait...' : 'Save Changes'}
+            {loading ? 'Please Wait...' : 'Change Password'}
           </LoadingButton>
         </Box>
       </Box>
