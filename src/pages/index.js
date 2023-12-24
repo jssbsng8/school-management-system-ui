@@ -35,3 +35,4 @@ export { default as TeachersAddReview} from "./TeachersAddReview";
 export { default as ResetLinkSent } from "./ResetLinkSent"
 export { default as Classrooms } from "./Classrooms"
 export { default as RecordResult } from "./RecordResult"
+export { default as RecordStudentResult } from "./RecordStudentResult"
