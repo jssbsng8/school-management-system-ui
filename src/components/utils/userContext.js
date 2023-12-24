@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { athenticatedUser } from '../../apiCalls/authApi';
 import { USER_ENDPOINTS } from '../../apiCalls/endpoints';
-import { fetchDatas } from '../../apiCalls/authApi';
+import { fetchSubjects } from '../../apiCalls/authApi';
 
 const UserContext = createContext();
 
@@ -72,7 +72,7 @@ export const UserProvider = ({ children }) => {
       when the component mounts. The dependency array ([]) ensures it runs only once on mount.
       This effect set the user(teacher/student) subject they are assigned or enrolled.
     */
-    fetchDatas(setSubject)
+    fetchSubjects(setSubject)
   },[])
 
   const setUserContext = (userData, authStatus, UserRole, userSubjects) => {
