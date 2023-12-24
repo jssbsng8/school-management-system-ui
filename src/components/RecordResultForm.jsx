@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Paper, FormControl, InputLabel, MenuItem, Select, Box, Grid, Avatar } from "@mui/material";
+import { Typography, Paper, FormControl, InputLabel, MenuItem, Select, Box, Grid, Avatar, Divider } from "@mui/material";
 import LoadingButton from '@mui/lab/LoadingButton';
 import { users } from "../data/studentsTeachers";
 const RecordResultForm = ({ onSubmit }) => {
@@ -32,7 +32,7 @@ const RecordResultForm = ({ onSubmit }) => {
   return (
     <Paper elevation={3} style={{ padding: 20 }}>
         <Typography variant="h6" gutterBottom>
-            Record Result
+            Query Result
         </Typography>
         <Box sx={{ width: "100%", margin: "auto" }}>
         <Grid container spacing={2}>
@@ -123,16 +123,16 @@ const RecordResultForm = ({ onSubmit }) => {
             </FormControl>
             </Grid>
         </Grid>
-
+        
         <LoadingButton 
             variant="contained" 
             type="submit"
             onClick={handleCheckResult} 
             loading={loading}
             loadingPosition="start"
-            sx={{ mt: 3, mb: 2, width: "20%" }}
+            sx={{ mt: 3, mb: 2, width: "15%" }}
             >
-            {loading ? 'Checking...' : 'Check Result'}
+            {loading ? 'Searching...' : 'Search'}
         </LoadingButton>
         </Box>
     </Paper>
