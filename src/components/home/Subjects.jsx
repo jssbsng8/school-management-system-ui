@@ -35,7 +35,7 @@ const Subjects = () => {
                 Enrolled Subject
               </Typography>
             )}
-            {role == "Teacher" && (
+            {role === "Teacher" && (
               <Typography variant="h5" sx={{ pb: 1 }}>
                 Subject Offered
               </Typography>
