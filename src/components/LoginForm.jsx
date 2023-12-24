@@ -9,7 +9,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { useNavigate } from "react-router-dom";
 import { AUTH_ENDPOINTS, USER_ENDPOINTS } from '../apiCalls/endpoints';
 import { useUser } from './utils/userContext';
-import { athenticatedUser, fetchDatas } from '../apiCalls/authApi';
+import { athenticatedUser, fetchSubjects } from '../apiCalls/authApi';
 
 const LoginForm = ({ onSubmit, onToggleForm }) => {
   const { setUserContext, setSubject } = useUser();
@@ -72,7 +72,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
 
       setUserContext(JSON.parse(loggedInUserData), true, parsedUserData.role);
 
-      await fetchDatas(setSubject)
+      await fetchSubjects(setSubject)
 
       const message = 'Login successful'
       successToast(message.toUpperCase());
