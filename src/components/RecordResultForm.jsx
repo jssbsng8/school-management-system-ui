@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Paper, FormControl, InputLabel, MenuItem, Select, Box, Grid, Avatar, Divider } from "@mui/material";
+import { Typography, Paper, FormControl, InputLabel, MenuItem, Select, Box, Grid, Avatar } from "@mui/material";
 import LoadingButton from '@mui/lab/LoadingButton';
 import { users } from "../data/studentsTeachers";
 const RecordResultForm = ({ onSubmit }) => {
