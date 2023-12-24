@@ -1,10 +1,13 @@
 import { Avatar, Divider, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useState } from "react";
 import { useUser } from "../utils/userContext";
+import LoadingButton from '@mui/lab/LoadingButton';
+
 
 const Profile = () => {
   const { user, auth } = useUser();
+  const [loading, setLoading] = useState(false);
 
   if (!auth) {
     // User is not logged in, redirecting is handled in the custom hook
@@ -77,6 +80,22 @@ const Profile = () => {
             fullWidth
             defaultValue={user.address}
           />
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            mt: 3,
+          }}
+        >
+          <LoadingButton
+            type="submit"
+            loading={loading}
+            loadingPosition="start"
+            variant="contained"
+          >
+            {loading ? 'Please Wait...' : 'Save Changes'}
+          </LoadingButton>
         </Box>
       </Box>
     </Box>
