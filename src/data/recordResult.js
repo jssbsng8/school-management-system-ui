@@ -44,8 +44,6 @@ export const myColumns = [
   },
 ];
 
-
-
 // MyData.js
 export const myData = [
   {
@@ -55,13 +53,5 @@ export const myData = [
     exam_type: 'CA-Test',
     subject: "Biology",
     score: 50,
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    class: "JUNIOR SECONDARY SCHOOL 1",
-    exam_type: 'CA-Test',
-    subject: "Biology",
-    score: 67,
   },
 ];
