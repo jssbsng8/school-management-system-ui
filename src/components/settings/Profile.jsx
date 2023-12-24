@@ -3,16 +3,49 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { useUser } from "../utils/userContext";
 import LoadingButton from '@mui/lab/LoadingButton';
+import { successToast, errorToast } from "../utils/toastUtils";
+import { updateUserProfile } from "../../apiCalls/authApi";
+import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
 
 
 const Profile = () => {
-  const { user, auth } = useUser();
+  const { user } = useUser();
   const [loading, setLoading] = useState(false);
+  const [firstName, setFirstName] = useState(user.first_name);
+  const [lastName, setLastName] = useState(user.last_name);
+  const [username, setUsername] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
+  const [address, setAddress] = useState(user.address);
 
-  if (!auth) {
-    // User is not logged in, redirecting is handled in the custom hook
-    return null;
+  const handleUpdateProfile = async () => {
+    setLoading(true)
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    const updatedFields = Object.entries({
+      first_name: firstName,
+      last_name: lastName,
+      username,
+      email,
+      address,
+    }).reduce((acc, [key, value]) => {
+      if (value !== user[key]) {
+        acc[key] = value;
+      }
+      return acc;
+    }, {});
+
+    // function to update the user profile
+    const updatedUserProfile = await updateUserProfile(USER_ENDPOINTS.GET_OR_UPDATE_USER(user.id), updatedFields);
+    if (updatedUserProfile){
+      successToast("Profile updated succesfully")
+      setLoading(false)
+    }
+    else{
+      errorToast("Failed to update profile")
+      setLoading(false)
+    }
   }
+
 
   return (
     <Box>
@@ -31,6 +64,7 @@ const Profile = () => {
             rows={4}
             fullWidth
             size="small"
+            onChange={(e) => setFirstName(e.target.value)}
             defaultValue={user.first_name}
           />
           <TextField
@@ -39,6 +73,7 @@ const Profile = () => {
             rows={4}
             fullWidth
             size="small"
+            onChange={(e) => setLastName(e.target.value)}
             defaultValue={user.last_name}
           />
         </Box>
@@ -49,6 +84,7 @@ const Profile = () => {
             rows={4}
             size="small"
             fullWidth
+            onChange={(e) => setUsername(e.target.value)}
             defaultValue={user.username}
           />
           <TextField
@@ -69,6 +105,7 @@ const Profile = () => {
             variant="outlined"
             size="small"
             fullWidth
+            onChange={(e) => setEmail(e.target.value)}
             defaultValue={user.email}
           />
         </Box>
@@ -78,6 +115,7 @@ const Profile = () => {
             variant="outlined"
             size="small"
             fullWidth
+            onChange={(e) => setAddress(e.target.value)}
             defaultValue={user.address}
           />
         </Box>
@@ -93,6 +131,8 @@ const Profile = () => {
             loading={loading}
             loadingPosition="start"
             variant="contained"
+            onClick={handleUpdateProfile}
+            sx={{ width: "180px" }}
           >
             {loading ? 'Please Wait...' : 'Save Changes'}
           </LoadingButton>
