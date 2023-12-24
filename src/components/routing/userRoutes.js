@@ -29,7 +29,7 @@ import {
     TeachersReviews,
     TeachersAddReview,
     Classrooms,
-    RecordResult,
+    CheckResult,
     RecordStudentResult
   } from '../../pages';
   
@@ -51,7 +51,7 @@ export const roleRoutes = {
       { id: "teacher-inbox", path: "/inbox", element: <Inbox /> },
       { id: "teacher-students", path: "/students", element: <StudentsTeachers /> },
       { id: "teacher-classrooms", path: "/classrooms", element: <Classrooms /> },
-      { id: "teacher-results", path: "/results", element: <RecordResult /> },
+      { id: "teacher-results", path: "/results", element: <CheckResult /> },
       { id: "teacher-results", path: "/record_result", element: <RecordStudentResult /> },
     ],
     
