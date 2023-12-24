@@ -96,9 +96,9 @@ export const get_enrolled_subjects = async(url) => {
     }
 }
 
-export const fetchDatas = async (setSubject) => {
+export const fetchSubjects = async (setSubject) => {
     /*
-        The 'fetchDatas' function is a utility function for fetching and updating the subjects based on
+        The 'fetchSubjects' function is a utility function for fetching and updating the subjects based on
         the user's role. It uses the 'getRole' to determine whether the user is a student or teacher and
         then calls the corresponding subject-fetching function. The fetched subjects are updated using
         the 'setSubject' callback.
@@ -125,3 +125,31 @@ export const fetchDatas = async (setSubject) => {
     }
 };
 
+export const updateUserProfile = async (url, data) => {
+    try{
+        const response = await fetch(url, {
+            method: "PATCH",
+            headers: {
+                "Content-Type" : "application/json",
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+            body: JSON.stringify(data)
+        });
+
+        if(response.ok){
+            const responseData = await response.json();
+            return JSON.stringify(responseData);
+        }
+        else{
+            const errorMessage = await response.text();
+            console.log(errorMessage);
+            errorToast(errorMessage)
+            return null
+        }
+    }
+    catch(error){
+        const message = `Error updating user profile: ${error}`
+        errorToast(message)
+        return null
+    }
+}
