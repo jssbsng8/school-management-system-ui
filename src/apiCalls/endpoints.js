@@ -7,7 +7,7 @@ export const AUTH_ENDPOINTS = {
 };
 export const USER_ENDPOINTS = {
   USER: `${BASE_URL}/auth/users/`,
-  GET_USER: (userId) => `${BASE_URL}/auth/users/${userId}/`,
+  GET_OR_UPDATE_USER: (userId) => `${BASE_URL}/auth/users/${userId}/`,
   ACTIVATION: `${BASE_URL}/authusers/activation/`,
   AUTHENTICATED_USER: `${BASE_URL}/authusers/me/`,
   RESEND_ACTIVATION: `${BASE_URL}/authusers/resend_activation/`,
