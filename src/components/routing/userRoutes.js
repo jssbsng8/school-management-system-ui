@@ -30,6 +30,7 @@ import {
     TeachersAddReview,
     Classrooms,
     RecordResult,
+    RecordStudentResult
   } from '../../pages';
   
 export const roleRoutes = {
@@ -51,6 +52,7 @@ export const roleRoutes = {
       { id: "teacher-students", path: "/students", element: <StudentsTeachers /> },
       { id: "teacher-classrooms", path: "/classrooms", element: <Classrooms /> },
       { id: "teacher-results", path: "/results", element: <RecordResult /> },
+      { id: "teacher-results", path: "/record_result", element: <RecordStudentResult /> },
     ],
     
     Student: [
