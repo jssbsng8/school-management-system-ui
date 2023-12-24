@@ -175,6 +175,10 @@ export const navigationLinks = (role) => {
             name: "Exam Results",
             url: "/results",
           },
+          {
+            name: "Record Results",
+            url: "/record_result",
+          },
         ],
       },
       {
