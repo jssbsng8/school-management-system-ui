@@ -73,7 +73,7 @@ const RecordResult = () => {
             />
         ) : (
             <Typography variant="body1">
-                No Entry!
+                No Result Found!
             </Typography>
         )}
       </ComponentWrapper>
