@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { useUser } from "../utils/userContext";
 import LoadingButton from '@mui/lab/LoadingButton';
-import { successToast, errorToast } from "../utils/toastUtils";
+import { successToast, errorToast, warningToast } from "../utils/toastUtils";
 import { updateUserProfile } from "../../apiCalls/authApi";
 import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
 
@@ -18,9 +18,8 @@ const Profile = () => {
   const [address, setAddress] = useState(user.address);
 
   const handleUpdateProfile = async () => {
-    setLoading(true)
-    await new Promise(resolve => setTimeout(resolve, 3000));
-
+    setLoading(true);
+  
     const updatedFields = Object.entries({
       first_name: firstName,
       last_name: lastName,
@@ -28,23 +27,58 @@ const Profile = () => {
       email,
       address,
     }).reduce((acc, [key, value]) => {
-      if (value !== user[key]) {
+      if (value !== user[key] && typeof value !== 'undefined') {
         acc[key] = value;
       }
       return acc;
     }, {});
 
     // function to update the user profile
-    const updatedUserProfile = await updateUserProfile(USER_ENDPOINTS.GET_OR_UPDATE_USER(user.id), updatedFields);
-    if (updatedUserProfile){
-      successToast("Profile updated succesfully")
-      setLoading(false)
+    if (Object.keys(updatedFields).length !== 0) {
+      try {
+        // Assuming updateUserProfile returns the updated user profile
+        const updatedUserProfile = await updateUserProfile(USER_ENDPOINTS.GET_OR_UPDATE_USER(user.id), updatedFields);
+        
+        // Check if the response is successful
+        if (updatedUserProfile) {
+          await new Promise((resolve) => setTimeout(resolve, 3000));
+          Object.keys(updatedFields).forEach((key) => {
+            switch (key) {
+              case 'first_name':
+                setFirstName(updatedUserProfile.first_name);
+                break;
+              case 'last_name':
+                setLastName(updatedUserProfile.last_name);
+                break;
+              case 'username':
+                setUsername(updatedUserProfile.username);
+                break;
+              case 'email':
+                setEmail(updatedUserProfile.email);
+                break;
+              case 'address':
+                setAddress(updatedUserProfile.address);
+                break;
+              default:
+                break;
+            }
+          });
+  
+          successToast("Profile updated successfully");          
+        } else {
+          errorToast("Failed to update profile");
+        }
+      } catch (error) {
+        console.error("Error updating profile:", error);
+        errorToast("An error occurred while updating profile");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      warningToast("No changes to update");
+      setLoading(false);
     }
-    else{
-      errorToast("Failed to update profile")
-      setLoading(false)
-    }
-  }
+  };
 
 
   return (
