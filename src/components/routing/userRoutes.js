@@ -2,15 +2,12 @@
 import {
     AddProduct,
     Inbox,
-    Orders,
-    OrderTemplate,
     ProductCategories,
     Products,
     Reviews,
     SalesAnalytics,
     Settings,
     SingleCustomer,
-    SingleOrder,
     SingleProduct,
     Transactions,
     Timetable,
@@ -30,7 +27,8 @@ import {
     TeachersAddReview,
     Classrooms,
     CheckResult,
-    RecordStudentResult
+    RecordStudentResult,
+    TakeAttendance,
   } from '../../pages';
   
 export const roleRoutes = {
@@ -53,6 +51,7 @@ export const roleRoutes = {
       { id: "teacher-classrooms", path: "/classrooms", element: <Classrooms /> },
       { id: "teacher-results", path: "/results", element: <CheckResult /> },
       { id: "teacher-results", path: "/record_result", element: <RecordStudentResult /> },
+      { id: "teacher-attendance", path: "/take_attendance", element: <TakeAttendance /> },
     ],
     
     Student: [
@@ -69,9 +68,6 @@ export const roleRoutes = {
       { id: "student-single-teacher", path: "/teachers/:id", element: <SingleTeacher /> },
       { id: "student-sales-analytics", path: "/sales/analysis", element: <SalesAnalytics /> },
       { id: "student-exam-result", path: "/exam_result", element: <ExamResult /> },
-      { id: "student-orders", path: "/orders", element: <Orders /> },
-      { id: "student-order-template", path: "/orders/template", element: <OrderTemplate /> },
-      { id: "student-single-order", path: "/orders/:id", element: <SingleOrder /> },
       { id: "student-attendance", path: "/attendance", element: <Attendance /> },
       { id: "student-transactions", path: "/transactions", element: <Transactions /> },
       { id: "student-leave", path: "/leave", element: <StudentLeave /> },
