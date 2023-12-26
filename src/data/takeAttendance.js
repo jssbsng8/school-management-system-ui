@@ -26,6 +26,22 @@ export const columns = [
         align: 'left',
         valueOptions: ['PRESENT', 'ABSENT', 'LATE', 'HOLIDAY', 'LEAVE'],
         editable: true,
+        renderCell: (params) => {
+            const cellValue = params.value;
+            let cellColor = '';
+        
+            if (cellValue === 'ABSENT') {
+              cellColor = 'red';
+            }
+            else if (cellValue === 'PRESENT'){
+                cellColor = 'green'
+            }
+            else if (cellValue === 'LATE'){
+                cellColor = '#ff9966'
+            }
+        
+            return <div style={{ color: cellColor }}>{cellValue}</div>;
+        },
     },
     {
         field: 'time',
