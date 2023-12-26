@@ -188,7 +188,7 @@ export const navigationLinks = (role) => {
         subLinks: [
           {
             name: "Take Attendance",
-            url: "/products",
+            url: "/take_attendance",
           },
           {
             name: "Attendance Record",
@@ -196,11 +196,7 @@ export const navigationLinks = (role) => {
           },
         ],
       },
-      {
-        name: "Results",
-        icon: <IoMdCheckboxOutline />,
-        url: "/transactions",
-      },
+      
       {
         name: "Notifications",
         icon: <MdNotificationsNone />,
