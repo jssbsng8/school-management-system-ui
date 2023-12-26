@@ -3,7 +3,6 @@ import { Typography, Paper, FormControl, InputLabel, MenuItem, Select, Box, Grid
 import LoadingButton from '@mui/lab/LoadingButton';
 
 const TakeAttendanceForm = ({ onSubmit, loading }) => {
-    // const [loading, setLoading] = useState(false);
     const [selectedClassroom, setSelectedClassroom] = useState("");
     const [selectedStream, setSelectedStream] = useState("");
     
