@@ -10,8 +10,9 @@ import { errorToast, successToast } from "../components/utils/toastUtils";
 
 
 const CheckResult = () => {
+    const [loading, setLoading] = useState(false);
     const [data, setData] = useState(null);
-    const handleCheckResult = async (selectedSession, selectedClassroom, selectedUserId, selectedExamType, setLoading) => {
+    const handleCheckResult = async (selectedSession, selectedClassroom, selectedUserId, selectedExamType) => {
         setLoading(true)
         // Handle logic for checking exam results based on selectedSession and selectedClassroom
         await new Promise(resolve => setTimeout(resolve, 5000));
@@ -46,7 +47,7 @@ const CheckResult = () => {
       <ComponentWrapper>
         <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={12}>
-                <RecordResultForm onSubmit={handleCheckResult}/>
+                <RecordResultForm onSubmit={handleCheckResult} loading={loading} />
             </Grid>
             <Grid item xs={12} md={6} lg={3}>
                 
@@ -73,7 +74,7 @@ const CheckResult = () => {
             />
         ) : (
             <Typography variant="body1">
-                No Result Found!
+                {loading ? 'Searching for data...' : 'No Result Found!'}
             </Typography>
         )}
       </ComponentWrapper>
