@@ -4,8 +4,8 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { users } from "../data/studentsTeachers";
 
 
-const CheckResultForm = ({ onSubmit }) => {
-    const [loading, setLoading] = useState(false);
+const CheckResultForm = ({ onSubmit, loading }) => {
+    // const [loading, setLoading] = useState(false);
     const [selectedSession, setSelectedSession] = useState("");
     const [selectedClassroom, setSelectedClassroom] = useState("");
     const [selectedUserId, setSelectedUserId] = useState('');
@@ -29,7 +29,7 @@ const CheckResultForm = ({ onSubmit }) => {
     };
     const handleCheckResult = () => {
         // Call the parent component's function with selectedSession and selectedClassroom
-        onSubmit(selectedSession, selectedClassroom, selectedUserId, selectedExamType, setLoading);
+        onSubmit(selectedSession, selectedClassroom, selectedUserId, selectedExamType);
     };
   return (
     <Paper elevation={3} style={{ padding: 20 }}>
@@ -100,8 +100,8 @@ const CheckResultForm = ({ onSubmit }) => {
                 name="student"
                 autoComplete="student"
                 label="Student"
-                value={selectedUserId} // Assuming you have a state to track the selected user ID
-                onChange={handleUserChange} // Assuming you have a function to handle user selection
+                value={selectedUserId}
+                onChange={handleUserChange} 
                 renderValue={(selected) => {
                 const selectedUser = users.find((user) => user.id === selected);
                 return (
