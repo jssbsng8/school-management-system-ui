@@ -100,7 +100,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         label="Username"
         name="username"
         autoComplete="username"
-        // value= "adewale"
+        defaultValue={'adewale'}
         autoFocus
       />
       <TextField
@@ -111,7 +111,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         label="Password"
         type="password"
         id="password"
-        value="string@1234"
+        defaultValue={'string@1234'}
         autoComplete="current-password"
       />
       <FormControlLabel
