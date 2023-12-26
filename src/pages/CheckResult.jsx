@@ -74,7 +74,7 @@ const CheckResult = () => {
             />
         ) : (
             <Typography variant="body1">
-                {loading ? 'Searching for data...' : 'No Result Found!'}
+                {loading ? 'Searching for result...' : 'No Result Found!'}
             </Typography>
         )}
       </ComponentWrapper>
