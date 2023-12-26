@@ -8,12 +8,7 @@ export { default as Customers } from "./Customers";
 export { default as SingleCustomer } from "./SingleCustomer";
 export { default as SalesAnalytics } from "./SalesAnalytics";
 export { default as ProductSales } from "./ProductSales";
-export { default as Orders } from "./Orders";
-export { default as OrderTemplate } from "./OrderTemplate";
-export { default as SingleOrder } from "./SingleOrder";
-export { default as Suppliers } from "./Suppliers";
 export { default as Transactions } from "./Transactions";
-export { default as Brands } from "./Brands";
 export { default as Reviews } from "./Reviews";
 export { default as Settings } from "./Settings";
 export { default as Inbox } from "./Inbox";
@@ -36,3 +31,4 @@ export { default as ResetLinkSent } from "./ResetLinkSent"
 export { default as Classrooms } from "./Classrooms"
 export { default as CheckResult } from "./CheckResult"
 export { default as RecordStudentResult } from "./RecordStudentResult"
+export { default as TakeAttendance } from "./TakeAttendance"
