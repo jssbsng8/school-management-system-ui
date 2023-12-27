@@ -64,8 +64,8 @@ const CheckResultForm = ({ onSubmit, loading }) => {
                 label="Classroom"
                 onChange={handleClassroomChange}
                 >
-                <MenuItem value="Class A">Class A</MenuItem>
-                <MenuItem value="Class B">Class B</MenuItem>
+                <MenuItem value="JUNIOR SECONDARY SCHOOL 1">JUNIOR SECONDARY SCHOOL 1</MenuItem>
+                <MenuItem value="JUNIOR SECONDARY SCHOOL 3">JUNIOR SECONDARY SCHOOL 3</MenuItem>
                 {/* Add more classroom options as needed */}
                 </Select>
             </FormControl>
