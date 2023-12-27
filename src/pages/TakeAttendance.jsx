@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Box, Grid, Typography } from "@mui/material";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import TakeAttendanceForm from "../components/TakeAttandanceForm";
+import TakeAttendanceForm from "../components/forms/TakeAttandanceForm";
 import { errorToast, successToast } from "../components/utils/toastUtils";
 import { columns, rows } from "../data/takeAttendance";
 import TableEditable from "../components/TableEditable";
