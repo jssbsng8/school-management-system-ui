@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import {Table} from "../components/Table";
 import { resultsData, resultColumn } from '../data/results';
-import RecordResultForm from "../components/CheckResultForm";
+import RecordResultForm from "../components/forms/CheckResultForm";
 import { errorToast, successToast } from "../components/utils/toastUtils";
 
 
