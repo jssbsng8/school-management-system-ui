@@ -86,7 +86,8 @@ const CheckResultForm = ({ onSubmit, loading }) => {
                 value={selectedExamType}
                 onChange={handleExamTypeChange}
                 >
-                <MenuItem value="CA-Test">CA-Test</MenuItem>
+                <MenuItem value="Quiz">Quiz</MenuItem>
+                <MenuItem value="CA-Test">Mid-Term Test</MenuItem>
                 <MenuItem value="Examination">Examination</MenuItem>
                 </Select>
             </FormControl>
