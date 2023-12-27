@@ -23,7 +23,7 @@ export const myColumns = [
     width: 180,
     editable: true,
     type: 'singleSelect',
-    valueOptions: ['CA-Test', 'Examination'],
+    valueOptions: ['Quiz', 'Mid-Term Test', 'Examination'],
   },
   {
     field: 'subject',
@@ -83,7 +83,7 @@ export const attendanceColumn = [
     width: 180,
     editable: true,
     type: 'singleSelect',
-    valueOptions: ['CA-Test', 'Examination'],
+    valueOptions: ['Quiz', 'Mid-Term Test', 'Examination'],
   },
   {
     field: 'subject',
