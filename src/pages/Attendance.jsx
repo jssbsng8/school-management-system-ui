@@ -1,8 +1,9 @@
 import React from 'react'
+import Calendar from '../components/Calendar'
 
 const Attendance = () => {
   return (
-    <div>Attendance</div>
+    <Calendar />
   )
 }
 
