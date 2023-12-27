@@ -10,9 +10,9 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { getRandomIndex } from '../data/loginImages';
 import AlignItemsList from '../components/Announcement';
-import LoginForm from '../components/LoginForm';
-import RegisterForm from '../components/RegisterForm';
-import ResetPasswordForm from '../components/ResetPasswordForm';
+import LoginForm from '../components/forms/LoginForm';
+import RegisterForm from '../components/forms/RegisterForm';
+import ResetPasswordForm from '../components/forms/ResetPasswordForm';
 
 
 function Copyright(props) {
