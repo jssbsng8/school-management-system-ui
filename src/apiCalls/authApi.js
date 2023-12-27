@@ -106,16 +106,13 @@ export const fetchSubjects = async (setSubject) => {
     try {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const getRole = userData ? userData.role : null;
-    console.log(getRole);
     if (getRole === "Student") {
-        console.log('student subs');
 
         const enrolledSubjectsJsonString = await get_enrolled_subjects(CORE.GET_ENROLLED_SUBJECTS);
         const enrolledSubjects = JSON.parse(enrolledSubjectsJsonString);
         setSubject(enrolledSubjects);
     }
     else if (getRole === "Teacher"){
-        console.log('teacher subs');
         const assignedSubjectsJsonString = await get_assigned_subjects(CORE.GET_ASSIGNED_SUBJECTS);
         const assignedSubjects = JSON.parse(assignedSubjectsJsonString);
         setSubject(assignedSubjects);
