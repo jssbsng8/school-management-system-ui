@@ -61,3 +61,38 @@ export const eventsData = attendanceData.map((record) => {
     className: `custom-event-${record.status.toLowerCase()}`, // Add a custom class
   };
 });
+
+
+const roundDecimal = (number, decimalPlaces) => {
+  const factor = 10 ** decimalPlaces;
+  return Math.round(number * factor) / factor;
+};
+export const dashboardAttendanceData = () => {
+  const { total, present, late, absent, half_day } = {
+      "total":60,
+      "present":38,
+      "late": 5,
+      "absent":3,
+      "half_day":4,
+  }
+  const total_present = present + late + half_day;
+  const percentage_present = total !== 0 ? roundDecimal((present / total) * 100, 2) : 0;
+  const percentage_absent = total !== 0 ? roundDecimal((absent / total) * 100, 2) : 0;
+  const percentage_late = total !== 0 ? roundDecimal((late / total) * 100, 2) : 0;
+  const percentage_half_day = total !== 0 ? roundDecimal((half_day / total) * 100, 2) : 0;
+  const percentage_total_present = total !== 0 ? roundDecimal((total_present / total) * 100, 2) : 0;
+
+  return {
+      "total": total,
+      "present": present,
+      "absent": absent,
+      "late": late,
+      "half_day": half_day,
+      "percentage_present": percentage_present,
+      "percentage_absent": percentage_absent,
+      "percentage_late": percentage_late,
+      "percentage_half_day": percentage_half_day,
+      "percentage_total_present": percentage_total_present,
+      "present_ratio": `${total_present}/${total}`,
+  }
+}
