@@ -29,6 +29,7 @@ import {
     CheckResult,
     RecordStudentResult,
     TakeAttendance,
+    ViewAttendance,
     LeaveRequests,
   } from '../../pages';
   
@@ -53,7 +54,8 @@ export const roleRoutes = {
       { id: "teacher-results", path: "/results", element: <CheckResult /> },
       { id: "teacher-results", path: "/record_result", element: <RecordStudentResult /> },
       { id: "teacher-attendance", path: "/take_attendance", element: <TakeAttendance /> },
-      { id: "teacher-leave_requests", path: "/leave_requests", element: <LeaveRequests /> },
+      { id: "teacher-view-attendance", path: "/view_attendance", element: <ViewAttendance /> },
+      { id: "teacher-leave-requests", path: "/leave_requests", element: <LeaveRequests /> },
     ],
     
     Student: [
