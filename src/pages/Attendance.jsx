@@ -1,11 +1,8 @@
-import React from 'react'
-import Calendar from '../components/Calendar'
+import React from "react";
+import Calendar from "../components/Calendar";
 
 const Attendance = () => {
-  return (
-    <Calendar />
-  )
-}
+  return <Calendar />;
+};
 
-export default Attendance
-
+export default Attendance;
