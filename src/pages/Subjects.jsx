@@ -5,7 +5,7 @@ import { useUser } from "../components/utils/userContext";
 import { subjectColumns } from "../data/subjects";
 
 const Subjects = () => {
-  const { subjects, role } = useUser()
+  const { subjects, role } = useUser();
   return (
     <Box sx={{ pt: "80px", pb: "20px" }}>
       <Box
@@ -17,11 +17,10 @@ const Subjects = () => {
         }}
       >
         <Typography variant="h6">
-          {role === 'Student' ? 'Enrolled Subjects' : 'Assigned Subjects'}
+          {role === "Student" ? "Enrolled Subjects" : "Assigned Subjects"}
         </Typography>
       </Box>
-      {
-      subjects ? (
+      {subjects ? (
         <Table
           data={subjects}
           fields={subjectColumns}
@@ -37,9 +36,12 @@ const Subjects = () => {
           routeLink="subjects"
         />
       ) : (
-        <p>{role === 'Teacher' ? 'No Subject Assigned Yet!' : 'No Subjects Enrolled Yet'}</p>
-      )
-      }
+        <p>
+          {role === "Teacher"
+            ? "No Subject Assigned Yet!"
+            : "No Subjects Enrolled Yet"}
+        </p>
+      )}
     </Box>
   );
 };
