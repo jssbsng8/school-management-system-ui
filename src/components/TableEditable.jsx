@@ -1,14 +1,14 @@
-import React, { useState} from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import CancelIcon from '@mui/icons-material/Close';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { ToastContainer } from 'react-toastify';
-import { successToast } from '../components/utils/toastUtils';
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Close";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { ToastContainer } from "react-toastify";
+import { successToast } from "../components/utils/toastUtils";
 import { Paper, Typography } from "@mui/material";
 import {
   GridRowModes,
@@ -17,45 +17,49 @@ import {
   GridActionsCellItem,
   GridRowEditStopReasons,
   GridToolbar,
-} from '@mui/x-data-grid';
-import { randomId } from '@mui/x-data-grid-generator';
+} from "@mui/x-data-grid";
+import { randomId } from "@mui/x-data-grid-generator";
 
-// eslint-disable-next-line
-function EditToolbar(props) {
-  const { setRows, setRowModesModel } = props;
+const TableEditable = ({
+  myData,
+  myColumns,
+  enableSubmitButton,
+  enableAddNewRow,
+  Decision,
+}) => {
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(true);
+  const [rows, setRows] = React.useState(myData);
+  const [rowModesModel, setRowModesModel] = React.useState({});
 
-  const handleClick = () => {
-    const id = randomId();
-    setRows((oldRows) => [
+  const EditToolbar = (props) => {
+    const { setRows, setRowModesModel } = props;
+
+    const handleClick = () => {
+      const id = randomId();
+      setRows((oldRows) => [
         ...oldRows,
         {
           id,
-          name: '',
-          registration_number: '',
-          attendance: '',
+          name: "",
+          // registration_number: '',
+          // attendance: '',
         },
       ]);
-    setRowModesModel((oldModel) => ({
-      ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-    }));
+      setRowModesModel((oldModel) => ({
+        ...oldModel,
+        [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
+      }));
+    };
+
+    return (
+      <GridToolbarContainer>
+        <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+          Add record
+        </Button>
+      </GridToolbarContainer>
+    );
   };
-
-  return (
-    <GridToolbarContainer>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
-      </Button>
-    </GridToolbarContainer>
-  );
-}
-
-const TableEditable = ({ myData, myColumns }) => {
-  // console.log(myData);
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(true)
-  const [rows, setRows] = React.useState(myData);
-  const [rowModesModel, setRowModesModel] = React.useState({});
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -70,7 +74,7 @@ const TableEditable = ({ myData, myColumns }) => {
   const handleSaveClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
   };
-  
+
   const handleDeleteClick = (id) => () => {
     setRows(rows.filter((row) => row.id !== id));
   };
@@ -90,33 +94,54 @@ const TableEditable = ({ myData, myColumns }) => {
 
   const processRowUpdate = (newRow) => {
     const currentTime = new Date().toLocaleTimeString();
-    const updatedRow = { ...newRow, isNew: false, time: currentTime};
+    let updatedRow;
+
+    if (
+      Decision &&
+      (newRow.status === "Approved" || newRow.status === "Rejected")
+    ) {
+      updatedRow = {
+        ...newRow,
+        isNew: false,
+        time: currentTime,
+        approved_by: Decision,
+      };
+    } else {
+      updatedRow = { ...newRow, isNew: false, time: currentTime };
+    }
+
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    setSubmitted(false)
-    return updatedRow;
+    if (enableSubmitButton) {
+      setSubmitted(false);
+      return updatedRow;
+    } else {
+      successToast("Updated!");
+      setSubmitted(true);
+      return updatedRow;
+    }
   };
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
   };
 
   const handleGetAllData = async () => {
-    setLoading(true)
+    setLoading(true);
     // Access the current rows data
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     console.log(rows);
-    successToast("Results Submitted")
-    setLoading(false)
-    setSubmitted(true)
+    successToast("Results Submitted");
+    setLoading(false);
+    setSubmitted(true);
   };
 
   const columns = [
     ...myColumns,
     {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
+      field: "actions",
+      type: "actions",
+      headerName: "Actions",
       width: 100,
-      cellClassName: 'actions',
+      cellClassName: "actions",
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
@@ -126,7 +151,7 @@ const TableEditable = ({ myData, myColumns }) => {
               icon={<SaveIcon />}
               label="Save"
               sx={{
-                color: 'primary.main',
+                color: "primary.main",
               }}
               onClick={handleSaveClick(id)}
             />,
@@ -159,22 +184,32 @@ const TableEditable = ({ myData, myColumns }) => {
     },
   ];
 
+  const MyCustomToolbar = (props) => {
+    return (
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <GridToolbar {...props} />
+        {enableAddNewRow && <EditToolbar {...props} />}
+      </div>
+    );
+  };
+
   return (
     <Box
-        sx={{
-            display: "flex", gap: 2,
-            flexDirection: "column",
-            pb: "20px",
-            width: '100%',
-            '& .actions': {
-            color: 'text.secondary',
-            },
-            '& .textPrimary': {
-            color: 'text.primary',
-            },
-        }}
+      sx={{
+        display: "flex",
+        gap: 2,
+        flexDirection: "column",
+        pb: "20px",
+        width: "100%",
+        "& .actions": {
+          color: "text.secondary",
+        },
+        "& .textPrimary": {
+          color: "text.primary",
+        },
+      }}
     >
-      <Paper 
+      <Paper
         sx={{
           boxShadow: "none !important",
           borderRadius: "12px",
@@ -186,45 +221,48 @@ const TableEditable = ({ myData, myColumns }) => {
         }}
       >
         <ToastContainer />
-        
-        {
-            rows ? (
-              <>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    editMode="row"
-                    rowModesModel={rowModesModel}
-                    onRowModesModelChange={handleRowModesModelChange}
-                    onRowEditStop={handleRowEditStop}
-                    processRowUpdate={processRowUpdate}
-                    slots={{
-                    // toolbar: EditToolbar,
-                    toolbar: GridToolbar,
-                    }}
-                    slotProps={{
-                    toolbar: { setRows, setRowModesModel },
-                }}
-                />
-                <LoadingButton 
-                  variant="contained" 
-                  type="submit"
-                  onClick={handleGetAllData} 
-                  loading={loading}
-                  loadingPosition="start"
-                  disabled={submitted}
-                  sx={{ mt: 3, mb: 2, width: "15%" }}
-                  >
-                  {loading ? 'Submitting...' : 'Submit Record'}
-                </LoadingButton>
-              </>
+
+        {rows ? (
+          <>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              editMode="row"
+              rowModesModel={rowModesModel}
+              onRowModesModelChange={handleRowModesModelChange}
+              onRowEditStop={handleRowEditStop}
+              processRowUpdate={processRowUpdate}
+              slots={{
+                toolbar: MyCustomToolbar,
+              }}
+              slotProps={{
+                toolbar: { setRows, setRowModesModel },
+              }}
+            />
+            {enableSubmitButton ? (
+              <LoadingButton
+                variant="contained"
+                type="submit"
+                onClick={handleGetAllData}
+                loading={loading}
+                loadingPosition="start"
+                disabled={submitted}
+                sx={{ mt: 3, mb: 2, width: "15%" }}
+              >
+                {loading ? "Submitting..." : "Submit Record"}
+              </LoadingButton>
             ) : (
-                <Typography variant="h5">No records available. Set a new record by making a query search</Typography>
-            )
-        }
+              <></>
+            )}
+          </>
+        ) : (
+          <Typography variant="h5">
+            No records available. Set a new record by making a query search
+          </Typography>
+        )}
       </Paper>
     </Box>
   );
-}
+};
 
-export default TableEditable
+export default TableEditable;
