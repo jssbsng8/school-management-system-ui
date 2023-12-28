@@ -194,6 +194,10 @@ export const navigationLinks = (role) => {
             name: "Attendance Record",
             url: "/products",
           },
+          {
+            name: "Leave Requests",
+            url: "/leave_requests",
+          },
         ],
       },
       
