@@ -2,6 +2,11 @@ import { Avatar } from "@mui/material";
 
 export const teachersColumns = [
   {
+    accessorKey: "id",
+    header: "Id",
+    size: 50,
+  },
+  {
     accessorKey: "img", //access nested data with dot notation
     header: "Image",
     size: 100,
