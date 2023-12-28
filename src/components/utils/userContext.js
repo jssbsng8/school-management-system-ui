@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { athenticatedUser } from '../../apiCalls/authApi';
-import { USER_ENDPOINTS } from '../../apiCalls/endpoints';
-import { fetchSubjects } from '../../apiCalls/authApi';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { athenticatedUser } from "../../apiCalls/authApi";
+import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
+import { fetchSubjects } from "../../apiCalls/authApi";
 
 const UserContext = createContext();
 
@@ -13,7 +13,6 @@ export const UserProvider = ({ children }) => {
   const [subjects, setSubject] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  
 
   useEffect(() => {
     /*
@@ -37,9 +36,11 @@ export const UserProvider = ({ children }) => {
     const fetchAuthenticatedUser = async () => {
       try {
         const currentRoute = location.pathname;
-        const excludedRoutes = [ '/login', '/success', '/reset_password']; // Add routes to exclude from navigation
+        const excludedRoutes = ["/login", "/success", "/reset_password"]; // Add routes to exclude from navigation
         if (!excludedRoutes.includes(currentRoute)) {
-          const getUser = await athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER);
+          const getUser = await athenticatedUser(
+            USER_ENDPOINTS.AUTHENTICATED_USER
+          );
 
           if (getUser) {
             const parsedUserData = JSON.parse(getUser);
@@ -61,19 +62,17 @@ export const UserProvider = ({ children }) => {
       }
     };
 
-    
     fetchAuthenticatedUser();
   }, [navigate, location.pathname]);
 
-
-  useEffect(()=> {
+  useEffect(() => {
     /*
       useEffect triggers the provided function (fetchDatas(setSubject))
       when the component mounts. The dependency array ([]) ensures it runs only once on mount.
       This effect set the user(teacher/student) subject they are assigned or enrolled.
     */
-    fetchSubjects(setSubject)
-  },[])
+    fetchSubjects(setSubject);
+  }, []);
 
   const setUserContext = (userData, authStatus, UserRole, userSubjects) => {
     /*
@@ -87,15 +86,26 @@ export const UserProvider = ({ children }) => {
     setUser(userData);
     setAuth(authStatus);
     setRole(UserRole);
-    setSubject(userSubjects)
+    setSubject(userSubjects);
   };
 
   const setAuthStatus = (newAuthStatus) => {
     setAuth(newAuthStatus);
   };
-  
+
   return (
-    <UserContext.Provider value={{ user, auth, role, subjects, setSubject, setUserContext, setAuthStatus, setRole }}>
+    <UserContext.Provider
+      value={{
+        user,
+        auth,
+        role,
+        subjects,
+        setSubject,
+        setUserContext,
+        setAuthStatus,
+        setRole,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
@@ -112,7 +122,7 @@ export const useUser = () => {
 
   const context = useContext(UserContext);
   if (!context) {
-    throw new Error('useUser must be used within a UserProvider');
+    throw new Error("useUser must be used within a UserProvider");
   }
   return context;
 };
