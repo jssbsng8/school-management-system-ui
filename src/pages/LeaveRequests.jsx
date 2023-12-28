@@ -16,16 +16,17 @@ const LeaveRequests = () => {
       >
         <Typography variant="h6">Leave Requests</Typography>
       </Box>
-      {
-      myData ? (
-        <TableEditable 
-            myData={myData}
-            myColumns={myColumns}
+      {myData ? (
+        <TableEditable
+          myData={myData}
+          myColumns={myColumns}
+          enableSubmitButton={false}
+          enableAddNewRow={false}
+          Decision={"John Cena"}
         />
       ) : (
         <Typography variant="h6">No Leave Request(s)</Typography>
-      )
-      }
+      )}
     </Box>
   );
 };
