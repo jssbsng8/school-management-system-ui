@@ -18,6 +18,8 @@
     "@testing-library/user-event": "^13.5.0",
     "apexcharts": "^3.36.3",
     "framer-motion": "^7.6.19",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.1",
     "material-react-table": "^1.5.4",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
