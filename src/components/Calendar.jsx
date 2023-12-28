@@ -6,7 +6,6 @@ import { Box, Typography } from "@mui/material";
 import { eventsData } from "../data/attendanceData";
 
 const Calendar = () => {
-
   return (
     <Box sx={{ pt: "80px", pb: "20px" }}>
       <Typography variant="h6" sx={{ marginBottom: "14px" }}>
