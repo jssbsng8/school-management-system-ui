@@ -1,38 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import Avatar from '@mui/material/Avatar';
-import CssBaseline from '@mui/material/CssBaseline';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { getRandomIndex } from '../data/loginImages';
-import AlignItemsList from '../components/Announcement';
-import LoginForm from '../components/forms/LoginForm';
-import RegisterForm from '../components/forms/RegisterForm';
-import ResetPasswordForm from '../components/forms/ResetPasswordForm';
-
+import React, { useState, useEffect } from "react";
+import Avatar from "@mui/material/Avatar";
+import CssBaseline from "@mui/material/CssBaseline";
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { getRandomIndex } from "../data/loginImages";
+import AlignItemsList from "../components/Announcement";
+import LoginForm from "../components/forms/LoginForm";
+import RegisterForm from "../components/forms/RegisterForm";
+import ResetPasswordForm from "../components/forms/ResetPasswordForm";
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
       <Link color="inherit" href="#">
         The Gem
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
 
 function Authentication() {
-  const [randomImageUrl, setRandomImageUrl] = useState('');
+  const [randomImageUrl, setRandomImageUrl] = useState("");
   const [showLoginForm, setShowLoginForm] = useState(true);
   const [showResetPasswordForm, setShowResetPasswordForm] = useState(false); // New state
-  
 
   useEffect(() => {
     const randomImage = getRandomIndex();
@@ -51,20 +54,20 @@ function Authentication() {
     // Handle form submission based on current form type (login/register)
     if (showLoginForm) {
       // Handle login form submission
-      console.log('Login data:', formData);
+      console.log("Login data:", formData);
     } else {
       // Handle registration form submission
-      console.log('Registration data:', formData);
+      console.log("Registration data:", formData);
     }
   };
   const handleResetPasswordSubmit = (formData) => {
     // Handle reset password form submission
-    console.log('Reset Password data:', formData);
+    console.log("Reset Password data:", formData);
     // Implement the logic for sending a reset password link to the user's email
   };
   return (
     <ThemeProvider theme={createTheme()}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
           item
@@ -72,27 +75,31 @@ function Authentication() {
           sm={4}
           md={7}
           sx={{
-            position: 'relative',
+            position: "relative",
             backgroundImage: `url(${randomImageUrl})`,
-            backgroundRepeat: 'no-repeat',
+            backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+              t.palette.mode === "light"
+                ? t.palette.grey[50]
+                : t.palette.grey[900],
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         >
           <Box
             sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              textAlign: 'center',
-              color: '#fff',
-              width: '90%',
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              textAlign: "center",
+              color: "#fff",
+              width: "90%",
             }}
           >
-            <Typography variant="h4">Welcome to The Gem International School</Typography>
+            <Typography variant="h4">
+              Welcome to The Gem International School
+            </Typography>
             {/* Add any additional overlay text here */}
             <AlignItemsList />
           </Box>
@@ -102,31 +109,45 @@ function Authentication() {
             sx={{
               my: 8,
               mx: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              {showLoginForm ? 'Sign In' : showResetPasswordForm ? 'Reset Password' : 'Register'}
+              {showLoginForm
+                ? "Sign In"
+                : showResetPasswordForm
+                ? "Reset Password"
+                : "Register"}
             </Typography>
             {/* Toggle between login, registration, and reset password forms */}
             {showLoginForm && !showResetPasswordForm && (
-              <LoginForm onSubmit={handleFormSubmit} onForgotPassword={handleForgotPasswordClick} />
+              <LoginForm
+                onSubmit={handleFormSubmit}
+                onForgotPassword={handleForgotPasswordClick}
+              />
             )}
             {!showLoginForm && !showResetPasswordForm && (
               <RegisterForm onSubmit={handleFormSubmit} />
             )}
             {showResetPasswordForm && (
-              <ResetPasswordForm onSubmit={handleResetPasswordSubmit} onCancel={handleToggleForm} />
+              <ResetPasswordForm
+                onSubmit={handleResetPasswordSubmit}
+                onCancel={handleToggleForm}
+              />
             )}
             {!showResetPasswordForm && (
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2" onClick={handleForgotPasswordClick}>
+                  <Link
+                    href="#"
+                    variant="body2"
+                    onClick={handleForgotPasswordClick}
+                  >
                     Forgot password?
                   </Link>
                 </Grid>
@@ -134,7 +155,7 @@ function Authentication() {
                   <Link href="#" variant="body2" onClick={handleToggleForm}>
                     {showLoginForm
                       ? "Don't have an account? Sign Up"
-                      : 'Already have an account? Sign In'}
+                      : "Already have an account? Sign In"}
                   </Link>
                 </Grid>
               </Grid>
@@ -146,6 +167,5 @@ function Authentication() {
     </ThemeProvider>
   );
 }
-
 
 export default Authentication;
