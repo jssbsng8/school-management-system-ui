@@ -1,56 +1,56 @@
-import React from 'react';
+import React from "react";
 import styled from "@emotion/styled";
 import { Box, Grid, Paper, Typography } from "@mui/material";
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
-import { useUser } from '../components/utils/userContext';
-import StudentResultCard from '../components/StudentResultCard';
-import {Table} from "../components/Table";
-import { resultsData, resultColumn } from '../data/results';
-
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import { useUser } from "../components/utils/userContext";
+import StudentResultCard from "../components/StudentResultCard";
+import { Table } from "../components/Table";
+import { resultsData, resultColumn } from "../data/results";
 
 const ExamResult = () => {
-    const { user} = useUser();
-    const ComponentWrapper = styled(Box)({
-        marginTop: "10px",
-        paddingBottom: "10px",
-    });
+  const { user } = useUser();
+  const ComponentWrapper = styled(Box)({
+    marginTop: "10px",
+    paddingBottom: "10px",
+  });
   return (
     <Box sx={{ pt: "80px", pb: "20px" }}>
       <ToastContainer />
       <Typography variant="h6" sx={{ marginBottom: "14px" }}>
         Results
       </Typography>
-      <ComponentWrapper>
-        {/* <Stats /> */}
-      </ComponentWrapper>
+      <ComponentWrapper>{/* <Stats /> */}</ComponentWrapper>
 
       <ComponentWrapper>
         <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={9}>
-                <StudentResultCard userName={user.first_name + ' ' + user.last_name} attendancePercentage={91.67}/>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-                <Paper
-                sx={{
-                    boxShadow: "none !important",
-                    borderRadius: "12px",
-                    borderStyle: "solid",
-                    borderWidth: "1px",
-                    borderColor: "divider",
-                    height: "100%",
-                    display:'flex',
-                    alignItems:'center'
-                }}
-                >
-                {/* <TeachersList /> */}
-                    <img
-                        src="/images/avatars/profile-avatar.png" // Replace with the actual image source
-                        alt="Student"
-                        style={{ width: '100%', borderRadius: '50%' }}
-                    />
-                </Paper>
-            </Grid>
+          <Grid item xs={12} md={6} lg={9}>
+            <StudentResultCard
+              userName={user.first_name + " " + user.last_name}
+              attendancePercentage={91.67}
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Paper
+              sx={{
+                boxShadow: "none !important",
+                borderRadius: "12px",
+                borderStyle: "solid",
+                borderWidth: "1px",
+                borderColor: "divider",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {/* <TeachersList /> */}
+              <img
+                src="/images/avatars/profile-avatar.png" // Replace with the actual image source
+                alt="Student"
+                style={{ width: "100%", borderRadius: "50%" }}
+              />
+            </Paper>
+          </Grid>
         </Grid>
       </ComponentWrapper>
 
