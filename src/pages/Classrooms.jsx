@@ -14,12 +14,9 @@ const Classrooms = () => {
           marginBottom: "16px",
         }}
       >
-        <Typography variant="h6">
-          Classes
-        </Typography>
+        <Typography variant="h6">Classes</Typography>
       </Box>
-      {
-      classrooms ? (
+      {classrooms ? (
         <Table
           data={classrooms}
           fields={classroomColumns}
@@ -36,8 +33,7 @@ const Classrooms = () => {
         />
       ) : (
         "No Classroom Assigned Yet!"
-      )
-      }
+      )}
     </Box>
   );
 };
