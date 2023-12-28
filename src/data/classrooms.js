@@ -1,5 +1,10 @@
 export const classroomColumns = [
   {
+    accessorKey: "id", //access nested data with dot notation
+    header: "Id",
+    size: 50,
+  },
+  {
     accessorKey: "title", //access nested data with dot notation
     header: "Title",
   },
