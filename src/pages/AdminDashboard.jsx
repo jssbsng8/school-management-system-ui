@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
-import AdminBarChart from '../components/home/charts/AdminBarChart'
+import AdminBarChart from "../components/home/charts/AdminBarChart";
 import Stats from "../components/home/stats/Stats";
 import TeachersList from "../components/home/TeachersList";
 // import TransactionCustomer from "../components/home/TransactionCustomer";
@@ -44,9 +44,7 @@ const AdminDashboard = () => {
           </Grid>
         </Grid>
       </ComponentWrapper>
-      <ComponentWrapper>
-        {/* <TransactionCustomer /> */}
-      </ComponentWrapper>
+      <ComponentWrapper>{/* <TransactionCustomer /> */}</ComponentWrapper>
 
       <ComponentWrapper>
         <Typography variant="h5" sx={{ my: 3 }}>
