@@ -9,13 +9,14 @@ import CancelIcon from '@mui/icons-material/Close';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { ToastContainer } from 'react-toastify';
 import { successToast } from '../components/utils/toastUtils';
-import { Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import {
   GridRowModes,
   DataGrid,
   GridToolbarContainer,
   GridActionsCellItem,
   GridRowEditStopReasons,
+  GridToolbar,
 } from '@mui/x-data-grid';
 import { randomId } from '@mui/x-data-grid-generator';
 
@@ -173,6 +174,17 @@ const TableEditable = ({ myData, myColumns }) => {
             },
         }}
     >
+      <Paper 
+        sx={{
+          boxShadow: "none !important",
+          borderRadius: "12px",
+          borderStyle: "solid",
+          borderWidth: "1px",
+          borderColor: "divider",
+
+          padding: "16px",
+        }}
+      >
         <ToastContainer />
         
         {
@@ -188,6 +200,7 @@ const TableEditable = ({ myData, myColumns }) => {
                     processRowUpdate={processRowUpdate}
                     slots={{
                     // toolbar: EditToolbar,
+                    toolbar: GridToolbar,
                     }}
                     slotProps={{
                     toolbar: { setRows, setRowModesModel },
@@ -209,6 +222,7 @@ const TableEditable = ({ myData, myColumns }) => {
                 <Typography variant="h5">No records available. Set a new record by making a query search</Typography>
             )
         }
+      </Paper>
     </Box>
   );
 }
