@@ -132,9 +132,11 @@ span.Cancelled {
   }
 }
 
-
 /* styles.css or your styled-components implementation */
-.custom-event-present, .custom-event-absent, .custom-event-late, .custom-event-holiday {
+.custom-event-present,
+.custom-event-absent,
+.custom-event-late,
+.custom-event-holiday {
   text-align: center;
   line-height: 2; /* Adjust line height for vertical centering */
 }
