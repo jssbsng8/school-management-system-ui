@@ -1,6 +1,10 @@
 import { HiOutlineClipboardList } from "react-icons/hi";
 import { FaRegCalendarCheck } from "react-icons/fa";
-import { MdOutlineRateReview, MdCheckCircleOutline, MdNotificationsNone } from "react-icons/md";
+import {
+  MdOutlineRateReview,
+  MdCheckCircleOutline,
+  MdNotificationsNone,
+} from "react-icons/md";
 import { IoDocumentAttachOutline } from "react-icons/io5";
 import { GiBlackBook } from "react-icons/gi";
 import { IoMdCheckboxOutline } from "react-icons/io";
@@ -12,9 +16,8 @@ import {
   FiUsers,
 } from "react-icons/fi";
 
-
 export const navigationLinks = (role) => {
-  if (role === 'Admin') {
+  if (role === "Admin") {
     return [
       {
         name: "Dashboard",
@@ -133,7 +136,7 @@ export const navigationLinks = (role) => {
         url: "/inbox",
       },
     ];
-  } else if (role === 'Teacher') {
+  } else if (role === "Teacher") {
     return [
       {
         name: "Dashboard",
@@ -200,7 +203,7 @@ export const navigationLinks = (role) => {
           },
         ],
       },
-      
+
       {
         name: "Notifications",
         icon: <MdNotificationsNone />,
