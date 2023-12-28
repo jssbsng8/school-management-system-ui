@@ -2,11 +2,10 @@ import { Avatar, Divider, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { useUser } from "../utils/userContext";
-import LoadingButton from '@mui/lab/LoadingButton';
+import LoadingButton from "@mui/lab/LoadingButton";
 import { successToast, errorToast, warningToast } from "../utils/toastUtils";
 import { updateUserProfile } from "../../apiCalls/authApi";
 import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
-
 
 const Profile = () => {
   const { user } = useUser();
@@ -19,7 +18,7 @@ const Profile = () => {
 
   const handleUpdateProfile = async () => {
     setLoading(true);
-  
+
     const updatedFields = Object.entries({
       first_name: firstName,
       last_name: lastName,
@@ -27,7 +26,7 @@ const Profile = () => {
       email,
       address,
     }).reduce((acc, [key, value]) => {
-      if (value !== user[key] && typeof value !== 'undefined') {
+      if (value !== user[key] && typeof value !== "undefined") {
         acc[key] = value;
       }
       return acc;
@@ -37,34 +36,37 @@ const Profile = () => {
     if (Object.keys(updatedFields).length !== 0) {
       try {
         // Assuming updateUserProfile returns the updated user profile
-        const updatedUserProfile = await updateUserProfile(USER_ENDPOINTS.GET_OR_UPDATE_USER(user.id), updatedFields);
-        
+        const updatedUserProfile = await updateUserProfile(
+          USER_ENDPOINTS.GET_OR_UPDATE_USER(user.id),
+          updatedFields
+        );
+
         // Check if the response is successful
         if (updatedUserProfile) {
           await new Promise((resolve) => setTimeout(resolve, 3000));
           Object.keys(updatedFields).forEach((key) => {
             switch (key) {
-              case 'first_name':
+              case "first_name":
                 setFirstName(updatedUserProfile.first_name);
                 break;
-              case 'last_name':
+              case "last_name":
                 setLastName(updatedUserProfile.last_name);
                 break;
-              case 'username':
+              case "username":
                 setUsername(updatedUserProfile.username);
                 break;
-              case 'email':
+              case "email":
                 setEmail(updatedUserProfile.email);
                 break;
-              case 'address':
+              case "address":
                 setAddress(updatedUserProfile.address);
                 break;
               default:
                 break;
             }
           });
-  
-          successToast("Profile updated successfully");          
+
+          successToast("Profile updated successfully");
         } else {
           errorToast("Failed to update profile");
         }
@@ -79,7 +81,6 @@ const Profile = () => {
       setLoading(false);
     }
   };
-
 
   return (
     <Box>
@@ -155,8 +156,8 @@ const Profile = () => {
         </Box>
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
+            display: "flex",
+            justifyContent: "flex-end",
             mt: 3,
           }}
         >
@@ -168,7 +169,7 @@ const Profile = () => {
             onClick={handleUpdateProfile}
             sx={{ width: "180px" }}
           >
-            {loading ? 'Please Wait...' : 'Save Changes'}
+            {loading ? "Please Wait..." : "Save Changes"}
           </LoadingButton>
         </Box>
       </Box>
