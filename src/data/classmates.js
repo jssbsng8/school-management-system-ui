@@ -2,6 +2,10 @@ import { Rating } from "@mui/material";
 import { Avatar } from "@mui/material";
 export const classmateColumns = [
   {
+    accessorKey: "id", //access nested data with dot notation
+    header: "Id",
+  },
+  {
     accessorKey: "img", //access nested data with dot notation
     header: "Image",
     size: 100,
