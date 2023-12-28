@@ -8,7 +8,7 @@ import { subjects } from "../../data/subjects";
 import { useUser } from "../utils/userContext";
 
 const Subjects = () => {
-  const { role } = useUser()
+  const { role } = useUser();
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={6} lg={4}>
@@ -45,38 +45,36 @@ const Subjects = () => {
           </Box>
           <Divider />
           <Box sx={{ marginTop: 1 }}>
-            {subjects
-              .slice(0, 4)
-              .map(({ id, title, code, img }) => (
+            {subjects.slice(0, 4).map(({ id, title, code, img }) => (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  margin: "10px 0",
+                }}
+                key={id}
+              >
                 <Box
                   sx={{
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "space-between",
-                    margin: "10px 0",
+                    gap: 2,
                   }}
-                  key={id}
                 >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 2,
-                    }}
-                  >
-                    {/* <Avatar src={img} sx={{ width: 30, height: 30 }} /> */}
-                    <Box>
-                      <Typography variant="h6" sx={{ fontSize: "18px" }}>
-                        {title}
-                      </Typography>
-                      <Typography variant="subtitle1" sx={{ opacity: 0.7 }}>
-                        {code}
-                      </Typography>
-                    </Box>
+                  {/* <Avatar src={img} sx={{ width: 30, height: 30 }} /> */}
+                  <Box>
+                    <Typography variant="h6" sx={{ fontSize: "18px" }}>
+                      {title}
+                    </Typography>
+                    <Typography variant="subtitle1" sx={{ opacity: 0.7 }}>
+                      {code}
+                    </Typography>
                   </Box>
-                  <FaEllipsisH />
                 </Box>
-              ))}
+                <FaEllipsisH />
+              </Box>
+            ))}
           </Box>
           <Divider />
           <Typography variant="subtitle1" sx={{ textAlign: "center", mt: 1 }}>
