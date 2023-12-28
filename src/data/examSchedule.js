@@ -1,5 +1,10 @@
 export const examScheduleColumn = [
   {
+    accessorKey: "id",
+    header: "Id",
+    size: 50,
+  },
+  {
     accessorKey: "subject",
     header: "Subjects",
   },
