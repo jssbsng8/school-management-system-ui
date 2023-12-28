@@ -3,7 +3,10 @@ import React from "react";
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import Table from "../components/Table";
-import { teachersReviewData, teachersReviewColumn } from "../data/teachersReviewsData";
+import {
+  teachersReviewData,
+  teachersReviewColumn,
+} from "../data/teachersReviewsData";
 
 const TeachersReviews = () => {
   return (
