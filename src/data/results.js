@@ -4,6 +4,11 @@ const totalScoreCalculator = (ca_score, exam_score) => {
 
 export const resultColumn = [
   {
+    accessorKey: "id",
+    header: "Id",
+    size: 50,
+  },
+  {
     accessorKey: "title",
     header: "Title",
   },
