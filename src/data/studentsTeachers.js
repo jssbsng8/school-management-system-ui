@@ -58,7 +58,6 @@ export const studentColumns = [
   },
 ];
 
-
 export const teachers = [
   {
     id: 1,
@@ -129,7 +128,6 @@ export const students = [
   },
 ];
 
-
 export const users = [
   {
     id: 1,
@@ -162,4 +160,3 @@ export const users = [
     profileImage: "/images/avatars/avatar6.png",
   },
 ];
-
