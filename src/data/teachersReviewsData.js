@@ -1,40 +1,40 @@
 import { Rating } from "@mui/material";
 import { Avatar } from "@mui/material";
 export const teachersReviewColumn = [
-    {
-      accessorKey: "img", //access nested data with dot notation
-      header: "Image",
-      size: 100,
-      Cell: ({ cell }) => (
-        <div>
-          <Avatar src={cell.getValue()} sx={{ width: 30, height: 30 }} />
-        </div>
-      ),
-    },
-    {
-      accessorKey: "name", //access nested data with dot notation
-      header: "Name",
-    },
-    {
-      accessorKey: "subject",
-      header: "Subject",
-    },
-    {
-      accessorKey: "email",
-      header: "Email",
-    },
-    {
-        accessorKey: "rating", //normal accessorKey
-        header: "Rating",
-        Cell: ({ cell, row }) => (
-            <Rating
-            name="half-rating"
-            defaultValue={cell.getValue()}
-            precision={0.5}
-            readOnly
-            />
-        ),
-    },
+  {
+    accessorKey: "img", //access nested data with dot notation
+    header: "Image",
+    size: 100,
+    Cell: ({ cell }) => (
+      <div>
+        <Avatar src={cell.getValue()} sx={{ width: 30, height: 30 }} />
+      </div>
+    ),
+  },
+  {
+    accessorKey: "name", //access nested data with dot notation
+    header: "Name",
+  },
+  {
+    accessorKey: "subject",
+    header: "Subject",
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+  },
+  {
+    accessorKey: "rating", //normal accessorKey
+    header: "Rating",
+    Cell: ({ cell, row }) => (
+      <Rating
+        name="half-rating"
+        defaultValue={cell.getValue()}
+        precision={0.5}
+        readOnly
+      />
+    ),
+  },
 ];
 
 export const teachersReviewData = [
