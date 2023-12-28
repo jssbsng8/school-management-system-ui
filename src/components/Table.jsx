@@ -1,11 +1,11 @@
-/* eslint-disable no-restricted-globals */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useMemo, useState } from "react";
 import MaterialReactTable from "material-react-table";
 import { IconButton, Tooltip } from "@mui/material";
-import { FiEye, FiTrash } from "react-icons/fi";
-import { Box } from "@mui/system";
+import { FiEye, FiTrash, FiDownload } from "react-icons/fi";
+import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 
 export const Table = ({
   data,
@@ -21,20 +21,33 @@ export const Table = ({
   showPreview,
   routeLink,
 }) => {
-  const columns = useMemo(() => fields, []);
+  const columns = useMemo(() => fields, [fields]);
 
   const [tableData, setTableData] = useState(() => data);
 
   const handleDeleteRow = useCallback(
     (row) => {
-      if (!confirm("Are you sure you want to delete")) {
+      if (!window.confirm("Are you sure you want to delete")) {
         return;
       }
       data.splice(row.index, 1);
       setTableData([...tableData]);
     },
-    [tableData]
+    [tableData, data]
   );
+
+  const handleExportRows = (rows) => {
+    const doc = new jsPDF();
+    const tableData = rows.map((row) => Object.values(row.original));
+    const tableHeaders = columns.map((c) => c.header);
+
+    autoTable(doc, {
+      head: [tableHeaders],
+      body: tableData,
+    });
+
+    doc.save("table-export.pdf");
+  };
 
   return (
     <MaterialReactTable
@@ -67,17 +80,26 @@ export const Table = ({
           )}
         </Box>
       )}
-      // renderTopToolbarCustomActions={({ table }) => (
-      //   <Button
-      //     disableElevation
-      //     color="error"
-      //     // disabled={!table.getIsSomeRowsSelected()}
-      //     variant="contained"
-      //     onClick={handleDelete}
-      //   >
-      //     Delete Selected
-      //   </Button>
-      // )}
+      renderTopToolbarCustomActions={({ table }) => (
+        <Box sx={{ display: "flex", gap: "16px" }}>
+          <Button
+            variant="outlined"
+            onClick={() => handleExportRows(table.getRowModel().rows)}
+            startIcon={<FiDownload />}
+          >
+            Export Page
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() =>
+              handleExportRows(table.getPrePaginationRowModel().rows)
+            }
+            startIcon={<FiDownload />}
+          >
+            Export pdf
+          </Button>
+        </Box>
+      )}
       muiTableBodyRowProps={{ hover: false }}
       muiTablePaperProps={{
         sx: {
