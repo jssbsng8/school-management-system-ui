@@ -2,17 +2,20 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import Table from "../components/Table";
 import { useUser } from "../components/utils/userContext";
-import { teachers, students, studentColumns, teachersColumns } from "../data/studentsTeachers";
-
+import {
+  teachers,
+  students,
+  studentColumns,
+  teachersColumns,
+} from "../data/studentsTeachers";
 
 const StudentsTeachers = () => {
-  const { role } = useUser()
+  const { role } = useUser();
   let tableData;
-  if(role === "Student"){
-    tableData = {"data": teachers, "column": teachersColumns}
-  }
-  else if(role === "Teacher"){
-    tableData = {"data": students, "column": studentColumns}
+  if (role === "Student") {
+    tableData = { data: teachers, column: teachersColumns };
+  } else if (role === "Teacher") {
+    tableData = { data: students, column: studentColumns };
   }
   return (
     <Box sx={{ pt: "80px", pb: "20px" }}>
@@ -27,12 +30,9 @@ const StudentsTeachers = () => {
         {role === "Student" && (
           <Typography variant="h6">Assigned Teachers</Typography>
         )}
-        {role === "Teacher" && (
-          <Typography variant="h6">Students</Typography>
-        )}
+        {role === "Teacher" && <Typography variant="h6">Students</Typography>}
       </Box>
-      {
-      tableData ? (
+      {tableData ? (
         <Table
           data={tableData.data}
           fields={tableData.column}
@@ -48,9 +48,12 @@ const StudentsTeachers = () => {
           routeLink="subjects"
         />
       ) : (
-        <p>{role === 'Teacher' ? 'No Student(s) Assigned Yet!' : 'No Teacher(s) Enrolled Yet'}</p>
-      )
-      }
+        <p>
+          {role === "Teacher"
+            ? "No Student(s) Assigned Yet!"
+            : "No Teacher(s) Enrolled Yet"}
+        </p>
+      )}
     </Box>
   );
 };
