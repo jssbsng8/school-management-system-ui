@@ -66,7 +66,6 @@ export const Table = ({
             </Tooltip>
           )}
         </Box>
-        
       )}
       // renderTopToolbarCustomActions={({ table }) => (
       //   <Button
