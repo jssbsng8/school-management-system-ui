@@ -25,6 +25,7 @@ const TableEditable = ({
   myColumns,
   enableSubmitButton,
   enableAddNewRow,
+  enableActionButton,
   Decision,
 }) => {
   const [loading, setLoading] = useState(false);
