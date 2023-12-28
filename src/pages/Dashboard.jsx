@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useUser } from "../components/utils/userContext";
 import TopStudents from "../components/home/TopStudents";
+import DashboardAttendanceView from "../components/home/DashboardAttendanceView";
 
 const Dashboard = () => {
   const ComponentWrapper = styled(Box)({
@@ -60,7 +61,13 @@ const Dashboard = () => {
         </Grid>
       </ComponentWrapper>
       <ComponentWrapper>
-        <Subjects />
+        
+        {role === 'Student' && (
+          <Subjects />
+        )}
+        {role === 'Teacher' && (
+          <DashboardAttendanceView />
+        )}
       </ComponentWrapper>
 
       <ComponentWrapper>
