@@ -1,5 +1,10 @@
 export const timetableColumns = [
   {
+    accessorKey: "id",
+    header: "Id",
+    size: 50,
+  },
+  {
     accessorKey: "time",
     header: "Time",
   },
