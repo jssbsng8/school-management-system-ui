@@ -1,5 +1,10 @@
 export const leaveColumn = [
   {
+    accessorKey: "id",
+    header: "Id",
+    size: 50,
+  },
+  {
     accessorKey: "apply_date",
     header: "Apply Date",
   },
