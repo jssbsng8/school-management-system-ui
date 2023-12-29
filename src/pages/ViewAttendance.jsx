@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import TakeAttendanceForm from "../components/forms/TakeAttandanceForm";
 import { errorToast, successToast } from "../components/utils/toastUtils";
 import { viewAttendanceData, viewAttendanceColumn } from "../data/viewAttendance";
-import TableEditable from "../components/TableEditable";
+import Table from "../components/Table";
 
 const TakeAttendance = () => {
   const [data, setData] = useState(null);
@@ -66,7 +66,20 @@ const TakeAttendance = () => {
           Student Attendance Record
         </Typography>
         {data ? (
-          <TableEditable myData={data} myColumns={viewAttendanceColumn} />
+          <Table
+            data={data}
+            fields={viewAttendanceColumn}
+            numberOfRows={data.length}
+            enableTopToolBar={true}
+            enableBottomToolBar={true}
+            enablePagination={true}
+            enableRowSelection={false}
+            enableColumnFilters={true}
+            enableEditing={false}
+            enableColumnDragging={true}
+            showPreview={false}
+            routeLink="classrooms"
+        />
         ) : (
           <Typography variant="body1">
             {loading ? "Searching for data..." : "No Result Found!"}
