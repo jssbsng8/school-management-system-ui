@@ -14,7 +14,7 @@ export { default as Settings } from "./Settings";
 export { default as Inbox } from "./Inbox";
 export { default as Timetable } from "./Timetable";
 export { default as StudentsTeachers } from "./StudentsTeachers";
-export { default as SingleTeacher } from "./SingleTeacher";
+export { default as UserDetails } from "./UserDetails";
 export { default as Subjects } from "./Subjects";
 export { default as Classmates } from "./Classmates";
 export { default as SuccessPage } from "./Success";
