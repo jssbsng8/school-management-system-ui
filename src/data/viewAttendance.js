@@ -2,49 +2,53 @@ import { randomTraderName, randomId } from "@mui/x-data-grid-generator";
 
 export const viewAttendanceColumn = [
   {
-    field: "name",
-    headerName: "Name",
-    width: 300,
-    editable: false,
+    accessorKey: "id",
+    header: "Id",
+    size: 50,
   },
   {
-    field: "registration_number",
-    headerName: "Registration Number",
-    editable: false,
-    width: 250,
-    align: "left",
-    headerAlign: "left",
+    accessorKey: "name",
+    header: "Name",
   },
   {
-    field: "attendance",
-    headerName: "Attendance",
-    type: "singleSelect",
-    width: 200,
-    align: "left",
-    valueOptions: ["PRESENT", "ABSENT", "LATE", "HOLIDAY", "LEAVE"],
-    editable: false,
-    renderCell: (params) => {
-      const cellValue = params.value;
-      let cellColor = "";
-
-      if (cellValue === "ABSENT") {
-        cellColor = "red";
-      } else if (cellValue === "PRESENT") {
-        cellColor = "green";
-      } else if (cellValue === "LATE") {
-        cellColor = "#ff9966";
-      }
-
-      return <div style={{ color: cellColor }}>{cellValue}</div>;
-    },
+    accessorKey: "registration_number",
+    header: "Reg No.",
   },
   {
-    field: "time",
-    headerName: "Time",
-    editable: false,
-    width: 200,
-    align: "left",
-    headerAlign: "left",
+    accessorKey: "attendance",
+    header: "Status",
+    Cell: ({ cell, row }) => (
+      <div>
+        {row.original.attendance === "PRESENT" && (
+          <span
+            className="status"
+            style={{ color: "#388b84", backgroundColor: "#388b8433" }}
+          >
+            {cell.getValue()}
+          </span>
+        )}
+        {row.original.attendance === "ABSENT" && (
+          <span
+            className="status"
+            style={{ color: "#fd4332", backgroundColor: "#fd433233" }}
+          >
+            {cell.getValue()}
+          </span>
+        )}
+        {row.original.attendance === "LATE" && (
+          <span
+            className="status"
+            style={{ color: "#ff9966", backgroundColor: "#ff996633" }}
+          >
+            {cell.getValue()}
+          </span>
+        )}
+      </div>
+    ),
+  },
+  {
+    accessorKey: "time",
+    header: "Time",
   },
 ];
 
