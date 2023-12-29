@@ -39,7 +39,6 @@ export const get_assigned_subjects = async(url) => {
         request headers. If the response is successful, it returns the JSON string representation
         of the assigned subjects; otherwise, it displays an error toast with the error message.
     */
-    console.log(`Token ${localStorage.getItem('token')}`);
     try{
         const response = await fetch(url, {
             method: "GET",
