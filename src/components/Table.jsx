@@ -17,6 +17,7 @@ export const Table = ({
   enableRowSelection,
   enableColumnFilters,
   enableEditing,
+  enableDeleteButton,
   enableColumnDragging,
   showPreview,
   routeLink,
@@ -64,11 +65,13 @@ export const Table = ({
       enableTopToolbar={enableTopToolBar}
       renderRowActions={({ row }) => (
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Tooltip arrow placement="right" title="Delete">
-            <IconButton color="error" onClick={() => handleDeleteRow(row)}>
-              <FiTrash />
-            </IconButton>
-          </Tooltip>
+          {enableDeleteButton && (
+            <Tooltip arrow placement="right" title="Delete">
+              <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+                <FiTrash />
+              </IconButton>
+            </Tooltip>
+          )}
           {showPreview && routeLink && (
             <Tooltip arrow placement="right" title="View">
               <Link to={`/${routeLink}/${row.id}`}>
