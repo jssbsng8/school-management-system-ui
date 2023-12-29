@@ -34,3 +34,4 @@ export { default as RecordStudentResult } from "./RecordStudentResult";
 export { default as TakeAttendance } from "./TakeAttendance";
 export { default as LeaveRequests } from "./LeaveRequests";
 export { default as ViewAttendance } from "./ViewAttendance";
+export { default as GeneralSettings } from "./GeneralSettings";
