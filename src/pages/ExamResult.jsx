@@ -45,7 +45,7 @@ const ExamResult = () => {
             >
               {/* <TeachersList /> */}
               <img
-                src="/images/avatars/profile-avatar.png" // Replace with the actual image source
+                src="/images/avatars/profile-avatar.png"
                 alt="Student"
                 style={{ width: "100%", borderRadius: "50%" }}
               />
