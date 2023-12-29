@@ -18,7 +18,6 @@ import {
   GridRowEditStopReasons,
   GridToolbar,
 } from "@mui/x-data-grid";
-import { randomId } from "@mui/x-data-grid-generator";
 
 const TableEditable = ({
   myData,
@@ -35,20 +34,23 @@ const TableEditable = ({
   const [rowModesModel, setRowModesModel] = React.useState({});
 
   const EditToolbar = (props) => {
+    // const [rowCounter, setRowCounter] = useState(0);
     const { setRows, setRowModesModel } = props;
 
     const handleClick = () => {
-      const id = randomId();
+      const lastItemId = rows.length > 0 ? rows[rows.length - 1].id : 0;
+      const newId = lastItemId + 1;
       setRows((oldRows) => [
         ...oldRows,
         {
-          id,
+          id: newId,
           ...(defaultValues || {}),
         },
       ]);
+      // setRowCounter((prevCounter) => prevCounter + 1);
       setRowModesModel((oldModel) => ({
         ...oldModel,
-        [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
+        [newId]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
       }));
     };
 
