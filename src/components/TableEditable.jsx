@@ -27,6 +27,7 @@ const TableEditable = ({
   enableAddNewRow,
   enableActionButton,
   Decision,
+  defaultValues,
 }) => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(true);
@@ -42,9 +43,7 @@ const TableEditable = ({
         ...oldRows,
         {
           id,
-          name: "",
-          // registration_number: '',
-          // attendance: '',
+          ...(defaultValues || {}),
         },
       ]);
       setRowModesModel((oldModel) => ({
@@ -189,7 +188,13 @@ const TableEditable = ({
     return (
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <GridToolbar {...props} />
-        {enableAddNewRow && <EditToolbar {...props} />}
+        {enableAddNewRow && (
+          <EditToolbar
+            setRows={setRows}
+            setRowModesModel={setRowModesModel}
+            defaultValues={defaultValues}
+          />
+        )}
       </div>
     );
   };
@@ -237,7 +242,14 @@ const TableEditable = ({
                 toolbar: MyCustomToolbar,
               }}
               slotProps={{
-                toolbar: { setRows, setRowModesModel },
+                // toolbar: { setRows, setRowModesModel },
+                toolbar: (
+                  <MyCustomToolbar
+                    setRows={setRows}
+                    setRowModesModel={setRowModesModel}
+                    defaultValues={defaultValues}
+                  />
+                ),
               }}
             />
             {enableSubmitButton ? (
