@@ -1,4 +1,4 @@
-import { Avatar, Box, Divider, Grid, Paper, Typography } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { students, teachers } from "../data/studentsTeachers";
@@ -9,7 +9,6 @@ import { resultsData, resultColumn } from "../data/results";
 const UserDetails = () => {
   const { role } = useUser();
   const { id } = useParams();
-  const teacher = teachers.find((teacher) => teacher.id === parseInt(id));
   let user;
 
   if (role === "Teacher") {
