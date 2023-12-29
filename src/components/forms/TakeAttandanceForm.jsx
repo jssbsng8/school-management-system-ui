@@ -1,29 +1,38 @@
 import React, { useState } from "react";
-import { Typography, Paper, FormControl, InputLabel, MenuItem, Select, Box, Grid, TextField } from "@mui/material";
-import LoadingButton from '@mui/lab/LoadingButton';
+import {
+  Typography,
+  Paper,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Box,
+  Grid,
+  TextField,
+} from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const TakeAttendanceForm = ({ onSubmit, loading }) => {
-    const [selectedClassroom, setSelectedClassroom] = useState("");
-    const [selectedStream, setSelectedStream] = useState("");
-    
-    const  getTodayDate = () => {
-        return new Date().toISOString().split('T')[0];
-    }
-    const [dob, setDob] = useState(getTodayDate());
-    
-    const handleClassroomChange = (event) => {
-        setSelectedClassroom(event.target.value);
-    };
+  const [selectedClassroom, setSelectedClassroom] = useState("");
+  const [selectedStream, setSelectedStream] = useState("");
 
-    const handleStreamChange = (event) => {
-        setSelectedStream(event.target.value);
-    };
+  const getTodayDate = () => {
+    return new Date().toISOString().split("T")[0];
+  };
+  const [dob, setDob] = useState(getTodayDate());
 
-    const handleSearchResult = () => {
+  const handleClassroomChange = (event) => {
+    setSelectedClassroom(event.target.value);
+  };
 
-        // Call the parent component's function with selectedSession and selectedClassroom
-        onSubmit( selectedClassroom, selectedStream, loading);
-    };
+  const handleStreamChange = (event) => {
+    setSelectedStream(event.target.value);
+  };
+
+  const handleSearchResult = () => {
+    // Call the parent component's function with selectedSession and selectedClassroom
+    onSubmit(selectedClassroom, selectedStream, loading);
+  };
   return (
     <Paper elevation={3} style={{ padding: 20 }}>
       <Typography variant="h6" gutterBottom>
