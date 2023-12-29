@@ -9,17 +9,15 @@ import GeneralResultForm from "../components/forms/GeneralResultForm";
 import { errorToast, successToast } from "../components/utils/toastUtils";
 
 const GeneralResult = () => {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
-  const handleCheckResult = async (
-    selectedSession,
-    selectedClassroom,
-    setLoading
-  ) => {
+  const handleCheckResult = async (selectedSession, selectedClassroom) => {
+    setData(null);
     setLoading(true);
-    // Handle logic for checking exam results based on selectedSession and selectedClassroom
+
     await new Promise((resolve) => setTimeout(resolve, 5000));
 
-    // const fetchedData = {"mike":"ademic"};
+    // const fetchedData = { mike: "ademic" };
     const fetchedData = null;
     if (fetchedData) {
       setData(fetchedData);
@@ -51,7 +49,7 @@ const GeneralResult = () => {
       <ComponentWrapper>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={12}>
-            <GeneralResultForm onSubmit={handleCheckResult} />
+            <GeneralResultForm onSubmit={handleCheckResult} loading={loading} />
           </Grid>
           <Grid item xs={12} md={6} lg={3}></Grid>
         </Grid>
@@ -76,7 +74,9 @@ const GeneralResult = () => {
           />
         ) : (
           <Typography variant="body1">
-            No results found for the selected session.
+            {loading
+              ? "Checking Result..."
+              : "No results found for the selected session."}
           </Typography>
         )}
       </ComponentWrapper>
