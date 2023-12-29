@@ -41,23 +41,14 @@ export const navigationLinks = (role) => {
             url: "/parent",
           },
           {
-            name: "Subjects",
-            url: "/subjects",
-          },
-          {
-            name: "ClassRooms",
-            url: "/classrooms",
-          },
-          {
             name: "Results",
             url: "/results",
           },
+          {
+            name: "Timetable",
+            url: "/timetable",
+          },
         ],
-      },
-      {
-        name: "Class Timetable",
-        icon: <FiUsers />,
-        url: "/customers",
       },
       {
         name: "Examination",
@@ -69,21 +60,7 @@ export const navigationLinks = (role) => {
           },
           {
             name: "Exam Results",
-            url: "/sales",
-          },
-        ],
-      },
-      {
-        name: "Attendance",
-        icon: <FaRegCalendarCheck />,
-        subLinks: [
-          {
-            name: "Take Attendance",
-            url: "/products",
-          },
-          {
-            name: "Attendance Record",
-            url: "/",
+            url: "results",
           },
         ],
       },
@@ -91,6 +68,54 @@ export const navigationLinks = (role) => {
         name: "Results",
         icon: <IoMdCheckboxOutline />,
         url: "/transactions",
+      },
+      {
+        name: "Certificate",
+        icon: <FaRegCalendarCheck />,
+        subLinks: [
+          {
+            name: "Student Certificate",
+            url: "/student-certificate",
+          },
+          {
+            name: "Generate Certificate",
+            url: "/generate-student-certificate",
+          },
+          {
+            name: "Student ID Card",
+            url: "/student-id-card",
+          },
+          {
+            name: "Generate ID Card",
+            url: "/generate-student-id-card",
+          },
+          {
+            name: "Staff ID Card",
+            url: "/staff-id-card",
+          },
+          {
+            name: "Generate Staff ID Card",
+            url: "/staff-id-card",
+          },
+        ],
+      },
+      {
+        name: "Communications",
+        icon: <FaRegCalendarCheck />,
+        subLinks: [
+          {
+            name: "Notice Board",
+            url: "/notice-board",
+          },
+          {
+            name: "Send Email",
+            url: "/send-email",
+          },
+          {
+            name: "Notification/Email Logs",
+            url: "/notification-email-logs",
+          },
+        ],
       },
       {
         name: "Notifications",
@@ -116,12 +141,42 @@ export const navigationLinks = (role) => {
         icon: <IoDocumentAttachOutline />,
         subLinks: [
           {
-            name: "Registration Information",
-            url: "/orders",
+            name: "Admission Report",
+            url: "/admission-report",
           },
           {
-            name: "Fees Breakdown",
+            name: "Attendance Report",
+            url: "/attendance-report",
+          },
+          {
+            name: "Students History",
+            url: "/students-history",
+          },
+          {
+            name: "Teachers History",
+            url: "/teachers-history",
+          },
+        ],
+      },
+      {
+        name: "System Settings",
+        icon: <FiSettings />,
+        subLinks: [
+          {
+            name: "General Settings",
+            url: "/general-settings",
+          },
+          {
+            name: "Session Settings",
+            url: "session-settings",
+          },
+          {
+            name: "Notification Settings",
             url: "/orders/template",
+          },
+          {
+            name: "Users Settings",
+            url: "/users",
           },
         ],
       },
@@ -172,7 +227,7 @@ export const navigationLinks = (role) => {
         subLinks: [
           {
             name: "Exam Schedules",
-            url: "/sales/analysis",
+            url: "/exam_schedules",
           },
           {
             name: "Exam Results",
@@ -230,11 +285,7 @@ export const navigationLinks = (role) => {
         subLinks: [
           {
             name: "Registration Information",
-            url: "/orders",
-          },
-          {
-            name: "Fees Breakdown",
-            url: "/orders/template",
+            url: "/registration-information",
           },
         ],
       },
