@@ -14,10 +14,10 @@ const StudentsTeachers = () => {
   let tableData;
   let routelink;
   if (role === "Student") {
-    routelink = "teacher"
+    routelink = "teacher";
     tableData = { data: teachers, column: teachersColumns };
   } else if (role === "Teacher") {
-    routelink = "student"
+    routelink = "student";
     tableData = { data: students, column: studentColumns };
   }
   return (
