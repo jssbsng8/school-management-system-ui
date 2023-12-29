@@ -12,7 +12,7 @@ import {
     Transactions,
     Timetable,
     StudentsTeachers,
-    SingleTeacher,
+    UserDetails,
     Subjects,
     Classmates,
     Dashboard,
@@ -56,6 +56,7 @@ export const roleRoutes = {
       { id: "teacher-attendance", path: "/take_attendance", element: <TakeAttendance /> },
       { id: "teacher-view-attendance", path: "/view_attendance", element: <ViewAttendance /> },
       { id: "teacher-leave-requests", path: "/leave_requests", element: <LeaveRequests /> },
+      { id: "teacher-single-student", path: "/student/:id", element: <UserDetails /> },
     ],
     
     Student: [
@@ -69,7 +70,7 @@ export const roleRoutes = {
       { id: "student-subjects", path: "/subjects", element: <Subjects /> },
       { id: "student-classmates", path: "/classmates", element: <Classmates /> },
       { id: "student-single-customer", path: "/customers/:id", element: <SingleCustomer /> },
-      { id: "student-single-teacher", path: "/teachers/:id", element: <SingleTeacher /> },
+      { id: "student-single-teacher", path: "/teacher/:id", element: <UserDetails /> },
       { id: "student-sales-analytics", path: "/sales/analysis", element: <SalesAnalytics /> },
       { id: "student-exam-result", path: "/exam_result", element: <ExamResult /> },
       { id: "student-attendance", path: "/attendance", element: <Attendance /> },
