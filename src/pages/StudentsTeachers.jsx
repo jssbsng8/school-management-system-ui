@@ -12,9 +12,12 @@ import {
 const StudentsTeachers = () => {
   const { role } = useUser();
   let tableData;
+  let routelink;
   if (role === "Student") {
+    routelink = "teacher"
     tableData = { data: teachers, column: teachersColumns };
   } else if (role === "Teacher") {
+    routelink = "student"
     tableData = { data: students, column: studentColumns };
   }
   return (
@@ -42,10 +45,11 @@ const StudentsTeachers = () => {
           enablePagination={true}
           enableRowSelection={false}
           enableColumnFilters={true}
-          enableEditing={false}
+          showPreview={true}
+          enableEditing={true}
+          enableDeleteButton={false}
           enableColumnDragging={true}
-          showPreview={false}
-          routeLink="subjects"
+          routeLink={routelink}
         />
       ) : (
         <p>
