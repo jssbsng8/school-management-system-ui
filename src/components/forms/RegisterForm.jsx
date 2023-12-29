@@ -128,7 +128,6 @@ const RegisterForm = ({ onSubmit, onToggleForm }) => {
             />
         </Grid>
       </Grid>
-    {/* Password and Confirm Password fields */}
     <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
             <TextField
