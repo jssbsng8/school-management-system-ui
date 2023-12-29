@@ -5,7 +5,7 @@ export const subjectColumns = [
     size: 50,
   },
   {
-    accessorKey: "title", //access nested data with dot notation
+    accessorKey: "title",
     header: "Title",
   },
   {
@@ -78,5 +78,77 @@ export const subjects = [
     title: "Geography",
     code: "GEO",
     last_score: "40%",
+  },
+];
+
+export const addSubjects = [
+  {
+    id: 1,
+    title: "ENGLISH LANGUAGE",
+    code: "GNS",
+    last_score: "72%",
+    classroom: "JUNIOR SECONDARY SCHOOL 1"
+  },
+];
+
+export const editSubjectColumn = [
+  {
+    field: "id",
+    headerName: "Id",
+    width: 100,
+    editable: true,
+  },
+  {
+    field: "title",
+    headerName: "Title",
+    width: 350,
+    align: "left",
+    editable: true,
+    type: "singleSelect",
+    valueOptions: [
+      "ENGLISH LANGUAGE",
+      "MATHEMATICS",
+      "AGRICULTURAL SCIENCE",
+      "BIOLOGY",
+      "ECONOMICS",
+      "CIVIC EDUCATION",
+      "FRENCH LANGUAGE",
+      "FURTHER MATHEMATICS",
+      "CHEMISTRY",
+    ],
+  },
+  {
+    field: "code",
+    headerName: "Code",
+    width: 200,
+    editable: true,
+    type: "singleSelect",
+    valueOptions: [
+      "ENG",
+      "MTH",
+      "AGS",
+      "BIO",
+      "ECON",
+      "CVE",
+      "FRN",
+      "FMATH",
+      "CHM",
+    ],
+  },
+  {
+    field: "classroom",
+    headerName: "ClassRoom",
+    width: 350,
+    align: "left",
+    editable: true,
+    type: "singleSelect",
+    valueOptions: [
+      "JUNIOR SECONDARY SCHOOL 1",
+      "JUNIOR SECONDARY SCHOOL 2",
+      "JUNIOR SECONDARY SCHOOL 3",
+      "SENIOR SECONDARY SCHOOL 1",
+      "SENIOR SECONDARY SCHOOL 2",
+      "SENIOR SECONDARY SCHOOL 3",
+    ],
   },
 ];
