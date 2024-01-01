@@ -25,9 +25,9 @@ export const CORE = {
   GET_ASSIGNED_SUBJECTS:  `${BASE_URL}/core/teachers/get_assigned_subjects/`,
   GET_ENROLLED_SUBJECTS:  `${BASE_URL}/core/students/get_enrolled_subjects/`,
   GET_ADMIN: (adminId) => `${BASE_URL}/auth/users/${adminId}/`,
-  GET_CLASSROOM: (classroomId) => `${BASE_URL}/auth/users/${classroomId}/`,
-  GET_STUDENT: (studentId) => `${BASE_URL}/auth/users/${studentId}/`,
-  GET_SUBJECT: (subjectId) => `${BASE_URL}/auth/users/${subjectId}/`,
-  GET_TEACHER: (teacherId) => `${BASE_URL}/auth/users/${teacherId}/`,
+  GET_CLASSROOM: (classroomId) => `${BASE_URL}/core/classrooms/${classroomId}/`,
+  GET_STUDENT: (studentId) => `${BASE_URL}/core/students/${studentId}/`,
+  GET_SUBJECT: (subjectId) => `${BASE_URL}/core/subjects/${subjectId}/`,
+  GET_TEACHER: (teacherId) => `${BASE_URL}/core/teachers/${teacherId}/`,
 };
 
