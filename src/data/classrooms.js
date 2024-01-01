@@ -66,6 +66,8 @@ export const editClassroomColumn = [
     headerName: "Stream",
     width: 180,
     editable: true,
+    type: "singleSelect",
+    valueOptions: ["A", "B", "C", "D"],
   },
 ];
 
