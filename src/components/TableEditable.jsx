@@ -1,15 +1,5 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import SaveIcon from "@mui/icons-material/Save";
-import CancelIcon from "@mui/icons-material/Close";
-import LoadingButton from "@mui/lab/LoadingButton";
-import { ToastContainer } from "react-toastify";
-import { successToast } from "../components/utils/toastUtils";
-import { Paper, Typography } from "@mui/material";
+import { Box, Button, Paper, Typography } from "@mui/material";
 import {
   GridRowModes,
   DataGrid,
@@ -18,15 +8,24 @@ import {
   GridRowEditStopReasons,
   GridToolbar,
 } from "@mui/x-data-grid";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Close";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { ToastContainer } from "react-toastify";
+import { successToast } from "../components/utils/toastUtils";
 
 const TableEditable = ({
   myData,
   myColumns,
   enableSubmitButton,
   enableAddNewRow,
-  enableActionButton,
   Decision,
   defaultValues,
+  onNewRowSave,
+  onDeleteRow,
 }) => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(true);
@@ -34,20 +33,17 @@ const TableEditable = ({
   const [rowModesModel, setRowModesModel] = React.useState({});
 
   const EditToolbar = (props) => {
-    // const [rowCounter, setRowCounter] = useState(0);
     const { setRows, setRowModesModel } = props;
 
     const handleClick = () => {
       const lastItemId = rows.length > 0 ? rows[rows.length - 1].id : 0;
       const newId = lastItemId + 1;
+
       setRows((oldRows) => [
         ...oldRows,
-        {
-          id: newId,
-          ...(defaultValues || {}),
-        },
+        { id: newId, ...(defaultValues || {}), isNew: true },
       ]);
-      // setRowCounter((prevCounter) => prevCounter + 1);
+
       setRowModesModel((oldModel) => ({
         ...oldModel,
         [newId]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
@@ -78,7 +74,12 @@ const TableEditable = ({
   };
 
   const handleDeleteClick = (id) => () => {
-    setRows(rows.filter((row) => row.id !== id));
+    // setRows(rows.filter((row) => row.id !== id));
+    if (onDeleteRow) {
+      onDeleteRow(id);
+    } else {
+      setRows(rows.filter((row) => row.id !== id));
+    }
   };
 
   const handleCancelClick = (id) => () => {
@@ -97,41 +98,62 @@ const TableEditable = ({
   const processRowUpdate = (newRow) => {
     const currentTime = new Date().toLocaleTimeString();
     let updatedRow;
-
     if (
       Decision &&
       (newRow.status === "Approved" || newRow.status === "Rejected")
     ) {
       updatedRow = {
         ...newRow,
-        isNew: false,
         time: currentTime,
         approved_by: Decision,
       };
     } else {
-      updatedRow = { ...newRow, isNew: false, time: currentTime };
+      updatedRow = { ...newRow, isNew: false };
     }
 
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+
+    if (onNewRowSave && newRow.isNew) {
+      onNewRowSave(newRow);
+    } else {
+      const originalRow = rows.find((row) => row.id === newRow.id);
+      const updatedFields = {};
+
+      Object.keys(originalRow).forEach((field) => {
+        if (originalRow[field] !== updatedRow[field]) {
+          updatedFields[field] = updatedRow[field];
+        }
+      });
+
+      setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+
+      if (onNewRowSave) {
+        onNewRowSave({ id: newRow.id, updatedFields });
+      }
+    }
+
     if (enableSubmitButton) {
       setSubmitted(false);
       return updatedRow;
     } else {
-      successToast("Updated!");
+      // successToast("Updated!");
       setSubmitted(true);
       return updatedRow;
     }
   };
+
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
   };
 
   const handleGetAllData = async () => {
     setLoading(true);
-    // Access the current rows data
+
     await new Promise((resolve) => setTimeout(resolve, 3000));
+
     console.log(rows);
     successToast("Results Submitted");
+
     setLoading(false);
     setSubmitted(true);
   };
@@ -244,7 +266,6 @@ const TableEditable = ({
                 toolbar: MyCustomToolbar,
               }}
               slotProps={{
-                // toolbar: { setRows, setRowModesModel },
                 toolbar: (
                   <MyCustomToolbar
                     setRows={setRows}
