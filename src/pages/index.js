@@ -35,3 +35,5 @@ export { default as TakeAttendance } from "./TakeAttendance";
 export { default as LeaveRequests } from "./LeaveRequests";
 export { default as ViewAttendance } from "./ViewAttendance";
 export { default as GeneralSettings } from "./GeneralSettings";
+export { default as TeachersDetails } from "../components/generalSettings/TeachersDetails";
+export { default as StudentDetails } from "../components/generalSettings/StudentDetails";
