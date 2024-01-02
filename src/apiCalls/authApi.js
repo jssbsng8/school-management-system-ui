@@ -145,7 +145,6 @@ export const updateUserProfile = async (url, data) => {
 };
 
 export const getFetchedData = async (url) => {
-  
   try {
     const response = await fetch(url, {
       method: "GET",
@@ -155,8 +154,8 @@ export const getFetchedData = async (url) => {
       },
     });
     if (response.ok) {
-        const responseData = await response.json();
-        return responseData;
+      const responseData = await response.json();
+      return responseData;
     } else {
       const errorMessage = await response.text();
       console.log(errorMessage);
@@ -169,84 +168,81 @@ export const getFetchedData = async (url) => {
 };
 
 export const postData = async (url, data) => {
-  
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(data)
-      });
-      if (response.ok) {
-        return true
-      } else {
-        const errorMessage = await response.text();
-        console.log(errorMessage);
-        errorToast(errorMessage);
-        return false
-      }
-    } catch (error) {
-      const message = `${error}`;
-      errorToast(message);
-      return false
-
-    }
-  };
-
-  export const patchData = async (url, data) => {
-    try {
-      const response = await fetch(url, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(data),
-      });
-  
-      if (response.ok) {
-        const responseData = await response.json();
-        return responseData;
-        // return true
-      } else {
-        const errorMessage = await response.text();
-        console.log(errorMessage);
-        errorToast(errorMessage);
-        return false;
-      }
-    } catch (error) {
-      const message = `Error updating user profile: ${error}`;
-      errorToast(message);
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      return true;
+    } else {
+      const errorMessage = await response.text();
+      console.log(errorMessage);
+      errorToast(errorMessage);
       return false;
     }
-  };
+  } catch (error) {
+    const message = `${error}`;
+    errorToast(message);
+    return false;
+  }
+};
 
-  export const deleteData = async (url) => {
-    try {
-      const response = await fetch(url, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
-      });
-  
-      if (response.ok) {
-        // const responseData = await response.json();
-        return true;
-      } else {
-        const errorMessage = await response.text();
-        console.log(errorMessage);
-        errorToast(errorMessage);
-        return false;
-      }
-    } catch (error) {
-      const message = `Error deleting data: ${error}`;
-      errorToast(message);
-      console.log(message);
+export const patchData = async (url, data) => {
+  try {
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      return responseData;
+      // return true
+    } else {
+      const errorMessage = await response.text();
+      console.log(errorMessage);
+      errorToast(errorMessage);
       return false;
     }
-  };
-  
+  } catch (error) {
+    const message = `Error updating user profile: ${error}`;
+    errorToast(message);
+    return false;
+  }
+};
+
+export const deleteData = async (url) => {
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    });
+
+    if (response.ok) {
+      // const responseData = await response.json();
+      return true;
+    } else {
+      const errorMessage = await response.text();
+      console.log(errorMessage);
+      errorToast(errorMessage);
+      return false;
+    }
+  } catch (error) {
+    const message = `Error deleting data: ${error}`;
+    errorToast(message);
+    console.log(message);
+    return false;
+  }
+};
