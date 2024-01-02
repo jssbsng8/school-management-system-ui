@@ -32,7 +32,9 @@ import {
   Timetable,
   Transactions,
   UserDetails,
-  ViewAttendance,  
+  ViewAttendance,
+  TeachersDetails,
+  StudentDetails,
   } from '../../pages';
   
 export const roleRoutes = {
@@ -43,7 +45,8 @@ export const roleRoutes = {
       { id: "admin-inbox", path: "/inbox", element: <Inbox /> },
       { id: "admin-results", path: "/results", element: <CheckResult /> },
       { id: "admin-results", path: "/general-settings", element: <GeneralSettings /> },
-      // { id: "admin-subjects", path: "/subjects", element: <Subjects /> },
+      { id: "admin-teachers-details", path: "/teacher/:id", element: <TeachersDetails /> },
+      { id: "admin-student-details", path: "/student/:id", element: <StudentDetails /> },
     ],
     Teacher: [
       { id: "teacher-dashboard", path: "/", element: <Dashboard /> },
