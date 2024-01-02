@@ -145,9 +145,8 @@ const UserDetails = () => {
           />
         </Box>
       );
-    // Handle other roles similarly
     default:
-      return null; // Or handle the default case accordingly
+      return null;
   }
 };
 
