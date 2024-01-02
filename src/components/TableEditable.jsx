@@ -77,9 +77,9 @@ const TableEditable = ({
     // setRows(rows.filter((row) => row.id !== id));
     if (onDeleteRow) {
       onDeleteRow(id);
-    } else {
-      setRows(rows.filter((row) => row.id !== id));
     }
+    setRows(rows.filter((row) => row.id !== id));
+    
   };
 
   const handleCancelClick = (id) => () => {
@@ -108,7 +108,7 @@ const TableEditable = ({
         approved_by: Decision,
       };
     } else {
-      updatedRow = { ...newRow, isNew: false };
+    updatedRow = { ...newRow, isNew: false, /* time: currentTime */ };
     }
 
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
