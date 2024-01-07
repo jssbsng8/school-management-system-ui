@@ -57,7 +57,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
       const responseData = await response.json();
 
       // Store the token or user information in local storage or state
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
       localStorage.setItem('token', responseData.auth_token);
 
