@@ -19,15 +19,17 @@ export const USER_ENDPOINTS = {
 export const CORE = {
   ADMIN: `${BASE_URL}/core/admin/`,
   CLASSROOM: `${BASE_URL}/core/classrooms/`,
-  STUDENT: `${BASE_URL}/core/students/`,
+  STUDENT: `${BASE_URL}/core/students`,
   SUBJECT: `${BASE_URL}/core/subjects/`,
-  TEACHER: `${BASE_URL}/core/teachers/`,
+  FILTERED_SUBJECT: `${BASE_URL}/core/subjects/?class_room=10`,
+  TEACHER: `${BASE_URL}/core/teachers`,
   GET_ASSIGNED_SUBJECTS:  `${BASE_URL}/core/teachers/get_assigned_subjects/`,
   GET_ENROLLED_SUBJECTS:  `${BASE_URL}/core/students/get_enrolled_subjects/`,
   GET_ADMIN: (adminId) => `${BASE_URL}/auth/users/${adminId}/`,
   GET_CLASSROOM: (classroomId) => `${BASE_URL}/core/classrooms/${classroomId}/`,
-  GET_STUDENT: (studentId) => `${BASE_URL}/core/students/${studentId}/`,
   GET_SUBJECT: (subjectId) => `${BASE_URL}/core/subjects/${subjectId}/`,
+  GET_FILTERED_SUBJECT: (classroomId) => `${BASE_URL}/core/subjects/?class_room=${classroomId}`,
+  GET_STUDENT: (studentId) => `${BASE_URL}/core/students/${studentId}/`,
   GET_TEACHER: (teacherId) => `${BASE_URL}/core/teachers/${teacherId}/`,
 };
 
