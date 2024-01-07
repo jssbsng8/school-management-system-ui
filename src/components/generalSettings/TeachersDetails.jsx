@@ -67,7 +67,6 @@ const TeachersDetails = () => {
         setSubjects(fetchedData);
 
         // Log the updated subjects immediately
-        console.log("Updated Subjects:", fetchedData);
       } catch (error) {
         // Handle errors appropriately
         console.error("Error fetching subjects:", error.message);
@@ -82,7 +81,6 @@ const TeachersDetails = () => {
 
       fetchSubjectsData(classroomId);
 
-      console.log("Selected Classroom:", classroomId);
     }
   }, [selectedClassrooms]);
 
@@ -104,13 +102,22 @@ const TeachersDetails = () => {
     setSelectedsubjects(updatedSelectedSubjects);
   };
 
-  if (selectedSubjects) {
-    console.log("selected Subject: ", selectedSubjects);
-  }
-  console.log("User Subject: ", userSubjects);
   // console.log(user);
   const handleUpdateProfile = async () => {
     // setLoading(true);
+    const updatedFields = Object.entries({
+      "assigned_subject": selectedSubjects,
+      // selectedClassrooms: selectedClassrooms,
+      
+    }).reduce((acc, [key, value]) => {
+      if (value !== selectedSubjects[key] && typeof value !== "undefined") {
+        acc[key] = value;
+      }
+      return acc;
+    }, {});
+
+    console.log("Selected Subjects: ",updatedFields);
+    // console.log("Selected Classrooms",selectedClassrooms);
   };
 
   if (!teacherData) {
@@ -192,7 +199,7 @@ const TeachersDetails = () => {
                   <Grid item xs={6} key={index}>
                     <RadioGroup
                       value={selectedClassrooms[0]}
-                      onChange={() => {}}
+                      onChange={() => { }}
                     >
                       {classroomSlice.map((classroom) => (
                         <FormControlLabel
@@ -209,7 +216,6 @@ const TeachersDetails = () => {
               )}
             </Grid>
           </Box>
-          {console.log("Subjects passed to Options: ", subjects)}
           {selectedClassrooms ? (
             loadingSubjects ? ( // Check if subjects are being loaded
               <Typography variant="body1">Loading subjects...</Typography>
