@@ -153,7 +153,7 @@ const DashboardAttendanceView = () => {
               progress={attendance.percentage_absent}
             />
             <AttendanceOverview
-              title={`${attendance.half_day} HALF DAT`}
+              title={`${attendance.half_day} HALF DAY`}
               data={`${attendance.percentage_half_day}%`}
               progress={attendance.percentage_half_day}
             />
