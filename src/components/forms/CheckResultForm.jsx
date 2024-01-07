@@ -152,16 +152,18 @@ const CheckResultForm = ({ onSubmit, loading }) => {
           </Grid>
         </Grid>
 
-        <LoadingButton
-          variant="contained"
-          type="submit"
-          onClick={handleCheckResult}
-          loading={loading}
-          loadingPosition="start"
-          sx={{ mt: 3, mb: 2, width: "15%" }}
-        >
-          {loading ? "Searching..." : "Search"}
-        </LoadingButton>
+        <Grid item xs={6} sm={3} lg={3}>
+          <LoadingButton
+            variant="contained"
+            type="submit"
+            onClick={handleCheckResult}
+            loading={loading}
+            loadingPosition="start"
+            sx={{ mt: 3, mb: 2, width: "100%" }}
+          >
+            {loading ? "Searching..." : "Search"}
+          </LoadingButton>
+        </Grid>
       </Box>
     </Paper>
   );
