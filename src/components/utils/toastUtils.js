@@ -36,3 +36,14 @@ export const warningToast = (message) => {
     draggable: true,
   });
 };
+
+export const infoToast = (message) => {
+  toast.info(message, {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  });
+};
