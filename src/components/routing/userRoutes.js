@@ -3,6 +3,7 @@ import {
   AddProduct,
   AdminDashboard,
   Attendance,
+  AllUsers,
   CheckResult,
   Classmates,
   Classrooms,
@@ -69,7 +70,7 @@ export const roleRoutes = {
       { id: "admin-teachers", path: "/teachers", element: <InProgressPage pageName='Teachers' /> },
       { id: "admin-parent", path: "/parent", element: <InProgressPage pageName='Parent' /> },
       { id: "admin-timetable", path: "/timetable", element: <InProgressPage pageName='TimeTable' /> },
-      { id: "admin-in-progress", path: "/users", element: <InProgressPage pageName='Users' /> },
+      { id: "admin-in-progress", path: "/users", element: <AllUsers /> },
     ],
     Teacher: [
       { id: "teacher-dashboard", path: "/", element: <Dashboard /> },
@@ -94,8 +95,6 @@ export const roleRoutes = {
     
     Student: [
       { id: "student-dashboard", path: "/", element: <Dashboard /> },
-      { id: "student-products", path: "/products", element: <Products /> },
-      { id: "student-add-product", path: "/products/add", element: <AddProduct /> },
       { id: "student-single-product", path: "/products/:id", element: <SingleProduct /> },
       { id: "student-product-categories", path: "/products/categories", element: <ProductCategories /> },
       { id: "student-timetable", path: "/timetable", element: <Timetable /> },
@@ -118,5 +117,7 @@ export const roleRoutes = {
       { id: "student-notice-board", path: "/notice_board", element: <NoticeBoard /> },
       { id: "student-teachers-reviews", path: "/teachers_reviews", element: <TeachersReviews /> },
       { id: "student-review-teacher", path: "/review_teacher", element: <TeachersAddReview /> },
+      { id: "admin-registration-information", path: "/registration-information", element: <InProgressPage pageName='Reg. Info' /> },
+      { id: "admin-fees-breakdown", path: "/fees-breakdown", element: <InProgressPage pageName='Fees Breakdown' /> },
     ],
   };
