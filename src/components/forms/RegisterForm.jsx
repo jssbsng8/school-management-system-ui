@@ -57,11 +57,11 @@ const RegisterForm = ({ onSubmit, onToggleForm }) => {
           })
           console.log(JSON.stringify(validated));
           if(response.ok){
-              const message = 'Registration Successful!, check your email for activation link'
-              successToast(message);
-              await new Promise(resolve => setTimeout(resolve, 3000));
-              setLoading(false);
-              navigate("/success");
+            await new Promise(resolve => setTimeout(resolve, 3000));
+            setLoading(false);
+            navigate("/success");
+            const message = 'Registration Successful!, check your email for activation link'
+            successToast(message);
           }else{
               const message = `Registration failed:, ${response.statusText}`
               errorToast(message);
