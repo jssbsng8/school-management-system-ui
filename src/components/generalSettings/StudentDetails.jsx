@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 // import { successToast, errorToast } from "../utils/toastUtils";
 import { CORE } from "../../apiCalls/endpoints";
 import { getFetchedData } from "../../apiCalls/authApi";
-// import { warningToast } from "../utils/toastUtils";
+import { successToast } from "../utils/toastUtils";
 // import { updateUserProfile } from "../../apiCalls/authApi";
 // import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
 import SubjectsSelectionComponent from "./SubjectSelection";
@@ -70,10 +70,8 @@ const TeachersDetails = () => {
         const fetchedData = await getFetchedData(
           CORE.GET_FILTERED_SUBJECT(classroomId)
         );
-        setSubjects(fetchedData);
 
-        // Log the updated subjects immediately
-        console.log("Updated Subjects:", fetchedData);
+        setSubjects(fetchedData);
       } catch (error) {
         // Handle errors appropriately
         console.error("Error fetching subjects:", error.message);
@@ -87,8 +85,6 @@ const TeachersDetails = () => {
       const classroomId = parseInt(selectedClassrooms.join(""));
 
       fetchSubjectsData(classroomId);
-
-      console.log("Selected Classroom:", classroomId);
     }
   }, [selectedClassrooms]);
 
@@ -97,7 +93,6 @@ const TeachersDetails = () => {
   }
 
   const handleClassroomToggle = (classroomId) => {
-    // If the selected classroom is already selected, deselect it
     const updatedSelection =
       selectedClassrooms[0] === classroomId ? [] : [classroomId];
     setSelectedClassrooms(updatedSelection);
@@ -110,13 +105,22 @@ const TeachersDetails = () => {
     setSelectedsubjects(updatedSelectedSubjects);
   };
 
-  if (selectedSubjects) {
-    console.log("selected Subject: ", selectedSubjects);
-  }
-  console.log("User Subject: ", userSubjects);
-  // console.log(user);
   const handleUpdateProfile = async () => {
-    // setLoading(true);
+    setLoading(true);
+    const updatedFields = {
+      classrooms: selectedClassrooms,
+      enrolled_subjects: selectedSubjects,
+    };
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    console.log("Updated Fields: ", updatedFields);
+    successToast(
+      `${
+        teacherData.username.charAt(0).toUpperCase() +
+        teacherData.username.slice(1)
+      }'s Profile Updated!`
+    );
+
+    setLoading(false);
   };
 
   if (!teacherData) {
@@ -220,7 +224,6 @@ const TeachersDetails = () => {
               )}
             </Grid>
           </Box>
-          {console.log("Subjects passed to Options: ", subjects)}
           {selectedClassrooms ? (
             loadingSubjects ? ( // Check if subjects are being loaded
               <Typography variant="body1">Loading subjects...</Typography>
