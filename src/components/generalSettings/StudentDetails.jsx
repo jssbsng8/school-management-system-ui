@@ -1,30 +1,17 @@
-import {
-  Box,
-  Grid,
-  Paper,
-  Avatar,
-  Divider,
-  TextField,
-  Typography,
-} from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
+import { Box, Grid, Divider, TextField, Typography } from "@mui/material";
+// import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import LoadingButton from "@mui/lab/LoadingButton";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { successToast, errorToast } from "../utils/toastUtils";
+// import { successToast, errorToast } from "../utils/toastUtils";
 import { CORE } from "../../apiCalls/endpoints";
-import {
-  getFetchedData,
-  postData,
-  patchData,
-  deleteData,
-} from "../../apiCalls/authApi";
-import { warningToast } from "../utils/toastUtils";
-import { updateUserProfile } from "../../apiCalls/authApi";
-import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
+import { getFetchedData } from "../../apiCalls/authApi";
+// import { warningToast } from "../utils/toastUtils";
+// import { updateUserProfile } from "../../apiCalls/authApi";
+// import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
 import SubjectsSelectionComponent from "./SubjectSelection";
 
 const TeachersDetails = () => {
@@ -74,25 +61,6 @@ const TeachersDetails = () => {
     fetchClassroomData();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchSubjectsData = async (classroomId) => {
-  //     try {
-  //       const fetchedData = await getFetchedData(
-  //         CORE.GET_FILTERED_SUBJECT(classroomId)
-  //       );
-  //       setSubjects(fetchedData);
-  //       // setSelectedsubjects(fetchedData)
-  //     } catch (error) {
-  //       console.error("Error:", error.message);
-  //     }
-  //   };
-
-  //   if (selectedClassrooms.length !== 0) {
-  //     const classroomId = parseInt(selectedClassrooms.join(""));
-  //     fetchSubjectsData(classroomId);
-  //     console.log("Selected Classroom:", classroomId);
-  //   }
-  // }, [selectedClassrooms]);
   useEffect(() => {
     const fetchSubjectsData = async (classroomId) => {
       try {
@@ -127,18 +95,7 @@ const TeachersDetails = () => {
   if (!Object.keys(teacherData).length) {
     return <div>Loading...</div>;
   }
-  // console.log(subjects);
-  // const handleClassroomToggle = (classroomId) => {
-  //   setSelectedClassrooms((prevSelected) => {
-  //     if (prevSelected.includes(classroomId)) {
-  //       // If subjectId is already in the array, remove it
-  //       return prevSelected.filter((id) => id !== classroomId);
-  //     } else {
-  //       // If subjectId is not in the array, add it
-  //       return [...prevSelected, classroomId];
-  //     }
-  //   });
-  // };
+
   const handleClassroomToggle = (classroomId) => {
     // If the selected classroom is already selected, deselect it
     const updatedSelection =
@@ -160,73 +117,6 @@ const TeachersDetails = () => {
   // console.log(user);
   const handleUpdateProfile = async () => {
     // setLoading(true);
-
-    const updatedFields = Object.entries({
-      first_name: firstName,
-      last_name: lastName,
-      username,
-      email,
-      address,
-    }).reduce((acc, [key, value]) => {
-      if (
-        value !== teacherData[key] &&
-        typeof value !== "undefined" &&
-        value !== ""
-      ) {
-        acc[key] = value;
-      }
-      return acc;
-    }, {});
-    console.log(updatedFields);
-
-    // function to update the user profile
-    // if (Object.keys(updatedFields).length !== 0) {
-    //   try {
-    //     // Assuming updateUserProfile returns the updated user profile
-    //     const updatedUserProfile = await updateUserProfile(
-    //       USER_ENDPOINTS.GET_OR_UPDATE_USER(teacherData.id),
-    //       updatedFields
-    //     );
-
-    //     // Check if the response is successful
-    //     if (updatedUserProfile) {
-    //       await new Promise((resolve) => setTimeout(resolve, 3000));
-    //       Object.keys(updatedFields).forEach((key) => {
-    //         switch (key) {
-    //           case "first_name":
-    //             setFirstName(updatedUserProfile.first_name);
-    //             break;
-    //           case "last_name":
-    //             setLastName(updatedUserProfile.last_name);
-    //             break;
-    //           case "username":
-    //             setUsername(updatedUserProfile.username);
-    //             break;
-    //           case "email":
-    //             setEmail(updatedUserProfile.email);
-    //             break;
-    //           case "address":
-    //             setAddress(updatedUserProfile.address);
-    //             break;
-    //           default:
-    //             break;
-    //         }
-    //       });
-
-    //       successToast("Profile updated successfully");
-    //     } else {
-    //       errorToast("Failed to update profile");
-    //     }
-    //   } catch (error) {
-    //     console.error("Error updating profile:", error);
-    //     errorToast("An error occurred while updating profile");
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // } else {
-    //   warningToast("No changes to update");
-    //   setLoading(false);
-    // }
   };
 
   if (!teacherData) {
@@ -306,34 +196,6 @@ const TeachersDetails = () => {
             Assigned/Assign ClassRoom
           </Typography>
 
-          {/* <Box sx={{ display: "flex" }}>
-            <Grid container spacing={2}>
-              {[classrooms.slice(0, 3), classrooms.slice(3, 6)].map(
-                (classroomSlice, index) => (
-                  <Grid item xs={6} key={index}>
-                    <Box sx={{ display: "flex", flexDirection: "column" }}>
-                      {classroomSlice.map((classroom) => (
-                        <FormControlLabel
-                          key={classroom.id}
-                          control={
-                            <Checkbox
-                              checked={selectedClassrooms.includes(
-                                classroom.id
-                              )}
-                              onChange={() =>
-                                handleClassroomToggle(classroom.id)
-                              }
-                            />
-                          }
-                          label={classroom.title}
-                        />
-                      ))}
-                    </Box>
-                  </Grid>
-                )
-              )}
-            </Grid>
-          </Box> */}
           <Box sx={{ display: "flex" }}>
             <Grid container spacing={2}>
               {[classrooms.slice(0, 3), classrooms.slice(3, 6)].map(
