@@ -45,7 +45,7 @@ const CheckResult = () => {
     paddingBottom: "10px",
   });
   return (
-    <Box sx={{ pt: "80px", pb: "20px" }}>
+    <Box sx={{ pt: "80px", pb: "20px", '@media (min-width:960px)': { width: "vw" } }}>
       <ToastContainer />
       <Typography variant="h6" sx={{ marginBottom: "14px" }}>
         Results
