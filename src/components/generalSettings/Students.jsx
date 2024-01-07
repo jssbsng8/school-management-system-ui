@@ -1,95 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Paper, Toolbar } from "@mui/material";
-import TableEditable from "../TableEditable";
-import { column, editTeacherColumn, teachers } from "../../data/teacher";
-import Table from "../../components/Table"
-import { successToast, errorToast } from "../utils/toastUtils";
-import {
-  getFetchedData,
-  postData,
-  patchData,
-  deleteData,
-} from "../../apiCalls/authApi";
+// import TableEditable from "../TableEditable";
+import { column } from "../../data/teacher";
+import Table from "../../components/Table";
+import { getFetchedData } from "../../apiCalls/authApi";
 import { CORE } from "../../apiCalls/endpoints";
 
 const Students = () => {
-  const [teacherData, setTeacherData] = useState(teachers);
-  //   const [classrooms, setClassroomData] = useState();
-  const sub = teacherData[0];
-  console.log(sub);
+  const [studentData, setStudentData] = useState();
 
   useEffect(() => {
-    const fetchTeacherData = async () => {
+    const fetchStudentData = async () => {
       try {
-        const fetchedData = await getFetchedData(CORE.TEACHER);
-        // setClassroomData((prevData) => [...prevData, ...fetchedData]);
-        // setTeacherData(fetchedData);
-        console.log(fetchedData);
+        const fetchedData = await getFetchedData(CORE.STUDENT);
+        const arrayOfUsers = fetchedData.map((obj) => ({
+          ...obj.user,
+          id: obj.id,
+        }));
+        setStudentData(arrayOfUsers);
       } catch (error) {
         console.error("Error:", error.message);
       }
     };
 
-    fetchTeacherData();
+    fetchStudentData();
     // eslint-disable-next-line
   }, []);
-
-  useEffect(() => {
-    const fetchClassroomData = async () => {
-      try {
-        const fetchedData = await getFetchedData(CORE.TEACHER);
-        // setClassroomData(fetchedData);
-      } catch (error) {
-        console.error("Error:", error.message);
-      }
-    };
-
-    fetchClassroomData();
-    // eslint-disable-next-line
-  }, []);
-
-  const handleNewRowSave = async (newTeachers) => {
-    if (newTeachers.isNew) {
-      // handle new row
-      try {
-        const successful = await postData(CORE.TEACHER, newTeachers);
-        console.log(newTeachers);
-        if (successful) {
-          successToast("New row added!");
-        }
-      } catch (error) {
-        console.error("Error:", error.message);
-      }
-    } else {
-      // handle update row
-      try {
-        if (Object.keys(newTeachers.updatedFields).length !== 0) {
-          const successful = await patchData(
-            CORE.GET_TEACHER(newTeachers.id),
-            newTeachers.updatedFields
-          );
-          if (successful) {
-            successToast("Data Updated!");
-          }
-        } else {
-          errorToast("No changes detected!");
-        }
-      } catch (error) {
-        console.error("Error saving/updating classroom data:", error.message);
-      }
-    }
-  };
-  const handleDeleteRow = async (teacherId) => {
-    try {
-      const successful = await deleteData(CORE.GET_TEACHER(teacherId));
-      if (successful) {
-        successToast("Classroom deleted!");
-      }
-    } catch (error) {
-      console.error("Error deleting classroom:", error.message);
-      errorToast("Error deleting classroom");
-    }
-  };
 
   return (
     <Box
@@ -106,11 +42,11 @@ const Students = () => {
 
       {/* First Box with TableEditable */}
       <Box sx={{ mt: 2 }}>
-        {teacherData ? (
+        {studentData ? (
           <Table
-            data={teacherData}
+            data={studentData}
             fields={column}
-            numberOfRows={teacherData.length}
+            numberOfRows={studentData.length}
             enableTopToolBar={true}
             enableBottomToolBar={true}
             enablePagination={true}
@@ -122,7 +58,7 @@ const Students = () => {
             routeLink="student"
           />
         ) : (
-          <Typography variant="h6">Loading teachers data...</Typography>
+          <Typography variant="h6">Loading students data...</Typography>
         )}
       </Box>
     </Box>
