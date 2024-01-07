@@ -41,10 +41,6 @@ export const navigationLinks = (role) => {
             url: "/parent",
           },
           {
-            name: "Results",
-            url: "/results",
-          },
-          {
             name: "Timetable",
             url: "/timetable",
           },
@@ -56,18 +52,18 @@ export const navigationLinks = (role) => {
         subLinks: [
           {
             name: "Exam Schedules",
-            url: "/sales/analysis",
+            url: "/exam-schedules",
           },
-          {
-            name: "Exam Results",
-            url: "results",
-          },
+          // {
+          //   name: "Exam Results",
+          //   url: "results",
+          // },
         ],
       },
       {
         name: "Results",
         icon: <IoMdCheckboxOutline />,
-        url: "/transactions",
+        url: "/results",
       },
       {
         name: "Certificate",
@@ -120,7 +116,7 @@ export const navigationLinks = (role) => {
       {
         name: "Notifications",
         icon: <MdNotificationsNone />,
-        url: "/brands",
+        url: "/notifications",
       },
       {
         name: "Reviews",
@@ -128,11 +124,11 @@ export const navigationLinks = (role) => {
         subLinks: [
           {
             name: "Teachers Review",
-            url: "/reviews",
+            url: "/teachers-reviews",
           },
           {
             name: "Student Review",
-            url: "/reviews",
+            url: "/students-reviews",
           },
         ],
       },
@@ -172,7 +168,7 @@ export const navigationLinks = (role) => {
           },
           {
             name: "Notification Settings",
-            url: "/orders/template",
+            url: "notification-settings",
           },
           {
             name: "Users Settings",
