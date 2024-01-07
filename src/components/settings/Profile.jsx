@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { useUser } from "../utils/userContext";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { successToast, errorToast, warningToast } from "../utils/toastUtils";
+import { successToast, errorToast, infoToast } from "../utils/toastUtils";
 import { updateUserProfile } from "../../apiCalls/authApi";
 import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
 
@@ -77,7 +77,7 @@ const Profile = () => {
         setLoading(false);
       }
     } else {
-      warningToast("No changes to update");
+      infoToast("No changes to update");
       setLoading(false);
     }
   };
