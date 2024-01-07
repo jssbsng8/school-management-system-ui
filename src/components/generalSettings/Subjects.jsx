@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Typography, Paper, Toolbar } from "@mui/material";
 import TableEditable from "../TableEditable";
 import { editSubjectColumn } from "../../data/subjects";
-import { successToast, errorToast } from "../utils/toastUtils";
+import { successToast, errorToast, infoToast } from "../utils/toastUtils";
 import {
   getFetchedData,
   postData,
@@ -21,7 +21,6 @@ const Subjects = () => {
         const fetchedData = await getFetchedData(CORE.SUBJECT);
         // setClassroomData((prevData) => [...prevData, ...fetchedData]);
         setSubjectData(fetchedData);
-        console.log(fetchedData);
       } catch (error) {
         console.error("Error:", error.message);
       }
@@ -50,7 +49,6 @@ const Subjects = () => {
       // handle new row
       try {
         const successful = await postData(CORE.SUBJECT, newSubjects);
-        console.log(newSubjects);
         if (successful) {
           successToast("New row added!");
         }
@@ -69,7 +67,7 @@ const Subjects = () => {
             successToast("Data Updated!");
           }
         } else {
-          errorToast("No changes detected!");
+          infoToast("No changes detected!");
         }
       } catch (error) {
         console.error("Error saving/updating classroom data:", error.message);
@@ -87,7 +85,6 @@ const Subjects = () => {
       errorToast("Error deleting classroom");
     }
   };
-  console.log(classrooms);
   const columns = [
     ...editSubjectColumn,
     {
