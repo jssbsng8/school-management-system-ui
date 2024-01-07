@@ -11,6 +11,7 @@ import Sessions from "../components/generalSettings/Sessions";
 import Subjects from "../components/generalSettings/Subjects";
 import Teachers from "../components/generalSettings/Teachers";
 import Students from "../components/generalSettings/Students";
+import SubjectsSelectionComponent from "../components/generalSettings/SubjectSelection";
 
 const GeneralSettings = () => {
   const [value, setValue] = React.useState(0);
@@ -64,6 +65,7 @@ const GeneralSettings = () => {
         {renderTabPanel(2, <Teachers />)}
         {renderTabPanel(3, <Students />)}
         {/* {renderTabPanel(4, <Parent />)} */}
+        {renderTabPanel(4, <SubjectsSelectionComponent />)}
         {renderTabPanel(5, <Sessions />)}
       </Box>
     </Box>
