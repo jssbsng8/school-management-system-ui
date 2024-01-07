@@ -18,13 +18,13 @@ const SubjectsSelectionComponent = ({
   assigned_subjects,
 }) => {
   const [subjects, setSubjects] = useState(assigned_subjects);
-  // console.log(subjects);
   const handleChange = (event, newValue) => {
     const selectedIds = newValue.map((item) => item.id);
     onSelectionChange(selectedIds);
     setSubjects(selectedIds);
   };
 
+  
   return (
     <Box>
       {subjects && subjects.length > 0 ? (
