@@ -47,7 +47,7 @@ const GeneralResult = () => {
       <ComponentWrapper>{/* <Stats /> */}</ComponentWrapper>
 
       <ComponentWrapper>
-        <Grid container spacing={3}>
+        <Grid container >
           <Grid item xs={12} md={6} lg={12}>
             <GeneralResultForm onSubmit={handleCheckResult} loading={loading} />
           </Grid>
