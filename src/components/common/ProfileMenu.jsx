@@ -23,7 +23,9 @@ const ProfileMenu = () => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  const handleNavigate = () => {
+    navigate("/settings")
+  }
   const handleLogout = async () => {
     // ======================= LOGOUT =======================
     const logoutApiUrl = AUTH_ENDPOINTS.LOGOUT;
@@ -52,7 +54,6 @@ const ProfileMenu = () => {
         successToast(message);
     }
   };
-console.log();
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -118,7 +119,7 @@ console.log();
           </ListItemIcon>
           Manage Other Accounts
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleNavigate}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
