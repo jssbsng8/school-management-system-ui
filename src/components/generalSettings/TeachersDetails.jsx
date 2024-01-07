@@ -11,6 +11,7 @@ import { getFetchedData } from "../../apiCalls/authApi";
 // import { updateUserProfile } from "../../apiCalls/authApi";
 // import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
 import SubjectsSelectionComponent from "./SubjectSelection";
+import { successToast } from "../utils/toastUtils";
 
 const TeachersDetails = () => {
   const { id } = useParams();
@@ -80,7 +81,6 @@ const TeachersDetails = () => {
       const classroomId = parseInt(selectedClassrooms.join(""));
 
       fetchSubjectsData(classroomId);
-
     }
   }, [selectedClassrooms]);
 
@@ -104,20 +104,21 @@ const TeachersDetails = () => {
 
   // console.log(user);
   const handleUpdateProfile = async () => {
-    // setLoading(true);
-    const updatedFields = Object.entries({
-      "assigned_subject": selectedSubjects,
-      // selectedClassrooms: selectedClassrooms,
-      
-    }).reduce((acc, [key, value]) => {
-      if (value !== selectedSubjects[key] && typeof value !== "undefined") {
-        acc[key] = value;
-      }
-      return acc;
-    }, {});
+    setLoading(true);
+    const updatedFields = {
+      classrooms: selectedClassrooms,
+      assigned_subjects: selectedSubjects,
+    };
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    console.log("Updated Fields: ", updatedFields);
+    successToast(
+      `${
+        teacherData.username.charAt(0).toUpperCase() +
+        teacherData.username.slice(1)
+      }'s Profile Updated!`
+    );
 
-    console.log("Selected Subjects: ",updatedFields);
-    // console.log("Selected Classrooms",selectedClassrooms);
+    setLoading(false);
   };
 
   if (!teacherData) {
@@ -199,7 +200,7 @@ const TeachersDetails = () => {
                   <Grid item xs={6} key={index}>
                     <RadioGroup
                       value={selectedClassrooms[0]}
-                      onChange={() => { }}
+                      onChange={() => {}}
                     >
                       {classroomSlice.map((classroom) => (
                         <FormControlLabel
