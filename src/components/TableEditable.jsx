@@ -46,7 +46,7 @@ const TableEditable = ({
 
       setRowModesModel((oldModel) => ({
         ...oldModel,
-        [newId]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
+        [newId]: { mode: GridRowModes.Edit, /*fieldToFocus: "name" */ },
       }));
     };
 
