@@ -256,9 +256,9 @@ export const navigationLinks = (role) => {
       },
 
       {
-        name: "Notifications",
-        icon: <MdNotificationsNone />,
-        url: "/brands",
+        name: "Notice Board",
+        icon: <FiMail />,
+        url: "/notice_board",
       },
       {
         name: "Apply Leave",
@@ -351,11 +351,6 @@ export const navigationLinks = (role) => {
         url: "/results",
       },
       {
-        name: "Notifications",
-        icon: <MdNotificationsNone />,
-        url: "/brands",
-      },
-      {
         name: "Apply Leave",
         icon: <MdCheckCircleOutline />,
         url: "/leave",
@@ -376,11 +371,11 @@ export const navigationLinks = (role) => {
         subLinks: [
           {
             name: "Registration Information",
-            url: "/orders",
+            url: "/registration-information",
           },
           {
             name: "Fees Breakdown",
-            url: "/orders/template",
+            url: "/fees-breakdown",
           },
         ],
       },
