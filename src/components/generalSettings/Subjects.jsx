@@ -5,9 +5,9 @@ import { editSubjectColumn } from "../../data/subjects";
 import { successToast, errorToast, infoToast } from "../utils/toastUtils";
 import {
   getFetchedData,
-  postData,
-  patchData,
-  deleteData,
+  postRequest,
+  patchRequest,
+  deleteRequest,
 } from "../../apiCalls/authApi";
 import { CORE } from "../../apiCalls/endpoints";
 
@@ -48,7 +48,7 @@ const Subjects = () => {
     if (newSubjects.isNew) {
       // handle new row
       try {
-        const successful = await postData(CORE.SUBJECT, newSubjects);
+        const successful = await postRequest(CORE.SUBJECT, newSubjects);
         if (successful) {
           successToast("New row added!");
         }
@@ -59,7 +59,7 @@ const Subjects = () => {
       // handle update row
       try {
         if (Object.keys(newSubjects.updatedFields).length !== 0) {
-          const successful = await patchData(
+          const successful = await patchRequest(
             CORE.GET_SUBJECT(newSubjects.id),
             newSubjects.updatedFields
           );
@@ -76,7 +76,7 @@ const Subjects = () => {
   };
   const handleDeleteRow = async (subjectId) => {
     try {
-      const successful = await deleteData(CORE.GET_SUBJECT(subjectId));
+      const successful = await deleteRequest(CORE.GET_SUBJECT(subjectId));
       if (successful) {
         successToast("Classroom deleted!");
       }
