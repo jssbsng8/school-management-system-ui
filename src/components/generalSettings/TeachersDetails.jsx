@@ -5,10 +5,8 @@ import RadioGroup from "@mui/material/RadioGroup";
 import LoadingButton from "@mui/lab/LoadingButton";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-// import { successToast, errorToast } from "../utils/toastUtils";
-import { CORE, USER_ENDPOINTS } from "../../apiCalls/endpoints";
-import { patchRequest } from "../../apiCalls/authApi";
-import { getFetchedData } from "../../apiCalls/authApi";
+import { CORE } from "../../apiCalls/endpoints";
+import { patchRequest, getFetchedData } from "../../apiCalls/authApi";
 import SubjectsSelectionComponent from "./SubjectSelection";
 import { errorToast, successToast } from "../utils/toastUtils";
 
@@ -105,10 +103,9 @@ const TeachersDetails = () => {
   const handleUpdateProfile = async () => {
     setLoading(true);
     const updatedFields = {
-      classrooms: selectedClassrooms,
+      classroom: selectedClassrooms[0],
       assigned_subjects: selectedSubjects,
     };
-
     const updated_user = await patchRequest(
       CORE.GET_TEACHER(id),
       updatedFields
@@ -116,20 +113,20 @@ const TeachersDetails = () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     if (!updated_user) {
       errorToast(
-        `Error Updating ${
-          teacherData.username.charAt(0).toUpperCase() +
-          teacherData.username.slice(1)
+        `Error Updating ${teacherData.username.charAt(0).toUpperCase() +
+        teacherData.username.slice(1)
         }'s Profile`
       );
       setLoading(false);
     }
-    successToast(
-      `${
-        teacherData.username.charAt(0).toUpperCase() +
+    else {
+      successToast(
+        `${teacherData.username.charAt(0).toUpperCase() +
         teacherData.username.slice(1)
-      }'s Profile Updated!`
-    );
-    setLoading(false);
+        }'s Profile Updated!`
+      );
+      setLoading(false);
+    }
   };
 
   if (!teacherData) {
@@ -156,6 +153,9 @@ const TeachersDetails = () => {
               rows={4}
               fullWidth
               defaultValue={teacherData.first_name}
+              InputProps={{
+                readOnly: true,
+              }}
             />
             <TextField
               label="Last Name"
@@ -163,6 +163,9 @@ const TeachersDetails = () => {
               rows={4}
               fullWidth
               defaultValue={teacherData.last_name}
+              InputProps={{
+                readOnly: true,
+              }}
             />
           </Box>
           <Box sx={{ mt: 4, display: "flex", alignItems: "center", gap: 4 }}>
@@ -172,6 +175,9 @@ const TeachersDetails = () => {
               rows={4}
               fullWidth
               defaultValue={teacherData.username}
+              InputProps={{
+                readOnly: true,
+              }}
             />
             <TextField
               label="Role"
@@ -201,6 +207,9 @@ const TeachersDetails = () => {
               variant="outlined"
               fullWidth
               defaultValue={teacherData.address}
+              InputProps={{
+                readOnly: true,
+              }}
             />
           </Box>
           <Typography variant="h6" sx={{ my: 3 }}>
@@ -214,7 +223,7 @@ const TeachersDetails = () => {
                   <Grid item xs={6} key={index}>
                     <RadioGroup
                       value={selectedClassrooms[0]}
-                      onChange={() => {}}
+                      onChange={() => { }}
                     >
                       {classroomSlice.map((classroom) => (
                         <FormControlLabel
