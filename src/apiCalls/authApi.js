@@ -205,17 +205,17 @@ export const patchRequest = async (url, data) => {
 
     if (response.ok) {
       const responseData = await response.json();
-      return responseData;
-      // return true
+      // return responseData;
+      return true
     } else {
       const errorMessage = await response.text();
       console.log(errorMessage);
-      errorToast(errorMessage);
+      // errorToast(errorMessage);
       return false;
     }
   } catch (error) {
     const message = `Error updating user profile: ${error}`;
-    errorToast(message);
+    // errorToast(message);
     return false;
   }
 };
