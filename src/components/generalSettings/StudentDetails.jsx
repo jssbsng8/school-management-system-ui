@@ -1,43 +1,36 @@
 import { Box, Grid, Divider, TextField, Typography } from "@mui/material";
-// import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import LoadingButton from "@mui/lab/LoadingButton";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-// import { successToast, errorToast } from "../utils/toastUtils";
+import { successToast, errorToast } from "../utils/toastUtils";
 import { CORE } from "../../apiCalls/endpoints";
 import { getFetchedData } from "../../apiCalls/authApi";
-import { successToast } from "../utils/toastUtils";
-// import { updateUserProfile } from "../../apiCalls/authApi";
-// import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
+import { patchRequest } from "../../apiCalls/authApi";
 import SubjectsSelectionComponent from "./SubjectSelection";
 
 const TeachersDetails = () => {
   const { id } = useParams();
-  const [teacherData, setTeacherData] = useState({});
+  const [studentData, setStudentData] = useState({});
   const [subjects, setSubjects] = useState([]);
   const [selectedClassrooms, setSelectedClassrooms] = useState([]);
   const [selectedSubjects, setSelectedsubjects] = useState([]);
   const [userSubjects, setUserSubjects] = useState([]);
   const [classrooms, setClassrooms] = useState([]);
-  const [firstName, setFirstName] = useState(teacherData.first_name || "");
-  const [lastName, setLastName] = useState(teacherData.last_name || "");
-  const [username, setUsername] = useState(teacherData.username || "");
-  const [email, setEmail] = useState(teacherData.email || "");
-  const [address, setAddress] = useState(teacherData.address || "");
   const [loading, setLoading] = useState(false);
   const [loadingSubjects, setLoadingSubjects] = useState(false);
 
   useEffect(() => {
-    const fetchTeacherData = async () => {
+    const fetchStudentData = async () => {
       try {
         const fetchedData = await getFetchedData(CORE.GET_STUDENT(id));
-        setTeacherData(fetchedData.user);
+        setStudentData(fetchedData.user);
         setSelectedClassrooms([fetchedData.classroom.id]);
-        const usersubject = fetchedData.assigned_subjects;
+        const usersubject = fetchedData.enrolled_subjects;
         // Extracting ids into an array
+        console.log(fetchedData);
         const subjectIdsArray = usersubject.map((subject) => subject.id);
         setUserSubjects(subjectIdsArray);
         setSelectedsubjects(subjectIdsArray);
@@ -45,9 +38,10 @@ const TeachersDetails = () => {
         console.error("Error:", error.message);
       }
     };
-    fetchTeacherData();
+    fetchStudentData();
+    // eslint-disable-next-line
   }, []);
-
+// console.log(userSubjects);
   useEffect(() => {
     const fetchClassroomData = async () => {
       try {
@@ -88,7 +82,7 @@ const TeachersDetails = () => {
     }
   }, [selectedClassrooms]);
 
-  if (!Object.keys(teacherData).length) {
+  if (!Object.keys(studentData).length) {
     return <div>Loading...</div>;
   }
 
@@ -108,22 +102,34 @@ const TeachersDetails = () => {
   const handleUpdateProfile = async () => {
     setLoading(true);
     const updatedFields = {
-      classrooms: selectedClassrooms,
+      classroom: selectedClassrooms[0],
       enrolled_subjects: selectedSubjects,
     };
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log("Updated Fields: ", updatedFields);
-    successToast(
-      `${
-        teacherData.username.charAt(0).toUpperCase() +
-        teacherData.username.slice(1)
-      }'s Profile Updated!`
+    console.log(updatedFields);
+    const updated_user = await patchRequest(
+      CORE.GET_STUDENT(id),
+      updatedFields
     );
-
-    setLoading(false);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    if (!updated_user) {
+      errorToast(
+        `Error Updating ${studentData.username.charAt(0).toUpperCase() +
+        studentData.username.slice(1)
+        }'s Profile`
+      );
+      setLoading(false);
+    }
+    else {
+      successToast(
+        `${studentData.username.charAt(0).toUpperCase() +
+        studentData.username.slice(1)
+        }'s Profile Updated!`
+      );
+      setLoading(false);
+    }
   };
 
-  if (!teacherData) {
+  if (!studentData) {
     return <Typography variant="h6">Loading...</Typography>;
   }
 
@@ -131,7 +137,7 @@ const TeachersDetails = () => {
     <Box sx={{ pt: "80px", pb: "20px" }}>
       <Box>
         <Typography variant="h6" sx={{ my: 3 }}>
-          {`${teacherData.username
+          {`${studentData.username
             .split(" ")
             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
             .join(" ")}'s Profile Information`}
@@ -139,23 +145,27 @@ const TeachersDetails = () => {
         <Divider />
         <Box sx={{ mt: 3 }}>
           <Typography variant="subtitle1">Profile image</Typography>
-          {/* <Avatar src={teacherData.img} /> */}
+          {/* <Avatar src={studentData.img} /> */}
           <Box sx={{ mt: 4, display: "flex", alignItems: "center", gap: 4 }}>
             <TextField
               label="First Name"
               variant="outlined"
               rows={4}
               fullWidth
-              onChange={(e) => setFirstName(e.target.value)}
-              defaultValue={teacherData.first_name}
+              defaultValue={studentData.first_name}
+              InputProps={{
+                readOnly: true,
+              }}
             />
             <TextField
               label="Last Name"
               variant="outlined"
               rows={4}
               fullWidth
-              onChange={(e) => setLastName(e.target.value)}
-              defaultValue={teacherData.last_name}
+              defaultValue={studentData.last_name}
+              InputProps={{
+                readOnly: true,
+              }}
             />
           </Box>
           <Box sx={{ mt: 4, display: "flex", alignItems: "center", gap: 4 }}>
@@ -164,15 +174,17 @@ const TeachersDetails = () => {
               variant="outlined"
               rows={4}
               fullWidth
-              onChange={(e) => setUsername(e.target.value)}
-              defaultValue={teacherData.username}
+              defaultValue={studentData.username}
+              InputProps={{
+                readOnly: true,
+              }}
             />
             <TextField
               label="Role"
               variant="outlined"
               rows={4}
               fullWidth
-              defaultValue={teacherData.role}
+              defaultValue={studentData.role}
               InputProps={{
                 readOnly: true,
               }}
@@ -183,8 +195,10 @@ const TeachersDetails = () => {
               label="Email"
               variant="outlined"
               fullWidth
-              onChange={(e) => setEmail(e.target.value)}
-              defaultValue={teacherData.email}
+              defaultValue={studentData.email}
+              InputProps={{
+                readOnly: true,
+              }}
             />
           </Box>
           <Box sx={{ my: 2 }}>
@@ -192,8 +206,10 @@ const TeachersDetails = () => {
               label="Address"
               variant="outlined"
               fullWidth
-              onChange={(e) => setAddress(e.target.value)}
-              defaultValue={teacherData.address}
+              defaultValue={studentData.address}
+              InputProps={{
+                readOnly: true,
+              }}
             />
           </Box>
           <Typography variant="h6" sx={{ my: 3 }}>
@@ -207,7 +223,7 @@ const TeachersDetails = () => {
                   <Grid item xs={6} key={index}>
                     <RadioGroup
                       value={selectedClassrooms[0]}
-                      onChange={() => {}}
+                      onChange={() => { }}
                     >
                       {classroomSlice.map((classroom) => (
                         <FormControlLabel
