@@ -19,7 +19,7 @@ const CheckResult = () => {
   ) => {
     setLoading(true);
     // Handle logic for checking exam results based on selectedSession and selectedClassroom
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     // const fetchedData = {"mike":"ademic"};
     const fetchedData = null;
