@@ -167,7 +167,7 @@ export const getFetchedData = async (url) => {
   }
 };
 
-export const postData = async (url, data) => {
+export const postRequest = async (url, data) => {
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -192,7 +192,7 @@ export const postData = async (url, data) => {
   }
 };
 
-export const patchData = async (url, data) => {
+export const patchRequest = async (url, data) => {
   try {
     const response = await fetch(url, {
       method: "PATCH",
@@ -220,7 +220,7 @@ export const patchData = async (url, data) => {
   }
 };
 
-export const deleteData = async (url) => {
+export const deleteRequest = async (url) => {
   try {
     const response = await fetch(url, {
       method: "DELETE",
