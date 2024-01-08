@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -18,40 +18,40 @@ const ProfileMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const { setUserContext } = useUser();
-  
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleNavigate = () => {
-    navigate("/settings")
-  }
+    navigate("/settings");
+  };
   const handleLogout = async () => {
     // ======================= LOGOUT =======================
     const logoutApiUrl = AUTH_ENDPOINTS.LOGOUT;
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     try {
-        const response = await fetch(logoutApiUrl, {
-        method: 'POST',
+      const response = await fetch(logoutApiUrl, {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
         },
-        });
+      });
 
-        if (response.ok) {
-          setUserContext(null, false, null, null);
+      if (response.ok) {
+        setUserContext(null, false, null, null);
 
-          localStorage.clear()
-          navigate('/login');
-        } else {
+        localStorage.clear();
+        navigate("/login");
+      } else {
         // Handle logout failure
-        const message = `Logout failed:, ${response.statusText}`
+        const message = `Logout failed:, ${response.statusText}`;
         successToast(message);
-        }
+      }
     } catch (error) {
-        const message = `Error during logout: ${error}`
-        successToast(message);
+      const message = `Error during logout: ${error}`;
+      successToast(message);
     }
   };
   const handleClose = () => {
@@ -68,10 +68,7 @@ const ProfileMenu = () => {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar
-            sx={{ width: 32, height: 32 }}
-            src="/images/avatars/profile-avatar.png"
-          />
+          <Avatar sx={{ width: 32, height: 32 }} src={localStorage.getItem('thumbnail')} />
         </IconButton>
       </Tooltip>
 
