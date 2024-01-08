@@ -5,9 +5,9 @@ import { editClassroomColumn } from "../../data/classrooms";
 import { successToast, errorToast } from "../utils/toastUtils";
 import {
   getFetchedData,
-  postData,
-  patchData,
-  deleteData,
+  postRequest,
+  patchRequest,
+  deleteRequest,
 } from "../../apiCalls/authApi";
 import { CORE } from "../../apiCalls/endpoints";
 
@@ -33,7 +33,7 @@ const Classrooms = () => {
     if (newClassroom.isNew) {
       // handle new row
       try {
-        const successful = await postData(CORE.CLASSROOM, newClassroom);
+        const successful = await postRequest(CORE.CLASSROOM, newClassroom);
         if (successful) {
           successToast("New row added!");
         }
@@ -44,7 +44,7 @@ const Classrooms = () => {
       // handle update row
       try {
         if (Object.keys(newClassroom.updatedFields).length !== 0) {
-          const successful = await patchData(
+          const successful = await patchRequest(
             CORE.GET_CLASSROOM(newClassroom.id),
             newClassroom.updatedFields
           );
@@ -61,7 +61,7 @@ const Classrooms = () => {
   };
   const handleDeleteRow = async (classroomId) => {
     try {
-      const successful = await deleteData(CORE.GET_CLASSROOM(classroomId));
+      const successful = await deleteRequest(CORE.GET_CLASSROOM(classroomId));
       if (successful) {
         successToast("Classroom deleted!");
       }
