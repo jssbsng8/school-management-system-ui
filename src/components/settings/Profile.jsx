@@ -6,6 +6,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { successToast, errorToast, infoToast } from "../utils/toastUtils";
 import { updateUserProfile } from "../../apiCalls/authApi";
 import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
+import ImageUpload from "./ImageUpload";
 
 const Profile = () => {
   const { user } = useUser();
@@ -15,10 +16,15 @@ const Profile = () => {
   const [username, setUsername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
   const [address, setAddress] = useState(user.address);
+  const [profileImage, setProfileImage] = useState(
+    localStorage.getItem("userImage")
+  );
 
+  const handleImageUpload = (image) => {
+    setProfileImage(image);
+  };
   const handleUpdateProfile = async () => {
     setLoading(true);
-
     const updatedFields = Object.entries({
       first_name: firstName,
       last_name: lastName,
@@ -90,8 +96,10 @@ const Profile = () => {
       </Typography>
       <Divider />
       <Box sx={{ mt: 3 }}>
-        <Typography variant="subtitle1">Profile image</Typography>
-        <Avatar src={user.img} />
+        <Box sx={{ mt: 1, mb: 3 }}>
+          <Avatar src={profileImage} sx={{ width: 200, height: 200 }} />
+        </Box>
+        <ImageUpload onImageUpload={handleImageUpload} />
         <Box sx={{ mt: 4, display: "flex", alignItems: "center", gap: 4 }}>
           <TextField
             label="First Name"
