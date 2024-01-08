@@ -6,12 +6,11 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 // import { successToast, errorToast } from "../utils/toastUtils";
-import { CORE } from "../../apiCalls/endpoints";
+import { CORE, USER_ENDPOINTS } from "../../apiCalls/endpoints";
+import { patchRequest } from "../../apiCalls/authApi";
 import { getFetchedData } from "../../apiCalls/authApi";
-// import { updateUserProfile } from "../../apiCalls/authApi";
-// import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
 import SubjectsSelectionComponent from "./SubjectSelection";
-import { successToast } from "../utils/toastUtils";
+import { errorToast, successToast } from "../utils/toastUtils";
 
 const TeachersDetails = () => {
   const { id } = useParams();
@@ -109,15 +108,27 @@ const TeachersDetails = () => {
       classrooms: selectedClassrooms,
       assigned_subjects: selectedSubjects,
     };
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log("Updated Fields: ", updatedFields);
+
+    const updated_user = await patchRequest(
+      CORE.GET_TEACHER(id),
+      updatedFields
+    );
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    if (!updated_user) {
+      errorToast(
+        `Error Updating ${
+          teacherData.username.charAt(0).toUpperCase() +
+          teacherData.username.slice(1)
+        }'s Profile`
+      );
+      setLoading(false);
+    }
     successToast(
       `${
         teacherData.username.charAt(0).toUpperCase() +
         teacherData.username.slice(1)
       }'s Profile Updated!`
     );
-
     setLoading(false);
   };
 
@@ -179,6 +190,9 @@ const TeachersDetails = () => {
               variant="outlined"
               fullWidth
               defaultValue={teacherData.email}
+              InputProps={{
+                readOnly: true,
+              }}
             />
           </Box>
           <Box sx={{ my: 2 }}>
