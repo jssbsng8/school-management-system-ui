@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { athenticatedUser } from "../../apiCalls/authApi";
 import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
-import { fetchSubjects } from "../../apiCalls/authApi";
+import { fetchSubjects, getFetchedData } from "../../apiCalls/authApi";
 
 const UserContext = createContext();
 
@@ -11,6 +11,8 @@ export const UserProvider = ({ children }) => {
   const [auth, setAuth] = useState(false);
   const [role, setRole] = useState(null);
   const [subjects, setSubject] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
+  const [profileThumbnail, setThumbnail] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -33,37 +35,76 @@ export const UserProvider = ({ children }) => {
       trigger the fetch when the route changes.
     */
 
-    const fetchAuthenticatedUser = async () => {
-      try {
-        const currentRoute = location.pathname;
-        const excludedRoutes = ["/login", "/success", "/reset_password"]; // Add routes to exclude from navigation
-        if (!excludedRoutes.includes(currentRoute)) {
-          const getUser = await athenticatedUser(
-            USER_ENDPOINTS.AUTHENTICATED_USER
-          );
-
-          if (getUser) {
-            const parsedUserData = JSON.parse(getUser);
-            setUser(parsedUserData);
-            setAuth(true);
-            setRole(parsedUserData.role);
-          } else {
-            setUserContext(null, false, null);
-            localStorage.clear();
-
-            // Navigate only if not in the excluded routes
-            if (!excludedRoutes.includes(currentRoute)) {
-              navigate("/login");
+      const fetchAuthenticatedUser = async () => {
+        try {
+          const currentRoute = location.pathname;
+          const excludedRoutes = ["/login", "/success", "/reset_password"];
+      
+          if (!excludedRoutes.includes(currentRoute)) {
+            const getUser = await athenticatedUser(
+              USER_ENDPOINTS.AUTHENTICATED_USER
+            );
+      
+            if (getUser) {
+              const parsedUserData = JSON.parse(getUser);
+      
+              // Check if the image data is already in local storage
+              const storedImage = localStorage.getItem("userImage");
+              const storedThumbnail = localStorage.getItem("thumbnail");
+      
+              if (storedImage && storedThumbnail) {
+                // If image data is in local storage, use it directly
+                setProfileImage(storedImage);
+                setThumbnail(storedThumbnail);
+              } else {
+                try {
+                  // Fetch user image only if it hasn't been fetched before
+                  const fetchedData = await getFetchedData(
+                    USER_ENDPOINTS.PROFILE_IMAGE(parsedUserData.id)
+                  );
+      
+                  if (fetchedData && fetchedData.length > 0) {
+                    const image_url = fetchedData[0].image;
+                    const thumbnail = fetchedData[0].thumbnail;
+      
+                    // Save the image data in local storage
+                    localStorage.setItem("userImage", image_url);
+                    localStorage.setItem("thumbnail", thumbnail);
+      
+                    // Update state with the fetched image data
+                    setProfileImage(image_url);
+                    setThumbnail(thumbnail);
+                  } else {
+                    console.error("No image data found for the user.");
+                  }
+                } catch (error) {
+                  console.error("Error fetching user image:", error.message);
+                }
+              }
+      
+              setUserContext({
+                ...parsedUserData,
+                profileImage,
+                profileThumbnail,
+              });
+              setAuth(true);
+              setRole(parsedUserData.role);
+            } else {
+              setUserContext(null, false, null);
+              localStorage.clear();
+      
+              if (!excludedRoutes.includes(currentRoute)) {
+                navigate("/login");
+              }
             }
           }
+        } catch (error) {
+          console.error("Error fetching authenticated user:", error);
         }
-      } catch (error) {
-        console.error("Error fetching authenticated user:", error);
-      }
-    };
-
+      };
+      
     fetchAuthenticatedUser();
-  }, [navigate, location.pathname]);
+  }, [navigate, location.pathname, profileImage, profileThumbnail]);
 
   useEffect(() => {
     /*
