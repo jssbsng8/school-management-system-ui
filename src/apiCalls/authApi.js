@@ -204,9 +204,9 @@ export const patchRequest = async (url, data) => {
     });
 
     if (response.ok) {
-      const responseData = await response.json();
+      // const responseData = await response.json();
       // return responseData;
-      return true
+      return true;
     } else {
       const errorMessage = await response.text();
       console.log(errorMessage);
@@ -215,7 +215,7 @@ export const patchRequest = async (url, data) => {
     }
   } catch (error) {
     const message = `Error updating user profile: ${error}`;
-    // errorToast(message);
+    console.error(message)
     return false;
   }
 };
@@ -244,5 +244,26 @@ export const deleteRequest = async (url) => {
     errorToast(message);
     console.log(message);
     return false;
+  }
+};
+
+export const patchRequestImageUpload = async (url, data) => {
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+      body: data,
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update profile image");
+    }else{
+      return true;
+    }
+  } catch (error) {
+    const message = `Error updating user profile: ${error}`;
+    throw new Error(message);
   }
 };
