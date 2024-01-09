@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { Box, Button, Paper, Typography, Grid } from "@mui/material";
 import {
   GridRowModes,
   DataGrid,
@@ -46,7 +46,7 @@ const TableEditable = ({
 
       setRowModesModel((oldModel) => ({
         ...oldModel,
-        [newId]: { mode: GridRowModes.Edit, /*fieldToFocus: "name" */ },
+        [newId]: { mode: GridRowModes.Edit /*fieldToFocus: "name" */ },
       }));
     };
 
@@ -79,7 +79,6 @@ const TableEditable = ({
       onDeleteRow(id);
     }
     setRows(rows.filter((row) => row.id !== id));
-    
   };
 
   const handleCancelClick = (id) => () => {
@@ -108,7 +107,7 @@ const TableEditable = ({
         approved_by: Decision,
       };
     } else {
-    updatedRow = { ...newRow, isNew: false, /* time: currentTime */ };
+      updatedRow = { ...newRow, isNew: false /* time: currentTime */ };
     }
 
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
@@ -276,17 +275,19 @@ const TableEditable = ({
               }}
             />
             {enableSubmitButton ? (
-              <LoadingButton
-                variant="contained"
-                type="submit"
-                onClick={handleGetAllData}
-                loading={loading}
-                loadingPosition="start"
-                disabled={submitted}
-                sx={{ mt: 3, mb: 2, width: "15%" }}
-              >
-                {loading ? "Submitting..." : "Submit Record"}
-              </LoadingButton>
+              <Grid item xs={6} sm={3} lg={3}>
+                <LoadingButton
+                  variant="contained"
+                  type="submit"
+                  onClick={handleGetAllData}
+                  loading={loading}
+                  loadingPosition="start"
+                  disabled={submitted}
+                  sx={{ mt: 3, mb: 2, width: "25%" }}
+                >
+                  {loading ? "Submitting..." : "Submit Record"}
+                </LoadingButton>
+              </Grid>
             ) : (
               <></>
             )}
