@@ -3,12 +3,7 @@ import { Box, Typography, Paper, Toolbar } from "@mui/material";
 import TableEditable from "../TableEditable";
 import { editClassroomColumn } from "../../data/classrooms";
 import { successToast, errorToast } from "../utils/toastUtils";
-import {
-  getFetchedData,
-  postRequest,
-  patchRequest,
-  deleteRequest,
-} from "../../apiCalls/authApi";
+import requestHandler from "../../apiCalls/requestHandler";
 import { CORE } from "../../apiCalls/endpoints";
 
 const Classrooms = () => {
@@ -17,7 +12,7 @@ const Classrooms = () => {
   useEffect(() => {
     const classroomDataFromApi = async () => {
       try {
-        const fetchedData = await getFetchedData(CORE.CLASSROOM);
+        const fetchedData = await requestHandler("get", CORE.CLASSROOM);
         // setClassroomData((prevData) => [...prevData, ...fetchedData]);
         setClassroomData(fetchedData);
       } catch (error) {
@@ -25,7 +20,7 @@ const Classrooms = () => {
       }
     };
 
-    classroomDataFromApi();
+    return () => classroomDataFromApi();
     // eslint-disable-next-line
   }, []);
 
@@ -33,8 +28,12 @@ const Classrooms = () => {
     if (newClassroom.isNew) {
       // handle new row
       try {
-        const successful = await postRequest(CORE.CLASSROOM, newClassroom);
-        if (successful) {
+        const fetchedData = await requestHandler(
+          "post",
+          CORE.CLASSROOM,
+          newClassroom
+        );
+        if (fetchedData) {
           successToast("New row added!");
         }
       } catch (error) {
@@ -44,11 +43,12 @@ const Classrooms = () => {
       // handle update row
       try {
         if (Object.keys(newClassroom.updatedFields).length !== 0) {
-          const successful = await patchRequest(
+          const fetchedData = await requestHandler(
+            "patch",
             CORE.GET_CLASSROOM(newClassroom.id),
             newClassroom.updatedFields
           );
-          if (successful) {
+          if (fetchedData) {
             successToast("Data Updated!");
           }
         } else {
@@ -61,8 +61,13 @@ const Classrooms = () => {
   };
   const handleDeleteRow = async (classroomId) => {
     try {
-      const successful = await deleteRequest(CORE.GET_CLASSROOM(classroomId));
-      if (successful) {
+      // const successful = await deleteRequest(CORE.GET_CLASSROOM(classroomId));
+      const fetchedData = await requestHandler(
+        "delete",
+        CORE.GET_CLASSROOM(classroomId)
+      );
+      console.log(fetchedData);
+      if (fetchedData === "") {
         successToast("Classroom deleted!");
       }
     } catch (error) {
