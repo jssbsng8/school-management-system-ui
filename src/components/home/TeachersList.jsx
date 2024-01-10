@@ -2,7 +2,7 @@ import { Avatar, Box, Divider, Paper, Typography } from "@mui/material";
 import React from "react";
 import { FaEllipsisH } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { Users } from "../../data/customers";
+import { Users } from "../../data/users";
 
 const TeachersList = () => {
   return (
