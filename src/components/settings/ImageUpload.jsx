@@ -11,9 +11,8 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { successToast, errorToast } from "../utils/toastUtils";
-import { patchRequestImageUpload } from "../../apiCalls/authApi";
 import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
-
+import requestHandler from "../../apiCalls/requestHandler";
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -45,7 +44,8 @@ const ImageUpload = ({ onImageUpload }) => {
       formData.append("user", user.id);
       formData.append("image", profileImage);
 
-      const response = await patchRequestImageUpload(
+      const response = await requestHandler(
+        "post",
         USER_ENDPOINTS.UPLOAD_IMAGE,
         formData
       );
