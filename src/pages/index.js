@@ -1,6 +1,6 @@
 export { default as Dashboard } from "./Dashboard";
 export { default as AdminDashboard } from "./AdminDashboard";
-export { default as SalesAnalytics } from "./SalesAnalytics";
+export { default as Analytics } from "./Analytics";
 export { default as Transactions } from "./Transactions";
 export { default as Reviews } from "./Reviews";
 export { default as Settings } from "./Settings";
