@@ -3,12 +3,7 @@ import { Box, Typography, Paper, Toolbar } from "@mui/material";
 import TableEditable from "../TableEditable";
 import { editSubjectColumn } from "../../data/subjects";
 import { successToast, errorToast, infoToast } from "../utils/toastUtils";
-import {
-  getFetchedData,
-  postRequest,
-  patchRequest,
-  deleteRequest,
-} from "../../apiCalls/authApi";
+import requestHandler from "../../apiCalls/requestHandler";
 import { CORE } from "../../apiCalls/endpoints";
 
 const Subjects = () => {
@@ -18,7 +13,7 @@ const Subjects = () => {
   useEffect(() => {
     const fetchSubjectData = async () => {
       try {
-        const fetchedData = await getFetchedData(CORE.SUBJECT);
+        const fetchedData = await requestHandler("get", CORE.SUBJECT);
         // setClassroomData((prevData) => [...prevData, ...fetchedData]);
         setSubjectData(fetchedData);
       } catch (error) {
@@ -26,21 +21,21 @@ const Subjects = () => {
       }
     };
 
-    fetchSubjectData();
+    return () => fetchSubjectData();
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     const fetchClassroomData = async () => {
       try {
-        const fetchedData = await getFetchedData(CORE.CLASSROOM);
+        const fetchedData = await requestHandler("get", CORE.CLASSROOM);
         setClassroomData(fetchedData);
       } catch (error) {
         console.error("Error:", error.message);
       }
     };
 
-    fetchClassroomData();
+    return () => fetchClassroomData();
     // eslint-disable-next-line
   }, []);
 
@@ -48,8 +43,13 @@ const Subjects = () => {
     if (newSubjects.isNew) {
       // handle new row
       try {
-        const successful = await postRequest(CORE.SUBJECT, newSubjects);
-        if (successful) {
+        const fetchedData = await requestHandler(
+          "post",
+          CORE.SUBJECT,
+          newSubjects
+        );
+
+        if (fetchedData) {
           successToast("New row added!");
         }
       } catch (error) {
@@ -59,11 +59,13 @@ const Subjects = () => {
       // handle update row
       try {
         if (Object.keys(newSubjects.updatedFields).length !== 0) {
-          const successful = await patchRequest(
+          const fetchedData = await requestHandler(
+            "patch",
             CORE.GET_SUBJECT(newSubjects.id),
             newSubjects.updatedFields
           );
-          if (successful) {
+
+          if (fetchedData) {
             successToast("Data Updated!");
           }
         } else {
@@ -76,8 +78,12 @@ const Subjects = () => {
   };
   const handleDeleteRow = async (subjectId) => {
     try {
-      const successful = await deleteRequest(CORE.GET_SUBJECT(subjectId));
-      if (successful) {
+      const fetchedData = await requestHandler(
+        "delete",
+        CORE.GET_SUBJECT(subjectId)
+      );
+
+      if (fetchedData === "") {
         successToast("Classroom deleted!");
       }
     } catch (error) {
