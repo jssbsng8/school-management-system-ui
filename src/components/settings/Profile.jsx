@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import { useUser } from "../utils/userContext";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { successToast, errorToast, infoToast } from "../utils/toastUtils";
-import { updateUserProfile } from "../../apiCalls/authApi";
 import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
 import ImageUpload from "./ImageUpload";
+import requestHandler from "../../apiCalls/requestHandler";
 
 const Profile = () => {
   const { user } = useUser();
@@ -19,7 +19,6 @@ const Profile = () => {
   const [profileImage, setProfileImage] = useState(
     localStorage.getItem("userImage")
   );
-
   const handleImageUpload = (image) => {
     setProfileImage(image);
   };
@@ -41,8 +40,8 @@ const Profile = () => {
     // function to update the user profile
     if (Object.keys(updatedFields).length !== 0) {
       try {
-        // Assuming updateUserProfile returns the updated user profile
-        const updatedUserProfile = await updateUserProfile(
+        const updatedUserProfile = await requestHandler(
+          "patch",
           USER_ENDPOINTS.GET_OR_UPDATE_USER(user.id),
           updatedFields
         );
