@@ -39,7 +39,6 @@ const Teachers = () => {
         </Toolbar>
       </Paper>
 
-      {/* First Box with TableEditable */}
       <Box sx={{ mt: 2 }}>
         {teacherData ? (
           <Table
