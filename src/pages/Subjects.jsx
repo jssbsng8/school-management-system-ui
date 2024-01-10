@@ -1,11 +1,21 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Table from "../components/Table";
 import { useUser } from "../components/utils/userContext";
 import { subjectColumns } from "../data/subjects";
-
+import { fetchSubjects } from "../apiCalls/requestHandler";
 const Subjects = () => {
-  const { subjects, role } = useUser();
+  const { role } = useUser;
+  const [subjects, setSubjects] = useState();
+
+  useEffect(() => {
+    /*
+      useEffect triggers the provided function (fetchDatas(setSubject))
+      when the component mounts. The dependency array ([]) ensures it runs only once on mount.
+      This effect set the user(teacher/student) subject they are assigned or enrolled.
+    */
+    fetchSubjects(setSubjects);
+  }, []);
   return (
     <Box sx={{ pt: "80px", pb: "20px" }}>
       <Box
