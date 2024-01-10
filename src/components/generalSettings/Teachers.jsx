@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Box, Typography, Paper, Toolbar } from "@mui/material";
 import { column } from "../../data/teacher";
 import Table from "../../components/Table";
-import { getFetchedData } from "../../apiCalls/authApi";
 import { CORE } from "../../apiCalls/endpoints";
+import requestHandler from "../../apiCalls/requestHandler";
 
 const Teachers = () => {
   const [teacherData, setTeacherData] = useState();
@@ -11,8 +11,7 @@ const Teachers = () => {
   useEffect(() => {
     const fetchClassroomData = async () => {
       try {
-        const fetchedData = await getFetchedData(CORE.TEACHER);
-        
+        const fetchedData = await requestHandler("get", CORE.TEACHER);
         const arrayOfUsers = fetchedData.map((obj) => ({
           ...obj.user,
           id: obj.id,
