@@ -74,13 +74,8 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         // Setting user context
         setUserContext(loggedInUserData, true, loggedInUserData.role);
 
-        // Fetching subjects
-
-        // await fetchSubjects(setSubject);
-
         await new Promise((resolve) => setTimeout(resolve, 300));
         // Navigating to the home page
-
         const message = "Login successful";
         successToast(message.toUpperCase());
         setLoading(false);
