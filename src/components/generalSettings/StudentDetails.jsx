@@ -7,9 +7,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { successToast, errorToast } from "../utils/toastUtils";
 import { CORE } from "../../apiCalls/endpoints";
-import { getFetchedData } from "../../apiCalls/authApi";
-import { patchRequest } from "../../apiCalls/authApi";
 import SubjectsSelectionComponent from "./SubjectSelection";
+import requestHandler from "../../apiCalls/requestHandler";
 
 const TeachersDetails = () => {
   const { id } = useParams();
@@ -25,7 +24,7 @@ const TeachersDetails = () => {
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const fetchedData = await getFetchedData(CORE.GET_STUDENT(id));
+        const fetchedData = await requestHandler("get", CORE.GET_STUDENT(id));
         setStudentData(fetchedData.user);
         setSelectedClassrooms([fetchedData.classroom.id]);
         const usersubject = fetchedData.enrolled_subjects;
@@ -38,21 +37,22 @@ const TeachersDetails = () => {
         console.error("Error:", error.message);
       }
     };
-    fetchStudentData();
+    return () => fetchStudentData();
     // eslint-disable-next-line
   }, []);
-// console.log(userSubjects);
+  // console.log(userSubjects);
   useEffect(() => {
     const fetchClassroomData = async () => {
       try {
-        const fetchedData = await getFetchedData(CORE.CLASSROOM);
+        const fetchedData = await requestHandler("get", CORE.CLASSROOM);
+
         setClassrooms(fetchedData);
       } catch (error) {
         console.error("Error:", error.message);
       }
     };
 
-    fetchClassroomData();
+    return () => fetchClassroomData();
   }, []);
 
   useEffect(() => {
@@ -61,7 +61,8 @@ const TeachersDetails = () => {
         // Set loading state to true when subjects are being fetched
         setLoadingSubjects(true);
 
-        const fetchedData = await getFetchedData(
+        const fetchedData = await requestHandler(
+          "get",
           CORE.GET_FILTERED_SUBJECT(classroomId)
         );
 
@@ -105,24 +106,27 @@ const TeachersDetails = () => {
       classroom: selectedClassrooms[0],
       enrolled_subjects: selectedSubjects,
     };
-    console.log(updatedFields);
-    const updated_user = await patchRequest(
+
+    const updated_user = await requestHandler(
+      "patch",
       CORE.GET_STUDENT(id),
       updatedFields
     );
+
     await new Promise((resolve) => setTimeout(resolve, 1000));
     if (!updated_user) {
       errorToast(
-        `Error Updating ${studentData.username.charAt(0).toUpperCase() +
-        studentData.username.slice(1)
+        `Error Updating ${
+          studentData.username.charAt(0).toUpperCase() +
+          studentData.username.slice(1)
         }'s Profile`
       );
       setLoading(false);
-    }
-    else {
+    } else {
       successToast(
-        `${studentData.username.charAt(0).toUpperCase() +
-        studentData.username.slice(1)
+        `${
+          studentData.username.charAt(0).toUpperCase() +
+          studentData.username.slice(1)
         }'s Profile Updated!`
       );
       setLoading(false);
@@ -223,7 +227,7 @@ const TeachersDetails = () => {
                   <Grid item xs={6} key={index}>
                     <RadioGroup
                       value={selectedClassrooms[0]}
-                      onChange={() => { }}
+                      onChange={() => {}}
                     >
                       {classroomSlice.map((classroom) => (
                         <FormControlLabel
