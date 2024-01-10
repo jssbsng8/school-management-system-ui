@@ -57,7 +57,6 @@ const RegisterForm = ({ onSubmit, onToggleForm }) => {
           })
           console.log(JSON.stringify(validated));
           if(response.ok){
-            await new Promise(resolve => setTimeout(resolve, 3000));
             setLoading(false);
             navigate("/success");
             const message = 'Registration Successful!, check your email for activation link'

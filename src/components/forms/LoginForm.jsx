@@ -56,9 +56,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
       // Successful login
       const responseData = await response.json();
 
-      // Store the token or user information in local storage or state
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      // Store the token or user information in local storage or state      
       localStorage.setItem('token', responseData.auth_token);
 
       const loggedInUserData = await athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER)
@@ -100,7 +98,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         label="Username"
         name="username"
         autoComplete="username"
-        defaultValue={'adewale'}
+        defaultValue={'david'}
         autoFocus
       />
       <TextField
