@@ -78,10 +78,6 @@ const SubjectsSelectionComponent = ({
           value={subjects.map((subjectId) =>
             options.find((subject) => subject.id === subjectId)
           )}
-          // value={subjects.map((subjectId) => {
-          //   const subject = options.find((subj) => subj.id === subjectId);
-          //   return subject || {};
-          // })}
           renderOption={(props, option, { selected }) => (
             <li {...props}>
               <Checkbox
