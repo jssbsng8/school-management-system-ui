@@ -98,5 +98,8 @@ export const loginDataValidator = (data) => {
     ];
     return [message, status];
   }
-  return true;
+  return {
+    password: data["password"],
+    username: data["username"],
+  };
 };
