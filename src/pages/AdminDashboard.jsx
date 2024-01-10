@@ -4,9 +4,6 @@ import React from "react";
 import AdminBarChart from "../components/home/charts/AdminBarChart";
 import Stats from "../components/home/stats/Stats";
 import TeachersList from "../components/home/TeachersList";
-// import TransactionCustomer from "../components/home/TransactionCustomer";
-import Table from "../components/Table";
-import { orders, ordersColumns } from "../data/orders";
 
 const AdminDashboard = () => {
   const ComponentWrapper = styled(Box)({
@@ -43,25 +40,6 @@ const AdminDashboard = () => {
             </Paper>
           </Grid>
         </Grid>
-      </ComponentWrapper>
-      <ComponentWrapper>{/* <TransactionCustomer /> */}</ComponentWrapper>
-
-      <ComponentWrapper>
-        <Typography variant="h5" sx={{ my: 3 }}>
-          Latest Orders
-        </Typography>
-        <Table
-          data={orders}
-          fields={ordersColumns}
-          numberOfRows={5}
-          enableTopToolBar={false}
-          enableBottomToolBar={false}
-          enablePagination={false}
-          enableRowSelection={false}
-          enableColumnFilters={false}
-          enableEditing={false}
-          enableColumnDragging={false}
-        />
       </ComponentWrapper>
     </Box>
   );
