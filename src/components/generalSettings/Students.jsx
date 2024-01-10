@@ -3,8 +3,8 @@ import { Box, Typography, Paper, Toolbar } from "@mui/material";
 // import TableEditable from "../TableEditable";
 import { column } from "../../data/teacher";
 import Table from "../../components/Table";
-import { getFetchedData } from "../../apiCalls/authApi";
 import { CORE } from "../../apiCalls/endpoints";
+import requestHandler from "../../apiCalls/requestHandler";
 
 const Students = () => {
   const [studentData, setStudentData] = useState();
@@ -12,7 +12,7 @@ const Students = () => {
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const fetchedData = await getFetchedData(CORE.STUDENT);
+        const fetchedData = await requestHandler("get", CORE.STUDENT);
         const arrayOfUsers = fetchedData.map((obj) => ({
           ...obj.user,
           id: obj.id,
