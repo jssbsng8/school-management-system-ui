@@ -35,11 +35,8 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
       const apiUrl = AUTH_ENDPOINTS.LOGIN;
 
       try {
-        console.log(validated);
-
         // Sending login request using requestHandler
         const response = await requestHandler("post", apiUrl, validated);
-        console.log(response);
 
         if (!response) {
           // Handle the case where response is undefined or null
