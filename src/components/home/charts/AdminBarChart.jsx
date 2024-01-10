@@ -15,7 +15,7 @@ const AdminBarChart = () => {
           borderColor: "divider",
         }}
       >
-        <Typography variant="h5">Sales Statistics</Typography>
+        <Typography variant="h5">Fees Statistics</Typography>
         <Chart
           options={barChartOptions}
           series={barChartData}
