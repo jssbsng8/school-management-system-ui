@@ -92,7 +92,7 @@ const Subjects = () => {
             justifyContent: "space-between",
           }}
         >
-          <Typography variant="h5">Transaction List</Typography>
+          <Typography variant="h5">Transaction History</Typography>
           <FaEllipsisH />
         </Box>
         <Box sx={{ mt: 2 }}>
