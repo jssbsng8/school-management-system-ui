@@ -61,7 +61,6 @@ const Classrooms = () => {
   };
   const handleDeleteRow = async (classroomId) => {
     try {
-      // const successful = await deleteRequest(CORE.GET_CLASSROOM(classroomId));
       const fetchedData = await requestHandler(
         "delete",
         CORE.GET_CLASSROOM(classroomId)
