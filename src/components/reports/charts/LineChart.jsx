@@ -32,7 +32,7 @@ class LineChart extends React.Component {
           borderColor: "divider",
         }}
       >
-        <Typography variant="h5">Sales Statistics</Typography>
+        <Typography variant="h5">Statistics</Typography>
         <ReactApexChart
           options={this.state.chartOptions}
           series={this.state.chartData}
