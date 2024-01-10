@@ -69,15 +69,4 @@ export const leaveColumn = [
 ];
 
 // MyData.js
-export const leaveData = [
-  // {
-  //   id: 1,
-  //   name: "John Smith",
-  //   apply_date: "2023-04-22",
-  //   from: randomCreatedDate(),
-  //   to: randomCreatedDate(),
-  //   reason: "Financial Breakdown",
-  //   status: "Pending",
-  //   approved_by: "",
-  // },
-];
+export const leaveData = [];
