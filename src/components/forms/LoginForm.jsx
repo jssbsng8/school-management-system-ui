@@ -1,88 +1,94 @@
-import React, {useState} from 'react';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { successToast, errorToast } from '../utils/toastUtils';
-import { loginDataValidator } from '../utils/dataValidator';
-import LoadingButton from '@mui/lab/LoadingButton';
+import React, { useState } from "react";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import { successToast, errorToast } from "../utils/toastUtils";
+import { loginDataValidator } from "../utils/dataValidator";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { useNavigate } from "react-router-dom";
-import { AUTH_ENDPOINTS, USER_ENDPOINTS } from '../../apiCalls/endpoints';
-import { useUser } from '../utils/userContext';
-import { athenticatedUser, fetchSubjects } from '../../apiCalls/authApi';
+import { AUTH_ENDPOINTS, USER_ENDPOINTS } from "../../apiCalls/endpoints";
+import { useUser } from "../utils/userContext";
+import requestHandler from "../../apiCalls/requestHandler";
 
 const LoginForm = ({ onSubmit, onToggleForm }) => {
-  const { setUserContext, setSubject } = useUser();
+  const { setUserContext } = useUser();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (event) => {
     event.preventDefault();
     setLoading(true);
-    // Add logic for handling login data
-    const username = event.target.elements.username.value;
-    const password = event.target.elements.password.value;
+
+    // Extracting login data from the form
     const data = {
       username: event.target.elements.username.value,
-      password: event.target.elements.password.value
-    }
-    const validated = loginDataValidator(data)
-    if (validated[1] === 'error'){
-      errorToast(validated[0])
-      setLoading(false);
-    }
-    else{
-      const apiUrl = AUTH_ENDPOINTS.LOGIN;
-      try {
-      const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-          'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ password, username }),
-          mode: 'cors',
-      });
+      password: event.target.elements.password.value,
+    };
 
-      if (!response.ok) {
-          const errorMessage = await response.text();
-          console.log(errorMessage);
-          if (response.status === 400){
-          const message = 'Incorrect Username or password'
-          errorToast(message);
+    // Validating login data
+    const validated = loginDataValidator(data);
+    if (validated[1] === "error") {
+      errorToast(validated[0]);
+      setLoading(false);
+    } else {
+      const apiUrl = AUTH_ENDPOINTS.LOGIN;
+
+      try {
+        console.log(validated);
+
+        // Sending login request using requestHandler
+        const response = await requestHandler("post", apiUrl, validated);
+        console.log(response);
+
+        if (!response) {
+          // Handle the case where response is undefined or null
+          errorToast("An error occurred during login");
           setLoading(false);
           return;
-          }          
-      }
-      // Successful login
-      const responseData = await response.json();
+        }
+        // Check the status code
+        if (response.status === 400) {
+          // Handle the case of a 400 status code (Bad Request)
+          errorToast("Incorrect Username or password");
+          setLoading(false);
+          return;
+        }
 
-      // Store the token or user information in local storage or state      
-      localStorage.setItem('token', responseData.auth_token);
+        // Successful login
+        // Storing the token or user information in local storage or state
+        localStorage.setItem("token", response.auth_token);
 
-      const loggedInUserData = await athenticatedUser(USER_ENDPOINTS.AUTHENTICATED_USER)
-      
-      const parsedUserData = JSON.parse(loggedInUserData);
+        // Fetching authenticated user data
+        const loggedInUserData = await requestHandler(
+          "get",
+          USER_ENDPOINTS.AUTHENTICATED_USER
+        );
+        localStorage.setItem(
+          "userData",
+          JSON.stringify({
+            auth: true,
+            role: loggedInUserData.role,
+          })
+        );
+        // Setting user context
+        setUserContext(loggedInUserData, true, loggedInUserData.role);
 
-      localStorage.setItem('userData', JSON.stringify({
-        'auth': true,
-        'role': parsedUserData.role
-      }));
+        // Fetching subjects
 
-      setUserContext(JSON.parse(loggedInUserData), true, parsedUserData.role);
+        // await fetchSubjects(setSubject);
 
-      await fetchSubjects(setSubject)
+        await new Promise((resolve) => setTimeout(resolve, 300));
+        // Navigating to the home page
 
-      const message = 'Login successful'
-      successToast(message.toUpperCase());
-      setLoading(false);
-      navigate("/");
-
+        const message = "Login successful";
+        successToast(message.toUpperCase());
+        setLoading(false);
+        navigate("/");
       } catch (error) {
-      // const message = `Login error ${error.message}!`
-      const message = `Login error Server is Down!`
-      errorToast(message);
-      setLoading(false);
-      console.log('error loggin in:', error);
+        const message = `${error.message}`;
+        errorToast(message);
+        setLoading(false);
       }
     }
   };
@@ -98,7 +104,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         label="Username"
         name="username"
         autoComplete="username"
-        defaultValue={'david'}
+        defaultValue={"david"}
         autoFocus
       />
       <TextField
@@ -109,13 +115,13 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         label="Password"
         type="password"
         id="password"
-        defaultValue={'string@1234'}
+        defaultValue={"string@1234"}
         autoComplete="current-password"
       />
       <FormControlLabel
         control={<Checkbox value="remember" color="primary" />}
         label="Remember me"
-        />
+      />
       <LoadingButton
         type="submit"
         fullWidth
@@ -124,9 +130,8 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
       >
-        {loading ? 'Please Wait...' : 'Sign In'}
+        {loading ? "Please Wait..." : "Sign In"}
       </LoadingButton>
-      
     </Box>
   );
 };
