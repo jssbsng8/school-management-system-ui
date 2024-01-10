@@ -6,9 +6,9 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CORE } from "../../apiCalls/endpoints";
-import { patchRequest, getFetchedData } from "../../apiCalls/authApi";
 import SubjectsSelectionComponent from "./SubjectSelection";
 import { errorToast, successToast } from "../utils/toastUtils";
+import requestHandler from "../../apiCalls/requestHandler";
 
 const TeachersDetails = () => {
   const { id } = useParams();
@@ -24,7 +24,8 @@ const TeachersDetails = () => {
   useEffect(() => {
     const fetchTeacherData = async () => {
       try {
-        const fetchedData = await getFetchedData(CORE.GET_TEACHER(id));
+        const fetchedData = await requestHandler("get", CORE.GET_TEACHER(id));
+
         setTeacherData(fetchedData.user);
         setSelectedClassrooms([fetchedData.classroom.id]);
         const usersubject = fetchedData.assigned_subjects;
@@ -43,14 +44,15 @@ const TeachersDetails = () => {
   useEffect(() => {
     const fetchClassroomData = async () => {
       try {
-        const fetchedData = await getFetchedData(CORE.CLASSROOM);
+        const fetchedData = await requestHandler("get", CORE.CLASSROOM);
+
         setClassrooms(fetchedData);
       } catch (error) {
         console.error("Error:", error.message);
       }
     };
 
-    fetchClassroomData();
+    return () => fetchClassroomData();
   }, []);
 
   useEffect(() => {
@@ -59,7 +61,8 @@ const TeachersDetails = () => {
         // Set loading state to true when subjects are being fetched
         setLoadingSubjects(true);
 
-        const fetchedData = await getFetchedData(
+        const fetchedData = await requestHandler(
+          "get",
           CORE.GET_FILTERED_SUBJECT(classroomId)
         );
         setSubjects(fetchedData);
@@ -99,30 +102,32 @@ const TeachersDetails = () => {
     setSelectedsubjects(updatedSelectedSubjects);
   };
 
-  // console.log(user);
   const handleUpdateProfile = async () => {
     setLoading(true);
     const updatedFields = {
       classroom: selectedClassrooms[0],
       assigned_subjects: selectedSubjects,
     };
-    const updated_user = await patchRequest(
+
+    const updated_user = await requestHandler(
+      "patch",
       CORE.GET_TEACHER(id),
       updatedFields
     );
     await new Promise((resolve) => setTimeout(resolve, 1000));
     if (!updated_user) {
       errorToast(
-        `Error Updating ${teacherData.username.charAt(0).toUpperCase() +
-        teacherData.username.slice(1)
+        `Error Updating ${
+          teacherData.username.charAt(0).toUpperCase() +
+          teacherData.username.slice(1)
         }'s Profile`
       );
       setLoading(false);
-    }
-    else {
+    } else {
       successToast(
-        `${teacherData.username.charAt(0).toUpperCase() +
-        teacherData.username.slice(1)
+        `${
+          teacherData.username.charAt(0).toUpperCase() +
+          teacherData.username.slice(1)
         }'s Profile Updated!`
       );
       setLoading(false);
@@ -223,7 +228,7 @@ const TeachersDetails = () => {
                   <Grid item xs={6} key={index}>
                     <RadioGroup
                       value={selectedClassrooms[0]}
-                      onChange={() => { }}
+                      onChange={() => {}}
                     >
                       {classroomSlice.map((classroom) => (
                         <FormControlLabel
