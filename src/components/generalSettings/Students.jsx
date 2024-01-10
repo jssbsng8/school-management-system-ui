@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Paper, Toolbar } from "@mui/material";
-// import TableEditable from "../TableEditable";
 import { column } from "../../data/teacher";
 import Table from "../../components/Table";
 import { CORE } from "../../apiCalls/endpoints";
@@ -40,7 +39,6 @@ const Students = () => {
         </Toolbar>
       </Paper>
 
-      {/* First Box with TableEditable */}
       <Box sx={{ mt: 2 }}>
         {studentData ? (
           <Table
