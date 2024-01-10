@@ -17,6 +17,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "apexcharts": "^3.36.3",
+    "axios": "^1.6.5",
     "framer-motion": "^7.6.19",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.1",
