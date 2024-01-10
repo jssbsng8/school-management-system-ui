@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { column } from "../../data/allUsers";
 import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
-import { getFetchedData } from "../../apiCalls/authApi";
+import requestHandler from "../../apiCalls/requestHandler";
 
 const DataTable = () => {
   const [rows, setRows] = React.useState([]);
@@ -22,7 +22,7 @@ const DataTable = () => {
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const fetchedData = await getFetchedData(USER_ENDPOINTS.USER);
+        const fetchedData = await requestHandler("get", USER_ENDPOINTS.USER);
         if (fetchedData) {
           setRows(fetchedData);
         }
@@ -81,7 +81,7 @@ const DataTable = () => {
       ),
     },
   ];
-  
+
   return (
     <Box
       component="main"
