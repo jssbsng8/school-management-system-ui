@@ -1,24 +1,3 @@
-// import React, { useState } from "react";
-// import ReactApexChart from "react-apexcharts";
-// import { lineChartData, lineChartOptions } from "../../../data/chartData";
-
-// const LineChart = () => {
-//   const [chartData, setChartData] = useState([]);
-//   const [chartOptions, setChartOptions] = useState([]);
-
-//   return (
-//     <ReactApexChart
-//       options={lineChartOptions}
-//       series={lineChartData}
-//       type="line"
-//       width="100%"
-//       height="100%"
-//     />
-//   );
-// };
-
-// export default LineChart;
-
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
