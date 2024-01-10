@@ -40,7 +40,6 @@ const TeachersDetails = () => {
     return () => fetchStudentData();
     // eslint-disable-next-line
   }, []);
-  // console.log(userSubjects);
   useEffect(() => {
     const fetchClassroomData = async () => {
       try {
