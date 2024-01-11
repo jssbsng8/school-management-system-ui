@@ -4,8 +4,8 @@ import { BsCurrencyDollar } from "react-icons/bs";
 export const stats = [
   {
     id: 1,
-    title: "Total Subjects",
-    amount: "9",
+    title: "Total Students",
+    amount: "12",
     icon: <FiShoppingBag />,
     iconColor: "#6427ff",
     iconBg: "rgba(100, 39, 255, 0.2)",
@@ -13,7 +13,7 @@ export const stats = [
   },
   {
     id: 2,
-    title: "Total Sales",
+    title: "Total Income",
     amount: "195,800",
     icon: <BsCurrencyDollar />,
     iconColor: "#c49c1a",
@@ -22,8 +22,8 @@ export const stats = [
   },
   {
     id: 3,
-    title: "Total Customers",
-    amount: "2,894",
+    title: "Total Users",
+    amount: "14",
     icon: <FiUsers />,
     iconColor: "#fd4332",
     iconBg: "rgba(253, 67, 50, 0.2)",
