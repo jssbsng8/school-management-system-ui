@@ -21,7 +21,7 @@ const Subjects = () => {
       }
     };
 
-    return () => fetchSubjectData();
+    fetchSubjectData();
     // eslint-disable-next-line
   }, []);
 
@@ -35,7 +35,7 @@ const Subjects = () => {
       }
     };
 
-    return () => fetchClassroomData();
+    fetchClassroomData();
     // eslint-disable-next-line
   }, []);
 
