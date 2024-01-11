@@ -39,11 +39,14 @@ const requestHandler = async (method, url, data = null, params = null) => {
     }
 
     const response = await axiosInstance(config);
-
+    // Access the status code
+    const statusCode = response.status;
+    console.log(`Status Code: ${statusCode}`);
     return response.data;
   } catch (error) {
-    console.error("Request failed:", error.message);
-    throw error;
+    console.error(error.response);
+    // throw error;
+    return null
   }
 };
 
