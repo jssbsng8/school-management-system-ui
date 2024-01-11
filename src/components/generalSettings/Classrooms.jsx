@@ -20,7 +20,7 @@ const Classrooms = () => {
       }
     };
 
-    return () => classroomDataFromApi();
+    classroomDataFromApi();
     // eslint-disable-next-line
   }, []);
 
