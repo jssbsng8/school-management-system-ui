@@ -14,7 +14,7 @@ const Classrooms = () => {
       try {
         const fetchedData = await requestHandler("get", CORE.CLASSROOM);
         // setClassroomData((prevData) => [...prevData, ...fetchedData]);
-        setClassroomData(fetchedData);
+        setClassroomData(fetchedData[0]);
       } catch (error) {
         console.error("Error:", error.message);
       }
@@ -33,7 +33,7 @@ const Classrooms = () => {
           CORE.CLASSROOM,
           newClassroom
         );
-        if (fetchedData) {
+        if (fetchedData[0]) {
           successToast("New row added!");
         }
       } catch (error) {
@@ -48,7 +48,7 @@ const Classrooms = () => {
             CORE.GET_CLASSROOM(newClassroom.id),
             newClassroom.updatedFields
           );
-          if (fetchedData) {
+          if (fetchedData[0]) {
             successToast("Data Updated!");
           }
         } else {
@@ -66,7 +66,7 @@ const Classrooms = () => {
         CORE.GET_CLASSROOM(classroomId)
       );
       console.log(fetchedData);
-      if (fetchedData === "") {
+      if (fetchedData[0] === "") {
         successToast("Classroom deleted!");
       }
     } catch (error) {
