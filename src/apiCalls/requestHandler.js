@@ -1,3 +1,4 @@
+import { errorToast } from "../components/utils/toastUtils";
 import { CORE } from "./endpoints";
 import axios from "axios";
 
@@ -39,14 +40,30 @@ const requestHandler = async (method, url, data = null, params = null) => {
     }
 
     const response = await axiosInstance(config);
+    console.log(response);
     // Access the status code
-    const statusCode = response.status;
-    console.log(`Status Code: ${statusCode}`);
+    if (!response.statusText === "OK") {
+      console.log(response.statusText);
+      return null;
+    }
+
     return response.data;
   } catch (error) {
-    console.error(error.response);
-    // throw error;
-    return null
+    if (error.response) {
+      // The request was made, but the server responded with a status code outside the range of 2xx
+      console.error("Request failed with status code:", error.response.status);
+      console.log(error.response);
+      return [null, error.response];
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.error("No response received from the server");
+      return null
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.error("Error setting up the request:", error.message);
+    }
+    throw error;
+  
   }
 };
 
