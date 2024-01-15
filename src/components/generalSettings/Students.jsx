@@ -12,7 +12,7 @@ const Students = () => {
     const fetchStudentData = async () => {
       try {
         const fetchedData = await requestHandler("get", CORE.STUDENT);
-        const arrayOfUsers = fetchedData.map((obj) => ({
+        const arrayOfUsers = fetchedData[0].map((obj) => ({
           ...obj.user,
           id: obj.id,
         }));
