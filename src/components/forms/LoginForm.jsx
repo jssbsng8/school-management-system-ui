@@ -22,7 +22,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
 
     // Extracting login data from the form
     const data = {
-      username: event.target.elements.username.value,
+      email: event.target.elements.email.value,
       password: event.target.elements.password.value,
     };
 
@@ -37,17 +37,10 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
       try {
         // Sending login request using requestHandler
         const response = await requestHandler("post", apiUrl, validated);
-
-        if (!response) {
+        if (response[0] === null) {
           // Handle the case where response is undefined or null
-          errorToast("An error occurred during login");
-          setLoading(false);
-          return;
-        }
-        // Check the status code
-        if (response.status === 400) {
-          // Handle the case of a 400 status code (Bad Request)
-          errorToast("Incorrect Username or password");
+          const message = response[1].data.non_field_errors[0]
+          errorToast(message);
           setLoading(false);
           return;
         }
@@ -79,7 +72,8 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         navigate("/");
       } catch (error) {
         const message = `${error.message}`;
-        errorToast(message);
+        console.log(message);
+        errorToast("Temporary Server Issue");
         setLoading(false);
       }
     }
@@ -92,11 +86,11 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         margin="normal"
         required
         fullWidth
-        id="username"
-        label="Username"
-        name="username"
-        autoComplete="username"
-        defaultValue={"david"}
+        id="email"
+        label="email"
+        name="email"
+        autoComplete="email"
+        defaultValue={"example@gmail.com"}
         autoFocus
       />
       <TextField
