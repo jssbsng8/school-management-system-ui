@@ -25,11 +25,10 @@ const TeachersDetails = () => {
     const fetchStudentData = async () => {
       try {
         const fetchedData = await requestHandler("get", CORE.GET_STUDENT(id));
-        setStudentData(fetchedData.user);
-        setSelectedClassrooms([fetchedData.classroom.id]);
-        const usersubject = fetchedData.enrolled_subjects;
+        setStudentData(fetchedData[0].user);
+        setSelectedClassrooms([fetchedData[0].classroom.id]);
+        const usersubject = fetchedData[0].enrolled_subjects;
         // Extracting ids into an array
-        console.log(fetchedData);
         const subjectIdsArray = usersubject.map((subject) => subject.id);
         setUserSubjects(subjectIdsArray);
         setSelectedsubjects(subjectIdsArray);
@@ -45,7 +44,7 @@ const TeachersDetails = () => {
       try {
         const fetchedData = await requestHandler("get", CORE.CLASSROOM);
 
-        setClassrooms(fetchedData);
+        setClassrooms(fetchedData[0]);
       } catch (error) {
         console.error("Error:", error.message);
       }
@@ -65,7 +64,7 @@ const TeachersDetails = () => {
           CORE.GET_FILTERED_SUBJECT(classroomId)
         );
 
-        setSubjects(fetchedData);
+        setSubjects(fetchedData[0]);
       } catch (error) {
         // Handle errors appropriately
         console.error("Error fetching subjects:", error.message);
@@ -106,14 +105,14 @@ const TeachersDetails = () => {
       enrolled_subjects: selectedSubjects,
     };
 
-    const updated_user = await requestHandler(
+    const fetchedData = await requestHandler(
       "patch",
       CORE.GET_STUDENT(id),
       updatedFields
     );
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    if (!updated_user) {
+    if (fetchedData[0] === null) {
       errorToast(
         `Error Updating ${
           studentData.username.charAt(0).toUpperCase() +
