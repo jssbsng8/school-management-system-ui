@@ -29,7 +29,7 @@ const RegisterForm = ({ onSubmit, onToggleForm }) => {
       last_name: event.target.elements.lastName.value,
       role: event.target.elements.registerRole.value,
       email: event.target.elements.registerEmail.value,
-      confirmPassword: event.target.elements.confirmPassword.value,
+      re_password: event.target.elements.confirmPassword.value,
       date_of_birth: event.target.elements.dob.value,
       phone: event.target.elements.phone.value,
     };
@@ -45,19 +45,19 @@ const RegisterForm = ({ onSubmit, onToggleForm }) => {
       const URL = AUTH_ENDPOINTS.REGISTER;
       try {
         const response = await requestHandler("post", URL, validated);
-        if (response) {
-          setLoading(false);
-          navigate("/success");
-          const message =
-            "Registration Successful!, check your email for activation link";
-          successToast(message);
-        } else {
-          const message = `Registration failed: ${
-            response ? response.detail : "Unknown error"
-          }`;
+        if (response[0] === null) {
+          // Handle the case where response is undefined or null
+          const message = response[1].data.email[0]
           errorToast(message);
           setLoading(false);
+          return;
         }
+        setLoading(false);
+        navigate("/success");
+        const message =
+          "Registration Successful!, check your email for activation link";
+        successToast(message);
+
       } catch (error) {
         const message = `Error during registration: ${error.message}`;
         errorToast(message);
