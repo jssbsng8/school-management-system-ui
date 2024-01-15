@@ -26,9 +26,9 @@ const TeachersDetails = () => {
       try {
         const fetchedData = await requestHandler("get", CORE.GET_TEACHER(id));
 
-        setTeacherData(fetchedData.user);
-        setSelectedClassrooms([fetchedData.classroom.id]);
-        const usersubject = fetchedData.assigned_subjects;
+        setTeacherData(fetchedData[0].user);
+        setSelectedClassrooms([fetchedData[0].classroom.id]);
+        const usersubject = fetchedData[0].assigned_subjects;
         // Extracting ids into an array
         const subjectIdsArray = usersubject.map((subject) => subject.id);
         setUserSubjects(subjectIdsArray);
@@ -46,7 +46,7 @@ const TeachersDetails = () => {
       try {
         const fetchedData = await requestHandler("get", CORE.CLASSROOM);
 
-        setClassrooms(fetchedData);
+        setClassrooms(fetchedData[0]);
       } catch (error) {
         console.error("Error:", error.message);
       }
@@ -65,7 +65,7 @@ const TeachersDetails = () => {
           "get",
           CORE.GET_FILTERED_SUBJECT(classroomId)
         );
-        setSubjects(fetchedData);
+        setSubjects(fetchedData[0]);
 
         // Log the updated subjects immediately
       } catch (error) {
@@ -109,13 +109,13 @@ const TeachersDetails = () => {
       assigned_subjects: selectedSubjects,
     };
 
-    const updated_user = await requestHandler(
+    const fetchedData = await requestHandler(
       "patch",
       CORE.GET_TEACHER(id),
       updatedFields
     );
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    if (!updated_user) {
+    if (fetchedData[0] === null) {
       errorToast(
         `Error Updating ${
           teacherData.username.charAt(0).toUpperCase() +
