@@ -42,7 +42,7 @@ export const UserProvider = ({ children }) => {
             "get",
             USER_ENDPOINTS.AUTHENTICATED_USER
           );
-          if (getUser) {
+          if (getUser[0] !== null) {
             // Check if the image data is already in local storage
             const storedImage = localStorage.getItem("userImage");
             const storedThumbnail = localStorage.getItem("thumbnail");
@@ -56,9 +56,9 @@ export const UserProvider = ({ children }) => {
                 // Fetch user image only if it hasn't been fetched before
                 const fetchedData = await requestHandler(
                   "get",
-                  USER_ENDPOINTS.PROFILE_IMAGE(getUser.id)
-                );
-                if (fetchedData && fetchedData.length > 0) {
+                  USER_ENDPOINTS.PROFILE_IMAGE(getUser[0].id)
+                )
+                if (fetchedData[0] && fetchedData[0].length > 0) {
                   const image_url = fetchedData[0].image;
                   const thumbnail = fetchedData[0].thumbnail;
 
@@ -78,12 +78,12 @@ export const UserProvider = ({ children }) => {
             }
 
             setUserContext({
-              ...getUser,
+              ...getUser[0],
               profileImage,
               profileThumbnail,
             });
             setAuth(true);
-            setRole(getUser.role);
+            setRole(getUser[0].role);
           } else {
             setUserContext(null, false, null);
             localStorage.clear();
