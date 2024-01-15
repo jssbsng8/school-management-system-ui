@@ -39,30 +39,27 @@ const requestHandler = async (method, url, data = null, params = null) => {
     }
 
     const response = await axiosInstance(config);
-    console.log(response);
     // Access the status code
     if (!response.statusText === "OK") {
       console.log(response.statusText);
-      return null;
+      return [null];
     }
 
-    return response.data;
+    return [response.data];
   } catch (error) {
     if (error.response) {
       // The request was made, but the server responded with a status code outside the range of 2xx
       console.error("Request failed with status code:", error.response.status);
-      console.log(error.response);
       return [null, error.response];
     } else if (error.request) {
       // The request was made but no response was received
       console.error("No response received from the server");
-      return null
+      return [null];
     } else {
       // Something happened in setting up the request that triggered an Error
       console.error("Error setting up the request:", error.message);
     }
     throw error;
-  
   }
 };
 
@@ -83,13 +80,13 @@ export const fetchSubjects = async (setSubject) => {
         "get",
         CORE.GET_ENROLLED_SUBJECTS
       );
-      setSubject(enrolledSubjects);
+      setSubject(enrolledSubjects[0]);
     } else if (getRole === "Teacher") {
       const assignedSubjects = await requestHandler(
         "get",
         CORE.GET_ASSIGNED_SUBJECTS
       );
-      setSubject(assignedSubjects);
+      setSubject(assignedSubjects[0]);
     }
   } catch (error) {
     console.error("Error fetching enrolled subjects:");
