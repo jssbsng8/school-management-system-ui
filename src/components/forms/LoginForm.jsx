@@ -47,7 +47,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
 
         // Successful login
         // Storing the token or user information in local storage or state
-        localStorage.setItem("token", response.auth_token);
+        localStorage.setItem("token", response[0].auth_token);
 
         // Fetching authenticated user data
         const loggedInUserData = await requestHandler(
@@ -58,11 +58,11 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
           "userData",
           JSON.stringify({
             auth: true,
-            role: loggedInUserData.role,
+            role: loggedInUserData[0].role,
           })
         );
         // Setting user context
-        setUserContext(loggedInUserData, true, loggedInUserData.role);
+        setUserContext(loggedInUserData[0], true, loggedInUserData[0].role);
 
         await new Promise((resolve) => setTimeout(resolve, 300));
         // Navigating to the home page
