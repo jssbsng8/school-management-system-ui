@@ -15,7 +15,7 @@ const Subjects = () => {
       try {
         const fetchedData = await requestHandler("get", CORE.SUBJECT);
         // setClassroomData((prevData) => [...prevData, ...fetchedData]);
-        setSubjectData(fetchedData);
+        setSubjectData(fetchedData[0]);
       } catch (error) {
         console.error("Error:", error.message);
       }
@@ -29,7 +29,7 @@ const Subjects = () => {
     const fetchClassroomData = async () => {
       try {
         const fetchedData = await requestHandler("get", CORE.CLASSROOM);
-        setClassroomData(fetchedData);
+        setClassroomData(fetchedData[0]);
       } catch (error) {
         console.error("Error:", error.message);
       }
@@ -49,7 +49,7 @@ const Subjects = () => {
           newSubjects
         );
 
-        if (fetchedData) {
+        if (fetchedData[0]) {
           successToast("New row added!");
         }
       } catch (error) {
@@ -65,7 +65,7 @@ const Subjects = () => {
             newSubjects.updatedFields
           );
 
-          if (fetchedData) {
+          if (fetchedData[0]) {
             successToast("Data Updated!");
           }
         } else {
@@ -83,7 +83,7 @@ const Subjects = () => {
         CORE.GET_SUBJECT(subjectId)
       );
 
-      if (fetchedData === "") {
+      if (fetchedData[0] === "") {
         successToast("Classroom deleted!");
       }
     } catch (error) {
