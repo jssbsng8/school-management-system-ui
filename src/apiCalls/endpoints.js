@@ -1,5 +1,5 @@
-// const BASE_URL = "http://127.0.0.1:8000";
 const BASE_URL = "https://school-management-system-alpha.vercel.app";
+// const BASE_URL = "http://127.0.0.1:8000";
 
 export const AUTH_ENDPOINTS = {
   LOGIN: `${BASE_URL}/auth/login/`,
@@ -11,12 +11,12 @@ export const USER_ENDPOINTS = {
   UPLOAD_IMAGE: `${BASE_URL}/auth/profile-image/`,
   GET_OR_UPDATE_USER: (userId) => `${BASE_URL}/auth/users/${userId}/`,
   PROFILE_IMAGE: (userId) => `${BASE_URL}/auth/profile-image/?user=${userId}`,
-  ACTIVATION: `${BASE_URL}/authusers/activation/`,
-  AUTHENTICATED_USER: `${BASE_URL}/authusers/me/`,
-  RESEND_ACTIVATION: `${BASE_URL}/authusers/resend_activation/`,
-  RESET_PASSWORD: `${BASE_URL}/authusers/reset_password/`,
-  CONFIRM_RESET_PASSWORD: `${BASE_URL}/authusers/reset_password_confirm/`,
-  SET_PASSWORD: `${BASE_URL}/authusers/set_password/`,
+  ACTIVATION: `${BASE_URL}/auth/users/activation/`,
+  AUTHENTICATED_USER: `${BASE_URL}/auth/users/me/`,
+  RESEND_ACTIVATION: `${BASE_URL}/auth/users/resend_activation/`,
+  RESET_PASSWORD: `${BASE_URL}/auth/users/reset_password/`,
+  CONFIRM_RESET_PASSWORD: `${BASE_URL}/auth/users/reset_password_confirm/`,
+  SET_PASSWORD: `${BASE_URL}/auth/users/set_password/`,
 };
 
 export const CORE = {
