@@ -23,8 +23,8 @@ const DataTable = () => {
     const fetchStudentData = async () => {
       try {
         const fetchedData = await requestHandler("get", USER_ENDPOINTS.USER);
-        if (fetchedData) {
-          setRows(fetchedData);
+        if (fetchedData[0] !== null) {
+          setRows(fetchedData[0]);
         }
       } catch (error) {
         console.error("Error:", error.message);
