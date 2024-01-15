@@ -51,7 +51,7 @@ export const registrationValidator = (data) => {
     }
   }
 
-  if (data["password"] !== data["confirmPassword"]) {
+  if (data["password"] !== data["re_password"]) {
     const [message, status] = ["Password do not match", "error"];
     return [message, status];
   }
@@ -63,7 +63,6 @@ export const registrationValidator = (data) => {
     ];
     return [message, status];
   }
-  delete data.confirmPassword;
   return data;
 };
 
@@ -86,8 +85,9 @@ export const isEmailValid = (email) => {
 };
 
 export const loginDataValidator = (data) => {
-  if (data["username"].length === 0 || data["username"].length < 3) {
-    const [message, status] = ["Invalid Username", "error"];
+  const email = isValidEmail(data["email"]);
+  if (data["email"].length === 0 || !email) {
+    const [message, status] = ["Invalid email", "error"];
     return [message, status];
   }
 
@@ -100,6 +100,6 @@ export const loginDataValidator = (data) => {
   }
   return {
     password: data["password"],
-    username: data["username"],
+    email: data["email"],
   };
 };
