@@ -52,7 +52,7 @@ const TeachersDetails = () => {
       }
     };
 
-    return () => fetchClassroomData();
+    fetchClassroomData();
   }, []);
 
   useEffect(() => {

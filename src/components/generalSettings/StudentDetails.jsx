@@ -36,7 +36,7 @@ const TeachersDetails = () => {
         console.error("Error:", error.message);
       }
     };
-    return () => fetchStudentData();
+    fetchStudentData();
     // eslint-disable-next-line
   }, []);
   useEffect(() => {
@@ -50,7 +50,7 @@ const TeachersDetails = () => {
       }
     };
 
-    return () => fetchClassroomData();
+    fetchClassroomData();
   }, []);
 
   useEffect(() => {
