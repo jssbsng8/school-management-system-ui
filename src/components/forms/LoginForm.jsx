@@ -39,7 +39,7 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         const response = await requestHandler("post", apiUrl, validated);
         if (response[0] === null) {
           // Handle the case where response is undefined or null
-          const message = response[1].data.non_field_errors[0]
+          const message = response[1].data.non_field_errors[0];
           errorToast(message);
           setLoading(false);
           return;
