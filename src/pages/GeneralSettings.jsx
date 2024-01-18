@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,7 +10,6 @@ import Sessions from "../components/generalSettings/Sessions";
 import Subjects from "../components/generalSettings/Subjects";
 import Teachers from "../components/generalSettings/Teachers";
 import Students from "../components/generalSettings/Students";
-// import SubjectsSelectionComponent from "../components/generalSettings/SubjectSelection";
 
 const GeneralSettings = () => {
   const [value, setValue] = React.useState(0);
@@ -19,6 +17,7 @@ const GeneralSettings = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   const renderTabPanel = (index, component) => (
     <Typography
       component="div"
@@ -42,13 +41,15 @@ const GeneralSettings = () => {
           padding: 0,
         }}
       >
-        <Paper sx={{ display: "flex" }}>
+        <Paper sx={{ overflowX: "auto" }}>
           <Tabs
             value={value}
             onChange={handleChange}
             indicatorColor="primary"
             textColor="primary"
-            centered
+            centered={false}
+            variant="scrollable"
+            scrollButtons="auto"
           >
             <Tab label="Classrooms" />
             <Tab label="Subjects" />
@@ -64,8 +65,6 @@ const GeneralSettings = () => {
         {renderTabPanel(1, <Subjects />)}
         {renderTabPanel(2, <Teachers />)}
         {renderTabPanel(3, <Students />)}
-        {/* {renderTabPanel(4, <Parent />)} */}
-        {/* {renderTabPanel(4, <SubjectsSelectionComponent />)} */}
         {renderTabPanel(5, <Sessions />)}
       </Box>
     </Box>
