@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
-const SuccessPage = () => {
+const SuccessPage = ({ title, message, body, buttonText, linkTo, color }) => {
   return (
     <Box
       sx={{
@@ -26,24 +26,29 @@ const SuccessPage = () => {
         }}
       >
         {/* Add boxShadow for a subtle shadow effect */}
-        <Typography variant="h4" color="green" gutterBottom>
-          Registration Successful
+        <Typography variant="h4" color={color} gutterBottom>
+          {/* Registration Successful */}
+          {title}
         </Typography>
         <Typography variant="body1" paragraph>
-          We appreciate your registration.
+          {/* We appreciate your registration. */}
+          {body}
         </Typography>
-        <Typography variant="body2" color="green" paragraph>
-          An email with further instructions has been sent to your email
-          address.
+        <Typography variant="body2" color={color} paragraph>
+          {/* An email with further instructions has been sent to your email
+          address. */}
+          {message}
         </Typography>
-        <Button
-          component={Link}
-          to="/login"
-          variant="contained"
-          color="primary"
-        >
-          Go to Login
-        </Button>
+        {linkTo && (
+          <Button
+            component={Link}
+            to={linkTo}
+            variant="contained"
+            color="primary"
+          >
+            {buttonText}
+          </Button>
+        )}
       </Paper>
     </Box>
   );
