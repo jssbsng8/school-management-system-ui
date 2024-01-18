@@ -13,6 +13,7 @@ import { useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { AUTH_ENDPOINTS } from "../../apiCalls/endpoints";
 import requestHandler from "../../apiCalls/requestHandler";
+import { handleRegistrationError } from "../utils/registrationErrorHandler";
 
 const RegisterForm = ({ onSubmit, onToggleForm }) => {
   const [loading, setLoading] = useState(false);
@@ -46,9 +47,8 @@ const RegisterForm = ({ onSubmit, onToggleForm }) => {
       try {
         const response = await requestHandler("post", URL, validated);
         if (response[0] === null) {
-          // Handle the case where response is undefined or null
-          const message = response[1].data.email[0]
-          errorToast(message);
+          const errorType = response[1].data;
+          handleRegistrationError(errorType);
           setLoading(false);
           return;
         }
@@ -57,7 +57,6 @@ const RegisterForm = ({ onSubmit, onToggleForm }) => {
         const message =
           "Registration Successful!, check your email for activation link";
         successToast(message);
-
       } catch (error) {
         const message = `Error during registration: ${error.message}`;
         errorToast(message);
