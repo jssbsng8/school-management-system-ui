@@ -1,5 +1,5 @@
-// const BASE_URL = "https://school-management-system-alpha.vercel.app";
-const BASE_URL = "http://127.0.0.1:8000";
+const BASE_URL = "https://school-management-system-alpha.vercel.app";
+// const BASE_URL = "http://127.0.0.1:8000";
 
 export const AUTH_ENDPOINTS = {
   LOGIN: `${BASE_URL}/users/login/`,
