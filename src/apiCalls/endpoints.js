@@ -9,7 +9,7 @@ export const AUTH_ENDPOINTS = {
 };
 export const USER_ENDPOINTS = {
   USER: `${BASE_URL}/users/`,
-  UPLOAD_IMAGE: `${BASE_URL}/auth/profile-image/`,
+  UPLOAD_IMAGE: `${BASE_URL}/users/profile-image/`,
   GET_OR_UPDATE_USER: (userId) => `${BASE_URL}/auth/users/${userId}/`,
   PROFILE_IMAGE: (userId) => `${BASE_URL}/users/profile-image/?user=${userId}`,
   ACTIVATION: `${BASE_URL}/auth/users/activation/`,
