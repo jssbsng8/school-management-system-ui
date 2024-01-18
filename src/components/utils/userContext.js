@@ -35,9 +35,25 @@ export const UserProvider = ({ children }) => {
     const fetchAuthenticatedUser = async () => {
       try {
         const currentRoute = location.pathname;
-        const excludedRoutes = ["/login", "/success", "/reset_password"];
+        const excludedRoutes = [
+          "/login",
+          "/success",
+          "/reset_password",
+          /^\/activation\//,
+        ];
+        
+        const isRouteExcluded = (route) => {
+          return excludedRoutes.some((excludedRoute) => {
+            if (excludedRoute instanceof RegExp) {
+              return excludedRoute.test(route);
+            } else {
+              return excludedRoute === route || route.startsWith(excludedRoute);
+            }
+          });
+        };
 
-        if (!excludedRoutes.includes(currentRoute)) {
+        const isExcluded = isRouteExcluded(currentRoute);
+        if (!isExcluded) {
           const getUser = await requestHandler(
             "get",
             USER_ENDPOINTS.AUTHENTICATED_USER
@@ -57,7 +73,7 @@ export const UserProvider = ({ children }) => {
                 const fetchedData = await requestHandler(
                   "get",
                   USER_ENDPOINTS.PROFILE_IMAGE(getUser[0].id)
-                )
+                );
                 if (fetchedData[0] && fetchedData[0].length > 0) {
                   const image_url = fetchedData[0].image;
                   const thumbnail = fetchedData[0].thumbnail;
@@ -88,7 +104,7 @@ export const UserProvider = ({ children }) => {
             setUserContext(null, false, null);
             localStorage.clear();
 
-            if (!excludedRoutes.includes(currentRoute)) {
+            if (!isExcluded) {
               navigate("/login");
             }
           }
