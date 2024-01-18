@@ -1,13 +1,14 @@
-const BASE_URL = "https://school-management-system-alpha.vercel.app";
-// const BASE_URL = "http://127.0.0.1:8000";
+// const BASE_URL = "https://school-management-system-alpha.vercel.app";
+const BASE_URL = "http://127.0.0.1:8000";
 
 export const AUTH_ENDPOINTS = {
-  LOGIN: `${BASE_URL}/auth/login/`,
-  LOGOUT: `${BASE_URL}/auth/logout/`,
+  LOGIN: `${BASE_URL}/users/login/`,
+  LOGOUT: `${BASE_URL}/users/logout/`,
   REGISTER: `${BASE_URL}/auth/users/`,
+  ACTIVATION: `${BASE_URL}/auth/users/activation/`
 };
 export const USER_ENDPOINTS = {
-  USER: `${BASE_URL}/auth/users/`,
+  USER: `${BASE_URL}/users/`,
   UPLOAD_IMAGE: `${BASE_URL}/auth/profile-image/`,
   GET_OR_UPDATE_USER: (userId) => `${BASE_URL}/auth/users/${userId}/`,
   PROFILE_IMAGE: (userId) => `${BASE_URL}/auth/profile-image/?user=${userId}`,
