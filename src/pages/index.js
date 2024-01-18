@@ -32,3 +32,5 @@ export { default as TeachersDetails } from "../components/generalSettings/Teache
 export { default as StudentDetails } from "../components/generalSettings/StudentDetails";
 export { default as InProgressPage } from "../pages/InProgressPage";
 export { default as AllUsers } from "../components/generalSettings/AllUsers";
+export { default as ActivationComponent } from "../pages/Activation";
+
