@@ -103,3 +103,41 @@ export const loginDataValidator = (data) => {
     email: data["email"],
   };
 };
+
+export const passwordValidator = (data) => {
+  console.log(data);
+
+  const { password, confirmPassword } = data;
+
+  if (password !== confirmPassword) {
+    const [message, status] = ["Passwords do not match", "error"];
+    return [message, status];
+  }
+
+  if (password.length < 8) {
+    const [message, status] = [
+      "Password must be at least 8 characters long",
+      "error",
+    ];
+    return [message, status];
+  }
+
+  // Check if the password contains at least one special character, one number, and one alphabet character
+  const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+  const numberRegex = /\d/;
+  const alphabetRegex = /[a-zA-Z]/;
+
+  if (
+    !specialCharRegex.test(password) ||
+    !numberRegex.test(password) ||
+    !alphabetRegex.test(password)
+  ) {
+    const [message, status] = [
+      "Password must contain a combination of special character, number, and alphabet",
+      "error",
+    ];
+    return [message, status];
+  }
+
+  return [password, true];
+};
