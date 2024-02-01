@@ -34,8 +34,7 @@ const ResetLinkSent = () => {
         </Typography>
         <Typography variant="body2" color="green" paragraph>
           An email with a link to reset your password has been sent to your
-          email address. You will receive this email if user with that email
-          exist
+          email address. <br /> You will receive this mail if the provided email correspond with data in our database.
         </Typography>
         <Button
           component={Link}
