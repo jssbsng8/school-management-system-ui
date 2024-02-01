@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Sidebar from "./components/common/Sidebar";
 import Authentication from "./pages/Authentication";
 import Navbar from "./components/common/Navbar";
-import { SuccessPage, ResetLinkSent, ActivationComponent } from "./pages";
+import { SuccessPage, ResetLinkSent, ActivationComponent, NewPassword } from "./pages";
 import Footer from "./components/common/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -78,6 +78,10 @@ function App() {
             <Route
               path="/activation/:uid/:token/"
               element={<ActivationComponent />}
+            ></Route>
+            <Route
+              path="/reset_password/:uid/:token/"
+              element={<NewPassword />}
             ></Route>
           </Routes>
           <ToastContainer />
