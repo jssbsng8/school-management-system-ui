@@ -6,6 +6,8 @@ import { successToast, errorToast } from "../utils/toastUtils";
 import { isEmailValid } from "../utils/dataValidator";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useNavigate } from "react-router-dom";
+import requestHandler from "../../apiCalls/requestHandler";
+import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
 
 const ResetPasswordForm = ({ onSubmit, onCancel }) => {
   const [loading, setLoading] = useState(false);
@@ -20,7 +22,18 @@ const ResetPasswordForm = ({ onSubmit, onCancel }) => {
       errorToast(validated[0]);
       setLoading(false);
     } else {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const response = await requestHandler(
+        "post",
+        USER_ENDPOINTS.RESET_PASSWORD,
+        { email }
+      );
+
+      if (response[0] === null) {
+        errorToast("Error Sending Mail");
+        setLoading(false);
+        return;
+      }
+
       navigate("/reset_password");
       successToast("Reset link has been sent to your email address!");
       setLoading(false);
