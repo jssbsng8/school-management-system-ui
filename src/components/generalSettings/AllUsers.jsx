@@ -15,9 +15,18 @@ import {
 import { column } from "../../data/allUsers";
 import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
 import requestHandler from "../../apiCalls/requestHandler";
+import { successToast } from "../utils/toastUtils";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { ActionsDropdown } from "../utils/actionDropDownAllUsers";
 
 const DataTable = () => {
   const [rows, setRows] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [confirmationDialog, setConfirmationDialog] = React.useState({
+    open: false,
+    action: null,
+    rowIndex: null,
+  });
 
   useEffect(() => {
     const fetchStudentData = async () => {
@@ -35,12 +44,6 @@ const DataTable = () => {
     // eslint-disable-next-line
   }, []);
 
-  const [confirmationDialog, setConfirmationDialog] = React.useState({
-    open: false,
-    action: null,
-    rowIndex: null,
-  });
-
   const handleSwitchChange = (id) => {
     const index = rows.findIndex((row) => row.id === id);
 
@@ -49,26 +52,105 @@ const DataTable = () => {
         open: true,
         action: rows[index].is_active ? "deactivate" : "activate",
         rowIndex: index,
+        confirmationMessage: `Are you sure you want to ${
+          rows[index].is_active ? "deactivate" : "activate"
+        } this user?`,
       });
     }
   };
 
-  const confirmUserAction = (confirmed) => {
+  const handleActionSelect = (action, id) => {
+    let confirmationMessage = "";
+
+    switch (action) {
+      case "resendActivation":
+        confirmationMessage =
+          "Are you sure you want to resend activation link?";
+        break;
+      case "deleteUser":
+        confirmationMessage =
+          "Are you sure you want to delete this user permanently?";
+        break;
+      case "makeSuperAdmin":
+        confirmationMessage =
+          "Are you sure you want to make this user a Super Admin?";
+        break;
+      // Additional cases for other actions can be added here
+      default:
+        break;
+    }
+
+    setConfirmationDialog({
+      open: true,
+      action,
+      rowIndex: rows.findIndex((row) => row.id === id),
+      confirmationMessage,
+    });
+  };
+
+  const confirmUserAction = async (confirmed) => {
     if (confirmed) {
       const updatedRows = [...rows];
       const rowIndex = confirmationDialog.rowIndex;
-      updatedRows[rowIndex].is_active = !updatedRows[rowIndex].is_active;
-      setRows(updatedRows);
+      // Handle the logic based on the selected action
+      if (confirmationDialog.action === "resendActivation") {
+        setLoading(true);
+        const userEmail = rows[rowIndex].email;
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        // Implement the logic to resend activation link
+        successToast(`Activation Link Sent to ${userEmail}`);
+        console.log(
+          `Resend activation link for user with ID ${rows[rowIndex].id}`
+        );
+        setLoading(false);
+      } else if (confirmationDialog.action === "deleteUser") {
+        setLoading(true);
+        const username = rows[rowIndex].username;
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        // Implement the logic to resend activation link
+        successToast(`Deleted user permanently with username ${username}`);
+        // Implement the logic to delete user permanently
+        console.log(`Delete user permanently with ID ${rows[rowIndex].id}`);
+        setLoading(false);
+      } else if (confirmationDialog.action === "makeSuperAdmin") {
+        setLoading(true);
+        const username = rows[rowIndex].username;
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        // Implement the logic to resend activation link
+        successToast(`Made user with username ${username} a Super Admin`);
+        // Implement the logic to make the user a super admin
+        console.log(`Make user with ID ${rows[rowIndex].id} a Super Admin`);
+        setLoading(false);
+      } else if (
+        confirmationDialog.action === "activate" ||
+        confirmationDialog.action === "deactivate"
+      ) {
+        updatedRows[rowIndex].is_active = !updatedRows[rowIndex].is_active;
+        setRows(updatedRows);
+      }
     }
     setConfirmationDialog({
       open: false,
       action: null,
       rowIndex: null,
+      confirmationMessage: "",
     });
   };
 
   const columns = [
     ...column,
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 150,
+      renderCell: (params) => (
+        <ActionsDropdown
+          id={params.row.id}
+          onActionSelect={handleActionSelect}
+          rows={rows}
+        />
+      ),
+    },
     {
       field: "is_active",
       headerName: "Active",
@@ -105,16 +187,40 @@ const DataTable = () => {
 
       <Dialog open={confirmationDialog.open}>
         <DialogTitle>
-          {`Confirm user ${
-            confirmationDialog.action === "activate"
-              ? "Activation"
-              : "Deactivation"
-          }`}
+          {(() => {
+            switch (confirmationDialog.action) {
+              case "activate":
+                return "Confirm User Activation";
+              case "deactivate":
+                return "Confirm User Deactivation";
+              case "resendActivation":
+                return "Confirm Resending Activation Link";
+              case "deleteUser":
+                return "Confirm Permanently Deleting User";
+              case "makeSuperAdmin":
+                return "Confirm Making User SuperAdmin";
+              default:
+                return "Confirm User Action";
+            }
+          })()}
         </DialogTitle>
         <DialogContent>
-          {`Are you sure you want to ${
-            confirmationDialog.action === "activate" ? "activate" : "deactivate"
-          } this user?`}
+          {(() => {
+            switch (confirmationDialog.action) {
+              case "activate":
+                return "Are you sure you want to activate this user?";
+              case "deactivate":
+                return "Are you sure you want to deactivate this user?";
+              case "resendActivation":
+                return "Are you sure you want to resend the activation link?";
+              case "deleteUser":
+                return "Are you sure you want to delete this user permanently?";
+              case "makeSuperAdmin":
+                return "Are you sure you want to make this User SuperAdmin";
+              default:
+                return "Are you sure you want to perform this action?";
+            }
+          })()}
         </DialogContent>
         <DialogActions>
           <Button
@@ -123,12 +229,13 @@ const DataTable = () => {
           >
             Cancel
           </Button>
-          <Button
+          <LoadingButton
+            loading={loading}
             onClick={() => confirmUserAction(true)}
             sx={{ color: "green" }}
           >
-            Confirm
-          </Button>
+            {loading ? "Please Wait..." : "Confirm"}
+          </LoadingButton>
         </DialogActions>
       </Dialog>
     </Box>
