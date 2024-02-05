@@ -41,7 +41,7 @@ export const UserProvider = ({ children }) => {
           "/reset_password",
           /^\/activation\//,
         ];
-        
+
         const isRouteExcluded = (route) => {
           return excludedRoutes.some((excludedRoute) => {
             if (excludedRoute instanceof RegExp) {
@@ -74,11 +74,16 @@ export const UserProvider = ({ children }) => {
                   "get",
                   USER_ENDPOINTS.PROFILE_IMAGE(getUser[0].id)
                 );
+                console.log(fetchedData[0]);
                 if (fetchedData[0] && fetchedData[0].length > 0) {
-                  const image_url = fetchedData[0].image;
-                  const thumbnail = fetchedData[0].thumbnail;
+                  console.log("triggered user image fetched");
+                  console.log(fetchedData[0]);
+
+                  const image_url = fetchedData[0][0].image;
+                  const thumbnail = fetchedData[0][0].thumbnail;
 
                   // Save the image data in local storage
+                  console.log(image_url);
                   localStorage.setItem("userImage", image_url);
                   localStorage.setItem("thumbnail", thumbnail);
 
@@ -144,6 +149,7 @@ export const UserProvider = ({ children }) => {
         setUserContext,
         setAuthStatus,
         setRole,
+        setProfileImage,
       }}
     >
       {children}
