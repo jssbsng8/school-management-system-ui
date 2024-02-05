@@ -17,7 +17,10 @@ const requestHandler = async (method, url, data = null, params = null) => {
       params,
     };
 
-    if (method.toLowerCase() === "post" && data instanceof FormData) {
+    if (
+      (method.toLowerCase() === "post" || method.toLowerCase() === "put") &&
+      data instanceof FormData
+    ) {
       // For file uploads, use FormData
       config.data = data;
       config.headers = {
