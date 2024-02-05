@@ -24,13 +24,13 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 const ImageUpload = ({ onImageUpload }) => {
   const [open, setOpen] = React.useState(false);
-  const [profileImage, setProfileImage] = useState(null);
-  const { user } = useUser();
+  const [profileImage, setProfileImg] = useState(null);
+  const { user, setProfileImage } = useUser();
   const [loading, setLoading] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
-    setProfileImage(null);
+    setProfileImg(null);
   };
   const handleClose = () => {
     setOpen(false);
@@ -44,18 +44,40 @@ const ImageUpload = ({ onImageUpload }) => {
       formData.append("user", user.id);
       formData.append("image", profileImage);
 
-      const response = await requestHandler(
-        "post",
-        USER_ENDPOINTS.UPLOAD_IMAGE,
-        formData
-      );
-      console.log(response);
-      if (response) {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        successToast("Image Uploaded!");
-        onImageUpload(profileImage);
-      } else {
-        errorToast("Image Upload failed!");
+      const existingImage = localStorage.getItem("userImage");
+      console.log(existingImage);
+      if (existingImage) {
+        console.log("put request");
+        const response = await requestHandler(
+          "put",
+          USER_ENDPOINTS.PROFILE_IMAGE_UPDATE(user.id),
+          formData
+        );
+        console.log(response);
+        if (response[0]) {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          successToast("Image Uploaded!");
+          onImageUpload(profileImage);
+          setProfileImage(profileImage);
+        } else {
+          errorToast("Image Upload failed!");
+        }
+      }
+      else{
+        console.log("post request");
+        const response = await requestHandler(
+          "post",
+          USER_ENDPOINTS.UPLOAD_IMAGE,
+          formData
+        );
+        if (response[0]) {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          successToast("Image Uploaded!");
+          onImageUpload(profileImage);
+          setProfileImage(profileImage);
+        } else {
+          errorToast("Image Upload failed!");
+        }
       }
     } catch (error) {
       console.error("Error updating profile image:", error.message);
@@ -130,7 +152,7 @@ const ImageUpload = ({ onImageUpload }) => {
                 type="file"
                 id="profile-image-input"
                 style={{ display: "none" }}
-                onChange={(e) => setProfileImage(e.target.files[0])}
+                onChange={(e) => setProfileImg(e.target.files[0])}
               />
               <label htmlFor="profile-image-input">
                 <Button variant="outlined" component="span">
