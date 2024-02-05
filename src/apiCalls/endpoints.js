@@ -1,5 +1,5 @@
-const BASE_URL = "https://school-management-system-alpha.vercel.app";
-// const BASE_URL = "http://127.0.0.1:8000";
+// const BASE_URL = "https://school-management-system-alpha.vercel.app";
+const BASE_URL = "http://127.0.0.1:8000";
 
 export const AUTH_ENDPOINTS = {
   LOGIN: `${BASE_URL}/users/login/`,
@@ -8,10 +8,11 @@ export const AUTH_ENDPOINTS = {
   ACTIVATION: `${BASE_URL}/auth/users/activation/`
 };
 export const USER_ENDPOINTS = {
-  USER: `${BASE_URL}/users/`,
-  UPLOAD_IMAGE: `${BASE_URL}/users/profile-image/`,
+  USER: `${BASE_URL}/users/profiles`,
+  UPLOAD_IMAGE: `${BASE_URL}/users/profile-images/`,
   GET_OR_UPDATE_USER: (userId) => `${BASE_URL}/auth/users/${userId}/`,
-  PROFILE_IMAGE: (userId) => `${BASE_URL}/users/profile-image/?user=${userId}`,
+  PROFILE_IMAGE: (userId) => `${BASE_URL}/users/profile-images/?user=${userId}`,
+  PROFILE_IMAGE_UPDATE: (userId) => `${BASE_URL}/users/profile-images/${userId}/`,
   ACTIVATION: `${BASE_URL}/auth/users/activation/`,
   AUTHENTICATED_USER: `${BASE_URL}/auth/users/me/`,
   RESEND_ACTIVATION: `${BASE_URL}/auth/users/resend_activation/`,
