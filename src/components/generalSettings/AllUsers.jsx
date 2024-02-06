@@ -77,7 +77,10 @@ const DataTable = () => {
         confirmationMessage =
           "Are you sure you want to make this user a Super Admin?";
         break;
-      // Additional cases for other actions can be added here
+      case "suspension":
+        confirmationMessage =
+          "Are you sure you want to suspend this user's Account?";
+        break;
       default:
         break;
     }
@@ -122,6 +125,15 @@ const DataTable = () => {
         successToast(`Made user with username ${username} a Super Admin`);
         // Implement the logic to make the user a super admin
         console.log(`Make user with ID ${rows[rowIndex].id} a Super Admin`);
+        setLoading(false);
+      } else if (confirmationDialog.action === "suspension") {
+        setLoading(true);
+        const username = rows[rowIndex].username;
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        // Implement the logic to resend activation link
+        successToast(`${username} account has been suspended`);
+        // Implement the logic to make the user a super admin
+        console.log(`Suspended user with ID ${rows[rowIndex].id}`);
         setLoading(false);
       } else if (
         confirmationDialog.action === "activate" ||
@@ -201,6 +213,8 @@ const DataTable = () => {
                 return "Confirm Permanently Deleting User";
               case "makeSuperAdmin":
                 return "Confirm Making User SuperAdmin";
+              case "suspension":
+                return "Confirm User Account Suspension";
               default:
                 return "Confirm User Action";
             }
@@ -219,6 +233,8 @@ const DataTable = () => {
                 return "Are you sure you want to delete this user permanently?";
               case "makeSuperAdmin":
                 return "Are you sure you want to make this User SuperAdmin";
+              case "suspension":
+                return "Are you sure you want to Suspend this User's Account";
               default:
                 return "Are you sure you want to perform this action?";
             }
