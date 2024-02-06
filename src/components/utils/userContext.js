@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
 import requestHandler from "../../apiCalls/requestHandler";
+
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -12,6 +13,52 @@ export const UserProvider = ({ children }) => {
   const [profileThumbnail, setThumbnail] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [userStatus, setUserStatus] = useState({
+    role: null,
+    isApproved: false,
+    promoted: false,
+    assignedSubjects: false,
+    enrolledSubject: false,
+    madeSuperAdmin: false,
+    suspended: false,
+  });
+
+  const fetchUserImages = async (userId) => {
+    try {
+      if (!userId) {
+        console.error("User ID is not available.");
+        return;
+      }
+
+      const storedImage = localStorage.getItem("userImage");
+      const storedThumbnail = localStorage.getItem("thumbnail");
+
+      if (storedImage && storedThumbnail) {
+        setProfileImage(storedImage);
+        setThumbnail(storedThumbnail);
+      } else {
+        const fetchedData = await requestHandler(
+          "get",
+          USER_ENDPOINTS.PROFILE_IMAGE(userId)
+        );
+
+        if (fetchedData[0] && fetchedData[0].length > 0) {
+          const { image, thumbnail } = fetchedData[0][0];
+
+          localStorage.setItem("userImage", image);
+          localStorage.setItem("thumbnail", thumbnail);
+
+          setProfileImage(image);
+          setThumbnail(thumbnail);
+        } else {
+          console.error("No image data found for the user.");
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching user images:", error.message);
+    }
+  };
 
   useEffect(() => {
     /*
@@ -31,7 +78,6 @@ export const UserProvider = ({ children }) => {
       The useEffect has dependencies on the navigate function and the current pathname to
       trigger the fetch when the route changes.
     */
-
     const fetchAuthenticatedUser = async () => {
       try {
         const currentRoute = location.pathname;
@@ -53,49 +99,22 @@ export const UserProvider = ({ children }) => {
         };
 
         const isExcluded = isRouteExcluded(currentRoute);
+
         if (!isExcluded) {
           const getUser = await requestHandler(
             "get",
             USER_ENDPOINTS.AUTHENTICATED_USER
           );
+
           if (getUser[0] !== null) {
-            // Check if the image data is already in local storage
             const storedImage = localStorage.getItem("userImage");
             const storedThumbnail = localStorage.getItem("thumbnail");
 
             if (storedImage && storedThumbnail) {
-              // If image data is in local storage, use it directly
               setProfileImage(storedImage);
               setThumbnail(storedThumbnail);
             } else {
-              try {
-                // Fetch user image only if it hasn't been fetched before
-                const fetchedData = await requestHandler(
-                  "get",
-                  USER_ENDPOINTS.PROFILE_IMAGE(getUser[0].id)
-                );
-                console.log(fetchedData[0]);
-                if (fetchedData[0] && fetchedData[0].length > 0) {
-                  console.log("triggered user image fetched");
-                  console.log(fetchedData[0]);
-
-                  const image_url = fetchedData[0][0].image;
-                  const thumbnail = fetchedData[0][0].thumbnail;
-
-                  // Save the image data in local storage
-                  console.log(image_url);
-                  localStorage.setItem("userImage", image_url);
-                  localStorage.setItem("thumbnail", thumbnail);
-
-                  // Update state with the fetched image data
-                  setProfileImage(image_url);
-                  setThumbnail(thumbnail);
-                } else {
-                  console.error("No image data found for the user.");
-                }
-              } catch (error) {
-                console.error("Error fetching user image:", error.message);
-              }
+              fetchUserImages(getUser[0].id);
             }
 
             setUserContext({
@@ -103,8 +122,15 @@ export const UserProvider = ({ children }) => {
               profileImage,
               profileThumbnail,
             });
+
             setAuth(true);
             setRole(getUser[0].role);
+
+            setUserStatus((prevState) => ({
+              ...prevState,
+              isApproved: getUser[0].is_approved,
+              role: getUser[0].role,
+            }));
           } else {
             setUserContext(null, false, null);
             localStorage.clear();
@@ -146,10 +172,12 @@ export const UserProvider = ({ children }) => {
         user,
         auth,
         role,
+        userStatus,
         setUserContext,
         setAuthStatus,
         setRole,
         setProfileImage,
+        setUserStatus,
       }}
     >
       {children}
@@ -165,7 +193,6 @@ export const useUser = () => {
     If the context is available, it returns the context, providing a convenient way to access
     user-related information throughout the application.
   */
-
   const context = useContext(UserContext);
   if (!context) {
     throw new Error("useUser must be used within a UserProvider");
