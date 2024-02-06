@@ -18,10 +18,12 @@ import requestHandler from "../../apiCalls/requestHandler";
 import { successToast } from "../utils/toastUtils";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { ActionsDropdown } from "../utils/actionDropDownAllUsers";
+import { useUser } from "../utils/userContext";
 
 const DataTable = () => {
   const [rows, setRows] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+  const { userStatus } = useUser();
   const [confirmationDialog, setConfirmationDialog] = React.useState({
     open: false,
     action: null,
@@ -233,6 +235,7 @@ const DataTable = () => {
             loading={loading}
             onClick={() => confirmUserAction(true)}
             sx={{ color: "green" }}
+            disabled={!userStatus.isApproved}
           >
             {loading ? "Please Wait..." : "Confirm"}
           </LoadingButton>
