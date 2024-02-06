@@ -9,6 +9,7 @@ import { CORE } from "../../apiCalls/endpoints";
 import SubjectsSelectionComponent from "./SubjectSelection";
 import { errorToast, successToast } from "../utils/toastUtils";
 import requestHandler from "../../apiCalls/requestHandler";
+import { useUser } from "../utils/userContext";
 
 const TeachersDetails = () => {
   const { id } = useParams();
@@ -19,6 +20,7 @@ const TeachersDetails = () => {
   const [userSubjects, setUserSubjects] = useState([]);
   const [classrooms, setClassrooms] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { userStatus } = useUser();
   const [loadingSubjects, setLoadingSubjects] = useState(false);
 
   useEffect(() => {
@@ -276,6 +278,7 @@ const TeachersDetails = () => {
               variant="contained"
               onClick={handleUpdateProfile}
               sx={{ width: "180px" }}
+              disabled={!userStatus.isApproved}
             >
               {loading ? "Please Wait..." : "Save Changes"}
             </LoadingButton>
