@@ -33,7 +33,7 @@ export const ActionsDropdown = ({ id, onActionSelect, rows }) => {
         <option value="makeSuperAdmin">Make Super Admin</option>
       )}
       { approved && (
-        <option value="suspend">Suspend Account</option>
+        <option value="suspension">Suspend Account</option>
       )}
     </select>
   );
