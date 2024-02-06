@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useUser } from "../utils/userContext";
 import {
   Typography,
   Paper,
@@ -14,6 +15,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 const GeneralResultForm = ({ onSubmit, loading }) => {
   const [selectedSession, setSelectedSession] = useState("");
   const [selectedClassroom, setSelectedClassroom] = useState("");
+  const { userStatus } = useUser();
 
   const handleSessionChange = (event) => {
     setSelectedSession(event.target.value);
@@ -70,6 +72,7 @@ const GeneralResultForm = ({ onSubmit, loading }) => {
               loading={loading}
               loadingPosition="start"
               sx={{ mt: 3, mb: 2, width: "100%" }}
+              disabled={!userStatus.isApproved}
             >
               {loading ? "Checking..." : "Check Result"}
             </LoadingButton>
