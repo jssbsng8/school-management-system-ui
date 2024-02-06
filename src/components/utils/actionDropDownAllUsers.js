@@ -2,6 +2,7 @@ export const ActionsDropdown = ({ id, onActionSelect, rows }) => {
   const userIndex = rows ? rows.findIndex((row) => row.id === id) : -1;
   const isUserActive = userIndex !== -1 && rows[userIndex].is_active;
   const userRole = rows[userIndex].role;
+  const approved = rows[userIndex].is_approved;
 
   const handleAction = (action) => {
     onActionSelect(action, id);
@@ -30,6 +31,9 @@ export const ActionsDropdown = ({ id, onActionSelect, rows }) => {
       <option value="deleteUser">Delete User Permanently</option>
       {isUserActive && userRole === "Admin" && (
         <option value="makeSuperAdmin">Make Super Admin</option>
+      )}
+      { approved && (
+        <option value="suspend">Suspend Account</option>
       )}
     </select>
   );
