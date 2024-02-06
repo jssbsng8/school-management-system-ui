@@ -4,7 +4,7 @@ export const notificationMessages = (userStatus) => {
       type: "warning",
       title: "Account Limitation",
       subtitle:
-        "Access to certain pages is currently restricted until your account is approved. Once your account is approved, you will have full access.",
+        "Access to certain pages is currently restricted until your profile is approved. Once your profile is approved, you will have full access.",
       cancelButton: false,
     };
   } else if (userStatus.suspended) {
