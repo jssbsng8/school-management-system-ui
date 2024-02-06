@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useUser } from "../utils/userContext";
 import {
   Typography,
   Paper,
@@ -18,6 +19,7 @@ const CheckResultForm = ({ onSubmit, loading }) => {
   const [selectedClassroom, setSelectedClassroom] = useState("");
   const [selectedUserId, setSelectedUserId] = useState("");
   const [selectedExamType, setExamType] = useState("");
+  const { userStatus } = useUser();
 
   const handleSessionChange = (event) => {
     setSelectedSession(event.target.value);
@@ -160,6 +162,7 @@ const CheckResultForm = ({ onSubmit, loading }) => {
             loading={loading}
             loadingPosition="start"
             sx={{ mt: 3, mb: 2, width: "100%" }}
+            disabled={!userStatus.isApproved}
           >
             {loading ? "Searching..." : "Search"}
           </LoadingButton>
