@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useUser } from "../utils/userContext";
 import {
   Typography,
   Paper,
@@ -15,6 +16,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 const TakeAttendanceForm = ({ onSubmit, loading }) => {
   const [selectedClassroom, setSelectedClassroom] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
+  const { userStatus } = useUser();
 
   const getTodayDate = () => {
     return new Date().toISOString().split("T")[0];
@@ -96,6 +98,7 @@ const TakeAttendanceForm = ({ onSubmit, loading }) => {
           loading={loading}
           loadingPosition="start"
           sx={{ mt: 3, mb: 2, width: "15%" }}
+          disabled={!userStatus.isApproved}
         >
           {loading ? "Searching..." : "Search"}
         </LoadingButton>
