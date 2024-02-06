@@ -1,26 +1,34 @@
 import * as React from "react";
 import { Routes, Route } from "react-router-dom";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import Sidebar from "./components/common/Sidebar";
 import Authentication from "./pages/Authentication";
 import Navbar from "./components/common/Navbar";
-import { SuccessPage, ResetLinkSent, ActivationComponent, NewPassword } from "./pages";
+import {
+  SuccessPage,
+  ResetLinkSent,
+  ActivationComponent,
+  NewPassword,
+} from "./pages";
 import Footer from "./components/common/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useUser } from "./components/utils/userContext";
 import { roleRoutes } from "./components/routing/userRoutes";
-// import { ActivationComponent } from "./pages";
+import Alerts from "./components/Alerts";
+import { notificationMessages } from "./components/utils/notificationMessages";
+
 const sideBarWidth = 250;
 
 function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const { auth, role } = useUser();
+  const { auth, role, userStatus } = useUser();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
   const userRoutes = roleRoutes[role] || roleRoutes.Student; // Default to Student if role is not recognized
+  const msg = notificationMessages(userStatus);
   return (
     <>
       {auth ? (
@@ -43,6 +51,14 @@ function App() {
               width: { xs: "100%", md: `calc(100% - ${sideBarWidth}px)` },
             }}
           >
+            {msg && (
+              <Alerts
+                type={msg.type}
+                title={msg.title}
+                subtitle={msg.subtitle}
+                cancelButton={msg.cancelButton}
+              />
+            )}
             {/* Routes */}
             <Routes>
               {userRoutes.map((route) => (
