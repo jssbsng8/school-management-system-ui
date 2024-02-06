@@ -16,6 +16,7 @@ import CancelIcon from "@mui/icons-material/Close";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { ToastContainer } from "react-toastify";
 import { successToast } from "../components/utils/toastUtils";
+import { useUser } from "./utils/userContext";
 
 const TableEditable = ({
   myData,
@@ -31,6 +32,7 @@ const TableEditable = ({
   const [submitted, setSubmitted] = useState(true);
   const [rows, setRows] = React.useState(myData);
   const [rowModesModel, setRowModesModel] = React.useState({});
+  const { userStatus } = useUser();
 
   const EditToolbar = (props) => {
     const { setRows, setRowModesModel } = props;
@@ -52,7 +54,12 @@ const TableEditable = ({
 
     return (
       <GridToolbarContainer>
-        <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+        <Button
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={handleClick}
+          disabled={!userStatus.isApproved}
+        >
           Add record
         </Button>
       </GridToolbarContainer>
@@ -177,6 +184,7 @@ const TableEditable = ({
                 color: "primary.main",
               }}
               onClick={handleSaveClick(id)}
+              disabled={!userStatus.isApproved}
             />,
             <GridActionsCellItem
               icon={<CancelIcon />}
@@ -184,6 +192,7 @@ const TableEditable = ({
               className="textPrimary"
               onClick={handleCancelClick(id)}
               color="inherit"
+              sx={{ "& svg": { color: "red" } }}
             />,
           ];
         }
@@ -195,12 +204,14 @@ const TableEditable = ({
             className="textPrimary"
             onClick={handleEditClick(id)}
             color="inherit"
+            disabled={!userStatus.isApproved}
           />,
           <GridActionsCellItem
             icon={<DeleteIcon />}
             label="Delete"
             onClick={handleDeleteClick(id)}
             color="inherit"
+            disabled={!userStatus.isApproved}
           />,
         ];
       },
@@ -260,7 +271,7 @@ const TableEditable = ({
               rowModesModel={rowModesModel}
               onRowModesModelChange={handleRowModesModelChange}
               onRowEditStop={handleRowEditStop}
-              processRowUpdate={processRowUpdate}
+              processRowUpdate={userStatus.isApproved ? processRowUpdate : undefined}
               slots={{
                 toolbar: MyCustomToolbar,
               }}
@@ -282,7 +293,7 @@ const TableEditable = ({
                   onClick={handleGetAllData}
                   loading={loading}
                   loadingPosition="start"
-                  disabled={submitted}
+                  disabled={submitted || !userStatus.isApproved}
                   sx={{ mt: 3, mb: 2, width: "25%" }}
                 >
                   {loading ? "Submitting..." : "Submit Record"}
