@@ -1,4 +1,4 @@
-export const ActionsDropdown = ({ id, onActionSelect, rows }) => {
+export const ActionsDropdown = ({ id, onActionSelect, rows, actions }) => {
   const userIndex = rows ? rows.findIndex((row) => row.id === id) : -1;
   const isUserActive = userIndex !== -1 && rows[userIndex].is_active;
   const userRole = rows[userIndex].role;
@@ -25,6 +25,9 @@ export const ActionsDropdown = ({ id, onActionSelect, rows }) => {
       <option value="" disabled hidden>
         Select Action
       </option>
+      {isUserActive && !approved && (
+        <option value="approveUser">Approve User</option>
+      )}
       {!isUserActive && (
         <option value="resendActivation">Resend Activation Link</option>
       )}
@@ -32,9 +35,7 @@ export const ActionsDropdown = ({ id, onActionSelect, rows }) => {
       {isUserActive && userRole === "Admin" && (
         <option value="makeSuperAdmin">Make Super Admin</option>
       )}
-      { approved && (
-        <option value="suspension">Suspend Account</option>
-      )}
+      {approved && <option value="suspension">Suspend Account</option>}
     </select>
   );
 };
