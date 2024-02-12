@@ -13,13 +13,16 @@ export const USER_ENDPOINTS = {
   GET_OR_UPDATE_USER: (userId) => `${BASE_URL}/auth/users/${userId}/`,
   PROFILE_IMAGE: (userId) => `${BASE_URL}/users/profile-images/?user=${userId}`,
   PROFILE_IMAGE_UPDATE: (userId) => `${BASE_URL}/users/profile-images/${userId}/`,
+  NOTIFICATIONS: (userId) => `${BASE_URL}/users/notifications/?user=${userId}`,
+  UPDATE_NOTIFICATION_STATUS: (notificationId) => `${BASE_URL}/users/notifications/${notificationId}/`,
   ACTIVATION: `${BASE_URL}/auth/users/activation/`,
   AUTHENTICATED_USER: `${BASE_URL}/auth/users/me/`,
   RESEND_ACTIVATION: `${BASE_URL}/auth/users/resend_activation/`,
   RESET_PASSWORD: `${BASE_URL}/auth/users/reset_password/`,
   CONFIRM_RESET_PASSWORD: `${BASE_URL}/auth/users/reset_password_confirm/`,
   SET_PASSWORD: `${BASE_URL}/auth/users/set_password/`,
-};
+  APROVE_USERS: `${BASE_URL}/users/profile/approve_new_users/`,
+}
 
 export const CORE = {
   ADMIN: `${BASE_URL}/core/admin/`,
