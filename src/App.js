@@ -27,7 +27,7 @@ function App() {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const userRoutes = roleRoutes[role] || roleRoutes.Student; // Default to Student if role is not recognized
+  const userRoutes = roleRoutes[role] || roleRoutes.Student;
   const msg = notificationMessages(userStatus);
   return (
     <>
