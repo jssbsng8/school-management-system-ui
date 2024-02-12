@@ -13,7 +13,7 @@ export const UserProvider = ({ children }) => {
   const [profileThumbnail, setThumbnail] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-
+  const [notifications, setNotifications] = useState([])
   const [userStatus, setUserStatus] = useState({
     role: null,
     isApproved: false,
@@ -57,6 +57,20 @@ export const UserProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("Error fetching user images:", error.message);
+    }
+  };
+
+  const fetchNotifications = async (userId) => {
+    try {
+      const fetchedData = await requestHandler(
+        "get",
+        USER_ENDPOINTS.NOTIFICATIONS(userId)
+      );
+      if(fetchedData[0]){
+        setNotifications(fetchedData[0])
+      }
+    } catch (error) {
+      return
     }
   };
 
@@ -109,7 +123,7 @@ export const UserProvider = ({ children }) => {
           if (getUser[0] !== null) {
             const storedImage = localStorage.getItem("userImage");
             const storedThumbnail = localStorage.getItem("thumbnail");
-
+            fetchNotifications(getUser[0].id)
             if (storedImage && storedThumbnail) {
               setProfileImage(storedImage);
               setThumbnail(storedThumbnail);
@@ -173,6 +187,7 @@ export const UserProvider = ({ children }) => {
         auth,
         role,
         userStatus,
+        notifications,
         setUserContext,
         setAuthStatus,
         setRole,
