@@ -8,11 +8,14 @@ import {
   Divider,
 } from "@mui/material";
 import { MdMessage } from "react-icons/md";
-import { notices } from "../data/noticesboardData";
+import { useUser } from "../components/utils/userContext";
+import requestHandler from "../apiCalls/requestHandler";
+import { USER_ENDPOINTS } from "../apiCalls/endpoints";
+import { Link } from "react-router-dom";
 
 const NoticeBoard = () => {
+  const { notifications } = useUser();
   const [drawerState, setDrawerState] = useState({ right: false });
-  const [selectedNotice, setSelectedNotice] = useState(null);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -24,12 +27,20 @@ const NoticeBoard = () => {
     setDrawerState({ ...drawerState, [anchor]: open });
   };
 
-  const handleNoticeClick = (notice) => {
-    setSelectedNotice(notice);
+  const handleNoticeClick = async (notice) => {
+    try {
+      await requestHandler(
+        "patch",
+        USER_ENDPOINTS.UPDATE_NOTIFICATION_STATUS(notice.id),
+        { read: true }
+      );
+    } catch (error) {
+      console.error("Failed to update notification status:", error);
+    }
     setDrawerState({ ...drawerState, right: true });
   };
 
-  const list = (anchor) => (
+  const renderNoticeDetails = (notice) => (
     <Box
       sx={{
         width: 500,
@@ -42,21 +53,27 @@ const NoticeBoard = () => {
       <Typography variant="h6">Notice Details</Typography>
       <Divider sx={{ bgcolor: "#fff" }} />
       <br />
-      {selectedNotice && (
-        <div>
-          <Typography variant="h6">{selectedNotice.title}</Typography>
-          <Typography>{selectedNotice.message}</Typography>
-        </div>
-      )}
+      <div>
+        <Typography variant="h6">{notice.subject}</Typography>
+        <Typography>{notice.message}</Typography>
+        <br />
+        {notice.subject.includes("New User Registration") && (
+          <>
+            If the user's profile has been reviewed, you can approve the user
+            profile using this link <Link to="/users">Approve User</Link>.
+          </>
+        )}
+      </div>
     </Box>
   );
+
   return (
     <React.Fragment key="right">
       <Box sx={{ pt: "80px", pb: "20px" }}>
         <Typography variant="h6" sx={{ marginBottom: "14px" }}>
           Notice Board
         </Typography>
-        {notices.map((notice) => (
+        {notifications.map((notice) => (
           <Paper
             key={notice.id}
             sx={{
@@ -80,18 +97,18 @@ const NoticeBoard = () => {
               sx={{ marginLeft: "10px" }}
               onClick={() => handleNoticeClick(notice)}
             >
-              {notice.title}
+              {notice.subject}
             </Typography>
+            <Drawer
+              anchor="right"
+              open={drawerState["right"]}
+              onClose={toggleDrawer("right", false)}
+            >
+              {renderNoticeDetails(notice)}
+            </Drawer>
           </Paper>
         ))}
       </Box>
-      <Drawer
-        anchor="right"
-        open={drawerState["right"]}
-        onClose={toggleDrawer("right", false)}
-      >
-        {list("right")}
-      </Drawer>
     </React.Fragment>
   );
 };
