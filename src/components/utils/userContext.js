@@ -1,28 +1,20 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { USER_ENDPOINTS } from "../../apiCalls/endpoints";
 import requestHandler from "../../apiCalls/requestHandler";
+import { contextInitialState } from "../Reducer/states/initialStates";
+import { contextStateReducer } from "../Reducer/contextReducer";
+import ACTIONS from "../Reducer/actions";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [auth, setAuth] = useState(false);
-  const [role, setRole] = useState(null);
-  const [profileImage, setProfileImage] = useState(null);
-  const [profileThumbnail, setThumbnail] = useState(null);
+  const [state, dispatch] = useReducer(
+    contextStateReducer,
+    contextInitialState
+  );
   const navigate = useNavigate();
   const location = useLocation();
-  const [notifications, setNotifications] = useState([])
-  const [userStatus, setUserStatus] = useState({
-    role: null,
-    isApproved: false,
-    promoted: false,
-    assignedSubjects: false,
-    enrolledSubject: false,
-    madeSuperAdmin: false,
-    suspended: false,
-  });
 
   const fetchUserImages = async (userId) => {
     try {
@@ -35,8 +27,13 @@ export const UserProvider = ({ children }) => {
       const storedThumbnail = localStorage.getItem("thumbnail");
 
       if (storedImage && storedThumbnail) {
-        setProfileImage(storedImage);
-        setThumbnail(storedThumbnail);
+        dispatch({
+          type: ACTIONS.SET_PROFILE_IMAGE,
+          payload: {
+            image: storedImage,
+            thumbnail: storedThumbnail,
+          },
+        });
       } else {
         const fetchedData = await requestHandler(
           "get",
@@ -49,8 +46,13 @@ export const UserProvider = ({ children }) => {
           localStorage.setItem("userImage", image);
           localStorage.setItem("thumbnail", thumbnail);
 
-          setProfileImage(image);
-          setThumbnail(thumbnail);
+          dispatch({
+            type: ACTIONS.SET_PROFILE_IMAGE,
+            payload: {
+              image: image,
+              thumbnail: thumbnail,
+            },
+          });
         } else {
           console.error("No image data found for the user.");
         }
@@ -66,11 +68,11 @@ export const UserProvider = ({ children }) => {
         "get",
         USER_ENDPOINTS.NOTIFICATIONS(userId)
       );
-      if(fetchedData[0]){
-        setNotifications(fetchedData[0])
+      if (fetchedData[0]) {
+        dispatch({ type: ACTIONS.SET_NOTIFICATIONS, payload: fetchedData[0] });
       }
     } catch (error) {
-      return
+      return;
     }
   };
 
@@ -123,28 +125,29 @@ export const UserProvider = ({ children }) => {
           if (getUser[0] !== null) {
             const storedImage = localStorage.getItem("userImage");
             const storedThumbnail = localStorage.getItem("thumbnail");
-            fetchNotifications(getUser[0].id)
+            fetchNotifications(getUser[0].id);
             if (storedImage && storedThumbnail) {
-              setProfileImage(storedImage);
-              setThumbnail(storedThumbnail);
+              dispatch({
+                type: ACTIONS.SET_PROFILE_IMAGE,
+                payload: {
+                  image: storedImage,
+                  thumbnail: storedThumbnail,
+                },
+              });
             } else {
               fetchUserImages(getUser[0].id);
             }
 
-            setUserContext({
-              ...getUser[0],
-              profileImage,
-              profileThumbnail,
+            dispatch({
+              type: ACTIONS.SET_USER_DATA,
+              payload: {
+                userData: { ...getUser[0] },
+                authStatus: true,
+                UserRole: getUser[0].role,
+                isApproved: getUser[0].is_approved,
+                role: getUser[0].role,
+              },
             });
-
-            setAuth(true);
-            setRole(getUser[0].role);
-
-            setUserStatus((prevState) => ({
-              ...prevState,
-              isApproved: getUser[0].is_approved,
-              role: getUser[0].role,
-            }));
           } else {
             setUserContext(null, false, null);
             localStorage.clear();
@@ -160,39 +163,54 @@ export const UserProvider = ({ children }) => {
     };
 
     fetchAuthenticatedUser();
-  }, [navigate, location.pathname, profileImage, profileThumbnail]);
+  }, [navigate, location.pathname, dispatch]);
 
   const setUserContext = (userData, authStatus, UserRole) => {
     /*
       The setUserContext function is a utility function within the UserProvider component.
       It takes four parameters - userData, authStatus, UserRole, and userSubjects - and updates
-      the corresponding state variables: setUser updates the user information,
-      setAuth updates the authentication status, setRole updates the user role, and setSubject
-      updates the user's assigned or enrolled subjects. This function ensures a synchronized
-      update of multiple state variables related to user context in the application.
+      the corresponding state variables: userData updates the user information,
+      authStatus updates the authentication status, and UserRole updates the user role.
+      This function ensures a synchronized update of multiple state variables related
+      to user context in the application. If all parameters are falsy (null, undefined, false, etc.),
+      it triggers a reset action by dispatching ACTIONS.RESET_STATE; otherwise, it updates the state
+      with the new data.
     */
-    setUser(userData);
-    setAuth(authStatus);
-    setRole(UserRole);
+    if (!userData && !authStatus && !UserRole) {
+      // Reset the state
+      dispatch({ type: ACTIONS.RESET_STATE });
+    } else {
+      dispatch({
+        type: ACTIONS.SET_USER_CONTEXT,
+        payload: {
+          userData,
+          authStatus,
+          UserRole,
+        },
+      });
+    }
   };
 
   const setAuthStatus = (newAuthStatus) => {
-    setAuth(newAuthStatus);
+    dispatch({
+      type: ACTIONS.SET_AUTH_STATUS,
+      payload: newAuthStatus,
+    });
   };
 
   return (
     <UserContext.Provider
       value={{
-        user,
-        auth,
-        role,
-        userStatus,
-        notifications,
+        ...state,
         setUserContext,
         setAuthStatus,
-        setRole,
-        setProfileImage,
-        setUserStatus,
+        setRole: (role) => dispatch({ type: ACTIONS.SET_ROLE, payload: role }),
+        setProfileImage: (image) =>
+          dispatch({ type: ACTIONS.SET_PROFILE_IMAGE, payload: image }),
+        setUserStatus: (status) =>
+          dispatch({ type: ACTIONS.SET_USER_STATUS, payload: status }),
+        setNotifications: (notifications) =>
+          dispatch({ type: ACTIONS.SET_NOTIFICATIONS, payload: notifications }),
       }}
     >
       {children}
