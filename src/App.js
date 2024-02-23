@@ -22,7 +22,7 @@ const sideBarWidth = 250;
 
 function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const { auth, role, userStatus } = useUser();
+  const { auth, role, userStatus, isReady } = useUser();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -51,7 +51,7 @@ function App() {
               width: { xs: "100%", md: `calc(100% - ${sideBarWidth}px)` },
             }}
           >
-            {msg && (
+            {msg && isReady && (
               <Alerts
                 type={msg.type}
                 title={msg.title}
