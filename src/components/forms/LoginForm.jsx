@@ -109,7 +109,6 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         name="email"
         autoComplete="email"
         autoFocus
-        defaultValue={"example2@gmail.com"}
       />
       <TextField
         margin="normal"
@@ -120,7 +119,6 @@ const LoginForm = ({ onSubmit, onToggleForm }) => {
         type="password"
         id="password"
         autoComplete="current-password"
-        defaultValue={"string@1234"}
       />
       <FormControlLabel
         control={<Checkbox value="remember" color="primary" />}
