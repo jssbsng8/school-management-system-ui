@@ -10,7 +10,7 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
-import { successToast } from "../utils/toastUtils";
+import { errorToast } from "../utils/toastUtils";
 import { AUTH_ENDPOINTS } from "../../apiCalls/endpoints";
 import { useUser } from "../utils/userContext";
 
@@ -40,20 +40,21 @@ const ProfileMenu = () => {
       });
 
       if (response.ok) {
-        setUserContext(null, false, null, null);
+        setUserContext(null); //reset user context state
 
         localStorage.clear();
         navigate("/login");
       } else {
         // Handle logout failure
         const message = `Logout failed:, ${response.statusText}`;
-        successToast(message);
+        errorToast(message);
       }
     } catch (error) {
       const message = `Error during logout: ${error}`;
-      successToast(message);
+      errorToast(message);
     }
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -68,7 +69,10 @@ const ProfileMenu = () => {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }} src={localStorage.getItem('thumbnail')} />
+          <Avatar
+            sx={{ width: 32, height: 32 }}
+            src={localStorage.getItem("thumbnail")}
+          />
         </IconButton>
       </Tooltip>
 
