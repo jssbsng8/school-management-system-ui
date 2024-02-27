@@ -53,8 +53,6 @@ export const UserProvider = ({ children }) => {
               thumbnail: thumbnail,
             },
           });
-        } else {
-          console.error("No image data found for the user.");
         }
       }
     } catch (error) {
